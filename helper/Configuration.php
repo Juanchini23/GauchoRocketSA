@@ -30,13 +30,10 @@ class Configuration {
         return new TourModel($this->getDatabase());
     }
 
-    private function getDatabase() {
-       return new MySqlDatabase(
-            'localhost',
-            'root',
-            '',
-            'labanda');
-
+    private function getDataBase()
+    {
+        $config = parse_ini_file('config.ini');
+        return new MySqlDatabase($config["host"], $config["usuario"], $config["clave"], $config["base"]);
     }
 
     private function getPrinter() {
