@@ -9,9 +9,9 @@ class MustachePrinter {
         $this->viewPath = $viewPath;
         Mustache_Autoloader::register();
         $this->mustache = new Mustache_Engine(
-            [
+            array(
                 'partials_loader' => new Mustache_Loader_FilesystemLoader( $viewPath )
-            ]);
+            ));
     }
 
     public function generateView($template , $data = []){
