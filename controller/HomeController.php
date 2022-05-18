@@ -1,6 +1,6 @@
 <?php
 
-class LaBandaController {
+class HomeController {
     private $printer;
 
     public function __construct($printer) {
@@ -8,6 +8,6 @@ class LaBandaController {
     }
 
     public function execute() {
-        $this->printer->generateView('laBandaView.html');
+        $this->printer->generateView('homeView.html');
     }
 }
