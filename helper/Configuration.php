@@ -19,7 +19,7 @@ class Configuration {
     }
 
     public function getHomeController() {
-        return new HomeController($this->getPrinter());
+        return new HomeController($this->getPrinter(), $this->getDataBase());
     }
 
     private function getSongModel(): SongModel {
