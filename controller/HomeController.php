@@ -3,7 +3,7 @@
 class HomeController {
     private $printer;
 
-    public function __construct($printer, $homeModel) {
+    public function __construct($homeModel, $printer) {
         $this->printer = $printer;
         $this->homeModel = $homeModel;
     }
@@ -15,7 +15,9 @@ class HomeController {
     public function login(){
         $usuario = $_POST["usuario"];
         $clave = $_POST["clave"];
-
-
+        $respuesta = $this->homeModel->isUser($usuario, $clave);
+        if($respuesta){
+            $this->execute();
+        }
     }
 }
