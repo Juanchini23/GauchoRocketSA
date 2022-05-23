@@ -17,7 +17,7 @@ class HomeController
 
     public function registrarse()
     {
-        $this->printer->generateView('formRegistro');
+        $this->printer->generateView('formRegistro.html');
     }
 
 

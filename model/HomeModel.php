@@ -24,7 +24,7 @@ class HomeModel
         $usuarios = $this->login($user, $clave);
         foreach ($usuarios as $usuario) {
             if ($usuario["nombre"] == $user && $usuario["clave"] == $clave) {
-                $_SESSION["login"] = 1;
+                $_SESSION["adminIn"] = 1;
                 return true;
             }
         }
