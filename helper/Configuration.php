@@ -19,7 +19,7 @@ class Configuration {
     }
 
     public function getHomeController() {
-        return new HomeController($this->getPrinter(), $this->getDataBase());
+        return new HomeController($this->getHomeModel(), $this->getPrinter());
     }
 
     private function getSongModel(): SongModel {
@@ -28,6 +28,10 @@ class Configuration {
 
     private function getTourModel() {
         return new TourModel($this->getDatabase());
+    }
+
+    private function getHomeModel() {
+        return new HomeModel($this->getDatabase());
     }
 
     private function getDataBase()

@@ -8,4 +8,8 @@ class HomeModel
         $this->database = $database;
     }
 
+    public function getVuelos(){
+
+    }
+
 }
