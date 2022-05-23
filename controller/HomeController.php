@@ -1,22 +1,26 @@
 <?php
 
-class HomeController {
+class HomeController
+{
     private $printer;
 
-    public function __construct($homeModel, $printer) {
+    public function __construct($homeModel, $printer)
+    {
         $this->printer = $printer;
         $this->homeModel = $homeModel;
     }
 
-    public function execute() {
+    public function execute()
+    {
         $this->printer->generateView('homeView.html');
     }
 
-    public function login(){
+    public function login()
+    {
         $usuario = $_POST["usuario"];
         $clave = $_POST["clave"];
         $respuesta = $this->homeModel->isUser($usuario, $clave);
-        if($respuesta){
+        if ($respuesta) {
             $this->execute();
         }
     }
