@@ -16,7 +16,7 @@ class HomeModel
 
     private function login($usuario, $clave)
     {
-        return $this->database->query("SELECT nombre, clave FROM usuario WHERE nombre = '$usuario' AND clave = '$clave'");
+        return $this->database->query("SELECT nombre, clave, idRol FROM usuario WHERE nombre = '$usuario' AND clave = '$clave'");
     }
 
     public function isUser($user, $clave)
@@ -24,8 +24,14 @@ class HomeModel
         $usuarios = $this->login($user, $clave);
         foreach ($usuarios as $usuario) {
             if ($usuario["nombre"] == $user && $usuario["clave"] == $clave) {
-                $_SESSION["adminIn"] = 1;
-                return true;
+                if ($usuario["idRol"] == 1) {
+                    $_SESSION["adminIn"] = 1;
+                    return true;
+                }
+                if ($usuario["idRol"] == 2) {
+                    $_SESSION["ClienIn"] = 2;
+                    return true;
+                }
             }
         }
     }

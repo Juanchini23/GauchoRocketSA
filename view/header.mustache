@@ -25,11 +25,11 @@
             </button>
             <div class='collapse navbar-collapse' id='navbarNav'>
                 <ul class='navbar-nav ms-auto'>
-                    <?php
-                    if (!isset($_SESSION["adminIn"]) && !isset($_SESSION["ClienIn"])) { ?>
                         <li class='nav-item m-1 d-grid gap-2'>
                             <a href='GauchoRocketSA?controller=home&method=registrarse'><button class='btn btn-dark'>Registarse</button></a>
                         </li>
+
+
                         <form class='d-flex' method='post' action='GauchoRocketSA/index.php?controller=home&method=login'>
 
                             <li class='nav-item m-1'>
@@ -41,9 +41,9 @@
                             <li class='nav-item m-1 d-grid gap-2'>
                                 <button type='submit' class='btn btn-dark'>Ingresar</button>
                             </li>
-                        <?php } else include_once("view/formLogoutView.php");
-                        ?>
                         </form>
+
+                        
                 </ul>
             </div>
         </div>
