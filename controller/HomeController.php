@@ -15,8 +15,14 @@ class HomeController
         $this->printer->generateView('homeView.html');
     }
 
-    public function login()
+    public function registrarse()
     {
+        $this->printer->generateView('formRegistro');
+    }
+
+
+    public function login(){
+
         $usuario = $_POST["usuario"];
         $clave = $_POST["clave"];
         $respuesta = $this->homeModel->isUser($usuario, $clave);

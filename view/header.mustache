@@ -28,7 +28,7 @@
                     <?php
                     if (!isset($_SESSION["adminIn"]) && !isset($_SESSION["ClienIn"])) { ?>
                         <li class='nav-item m-1 d-grid gap-2'>
-                            <a href='GauchoRocketSA/formRegistro.php'><button class='btn btn-dark'>Registarse</button></a>
+                            <a href='GauchoRocketSA?controller=home&method=registrarse'><button class='btn btn-dark'>Registarse</button></a>
                         </li>
                         <form class='d-flex' method='post' action='GauchoRocketSA/validar.php'>
 

@@ -6,6 +6,7 @@ include_once('controller/SongsController.php');
 include_once('controller/ToursController.php');
 include_once('controller/HomeController.php');
 include_once('model/SongModel.php');
+include_once('model/HomeModel.php');
 include_once('model/TourModel.php');
 include_once("model/HomeModel.php");
 require_once('third-party/mustache/src/Mustache/Autoloader.php');
