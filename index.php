@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once ("helper/Configuration.php");
 $configuration = new Configuration();
 $router = $configuration->getRouter();

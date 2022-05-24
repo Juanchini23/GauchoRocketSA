@@ -25,12 +25,12 @@ class HomeModel
         foreach ($usuarios as $usuario) {
             if ($usuario["nombre"] == $user && $usuario["clave"] == $clave) {
                 if ($usuario["idRol"] == 1) {
-                    $_SESSION["adminIn"] = 1;
-                    return true;
+				$_SESSION["adminIn"] = 1;
+                    return "Admin" ;
                 }
                 if ($usuario["idRol"] == 2) {
                     $_SESSION["ClienIn"] = 2;
-                    return true;
+                    return  "Clien";
                 }
             }
         }

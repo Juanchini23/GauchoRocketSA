@@ -10,9 +10,9 @@ class HomeController
         $this->homeModel = $homeModel;
     }
 
-    public function execute()
+    public function execute($respuesta = [])
     {
-        $this->printer->generateView('homeView.html');
+        $this->printer->generateView('homeView.html', $respuesta);
     }
 
     public function registrarse()
@@ -21,13 +21,19 @@ class HomeController
     }
 
 
-    public function login(){
+    public function login()
+    {
 
         $usuario = $_POST["usuario"];
         $clave = $_POST["clave"];
-        $respuesta = $this->homeModel->isUser($usuario, $clave);
-        if ($respuesta) {
-            $this->execute();
-        }
+        $respuesta["loggeado"] = $this->homeModel->isUser($usuario, $clave);
+        $this->execute($respuesta);
+    }
+
+    public function logout()
+    {
+        session_encode();
+        session_destroy();
+        $this->printer->generateView('homeView.html');
     }
 }
