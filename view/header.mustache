@@ -27,8 +27,35 @@
                 <ul class='navbar-nav ms-auto align-items-center'>
                   {{^loggeado}}
                         <li class='nav-item m-1 d-grid gap-2'>
-                            <a href='/home/registrarse'><button class='btn btn-dark'>Registarse</button></a>
+                            <button class='btn btn-dark' data-bs-toggle="modal" data-bs-target="#singupModal">Registarse</button>
                         </li>
+                        <div class="modal fade" id="singupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Registrarse</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form id="singup-form" method='post' action='/home/registrarse'>
+                                      <div class="form-group">
+                                        <input type="text" id="singup-email" name = "nombre" class="form-control mb-3" placeholder="ingrese nombre" required>
+                                      </div>
+                                      <div class="form-group">
+                                         <input type="text" id="singup-email" name = "apellido" class="form-control mb-3" placeholder="ingrese apellido" required>
+                                      </div>
+                                      <div class="form-group">
+                                         <input type="text" id="singup-email" name = "mail" class="form-control mb-3" placeholder="ingrese mail" required>
+                                      </div>
+                                      <div class="form-group">
+                                        <input type="password" id="singup-password" name="clave" class="form-control mb-3" placeholder="ingrese Password" required>
+                                      </div>
+                                      <button type="submit" class="btn btn-success">Registrarse</button>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                   {{/loggeado}}
 
                   {{^loggeado}}

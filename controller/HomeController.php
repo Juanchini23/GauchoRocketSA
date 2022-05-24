@@ -15,14 +15,7 @@ class HomeController
         $this->printer->generateView('homeView.html', $respuesta);
     }
 
-    public function registrarse()
-    {
-        $this->printer->generateView('formRegistro.html');
-    }
-
-
-    public function login()
-    {
+    public function login(){
 
         $usuario = $_POST["usuario"];
         $clave = $_POST["clave"];
@@ -30,10 +23,20 @@ class HomeController
         $this->execute($respuesta);
     }
 
-    public function logout()
-    {
+    public function logout(){
         session_encode();
         session_destroy();
         $this->printer->generateView('homeView.html');
+    }
+
+    public function registrarse(){
+
+        $nombre = $_POST["nombre"];
+        $apellido = $_POST["apellido"];
+        $mail = $_POST["mail"];
+        $clave = $_POST["clave"];
+        $this->homeModel->registrarEnBd($nombre, $apellido, $mail, $clave);
+        $respuesta["loggeado"] = $this->homeModel->isUser($nombre, $clave);
+        $this->execute($respuesta);
     }
 }
