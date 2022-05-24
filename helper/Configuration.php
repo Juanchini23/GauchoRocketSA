@@ -6,7 +6,9 @@ include_once('controller/SongsController.php');
 include_once('controller/ToursController.php');
 include_once('controller/HomeController.php');
 include_once('model/SongModel.php');
+include_once('model/HomeModel.php');
 include_once('model/TourModel.php');
+include_once("model/HomeModel.php");
 require_once('third-party/mustache/src/Mustache/Autoloader.php');
 
 class Configuration {
@@ -19,7 +21,7 @@ class Configuration {
     }
 
     public function getHomeController() {
-        return new HomeController($this->getPrinter());
+        return new HomeController($this->getHomeModel(), $this->getPrinter());
     }
 
     private function getSongModel(): SongModel {
@@ -28,6 +30,10 @@ class Configuration {
 
     private function getTourModel() {
         return new TourModel($this->getDatabase());
+    }
+
+    private function getHomeModel() {
+        return new HomeModel($this->getDatabase());
     }
 
     private function getDataBase()
