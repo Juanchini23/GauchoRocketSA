@@ -10,8 +10,8 @@ class HomeController
         $this->homeModel = $homeModel;
     }
 
-    public function execute($respuesta = [])
-    {
+    public function execute($respuesta = []){
+
         $this->printer->generateView('homeView.html', $respuesta);
     }
 
@@ -20,6 +20,7 @@ class HomeController
         $usuario = $_POST["usuario"];
         $clave = $_POST["clave"];
         $respuesta["loggeado"] = $this->homeModel->isUser($usuario, $clave);
+        $respuesta["nombre"] = $usuario;
         $this->execute($respuesta);
     }
 
@@ -37,6 +38,7 @@ class HomeController
         $clave = $_POST["clave"];
         $this->homeModel->registrarEnBd($nombre, $apellido, $mail, $clave);
         $respuesta["loggeado"] = $this->homeModel->isUser($nombre, $clave);
+        $respuesta["nombre"] = $nombre;
         $this->execute($respuesta);
     }
 }
