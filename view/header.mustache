@@ -19,13 +19,14 @@
             <a class="navbar-brand font" href="/">
                 <img src="/public/Rocket.svg" class="m-2" style="width: 50px;">
             </a>
-            <h1 class="d-flex align-items-center text-white ">Gaucho Roket SA</h1>
+            <h1 class="d-flex align-items-center text-white ">Gaucho Rocket SA</h1>
             <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation'>
                 <span class='navbar-toggler-icon'></span>
             </button>
             <div class='collapse navbar-collapse' id='navbarNav'>
                 <ul class='navbar-nav ms-auto align-items-center'>
-                  {{^loggeado}}
+                    <!-- mustache-->
+                    {{^loggeado}}
                         <li class='nav-item m-1 d-grid gap-2'>
                             <button class='btn btn-dark' data-bs-toggle="modal" data-bs-target="#singupModal">Registarse</button>
                         </li>
@@ -56,9 +57,7 @@
                                 </div>
                               </div>
                             </div>
-                  {{/loggeado}}
 
-                  {{^loggeado}}
                   <form class='d-flex' method='post' action='/home/login'>
 
                             <li class='nav-item m-1'>
@@ -74,10 +73,15 @@
                         </form>
                   {{/loggeado}}
 
+                    <!-- mustache-->
                   {{#loggeado}}
-                  <a href='/home/logout'>
-                    <button class='btn btn-dark'>Salir</button>
-                  </a>
+                      <div class="nav-item m-1 d-flex justify-content-around align-middle">
+                          <p class="me-3 h3 text-white">Hola {{nombre}}</p>
+                          <a href='/home/logout'>
+                              <button class='btn btn-warning'>Salir</button>
+                          </a>
+                      </div>
+
                   {{/loggeado}}
 
                 </ul>
