@@ -14,7 +14,8 @@ class HomeController
 
         if(isset($_SESSION["ClienIn"])){
             $respuesta["loggeado"] = 1;
-        }
+        } else
+            $respuesta = false;
         $this->printer->generateView('homeView.html', $respuesta);
     }
 
