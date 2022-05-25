@@ -13,8 +13,7 @@ class RegistrarModel{
     //siempre registra un usuario del tipo cliente
     public function registrarEnBd($nombre, $apellido, $mail, $clave){
 
-        $this->database->queryAltaUsuario("INSERT INTO usuario(rol, nombre, apellido, mail, clave)
-                                            values ('cliente', '$nombre', '$apellido', '$mail', '$clave');");
+        $this->database->queryAltaUsuario($nombre, $apellido, $mail, $clave);
     }
 
 
