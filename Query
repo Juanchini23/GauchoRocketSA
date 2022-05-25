@@ -35,7 +35,7 @@ CREATE TABLE usuario
 insert into usuario(idRol, nombre, apellido, mail, clave)
 values (2, "a", "Programer", "adminpro@gmail.com", "a");
 
-insert into usuario(rol, nombre, apellido, mail, clave)
+insert into usuario(idRol, nombre, apellido, mail, clave)
 values (1, "Administrador", "Programer", "adminpro@gmail.com", "admin1234");
 
 
