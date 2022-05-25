@@ -36,7 +36,7 @@ class LoginModel
 
     public function setNombreUsuario(&$nombreUsuario)
     {
-        $this->database->queryAltaUsuario("UPDATE usuariologeado SET nombre='$nombreUsuario'");
+        $this->database->actualizarNombre($nombreUsuario);
     }
 
 

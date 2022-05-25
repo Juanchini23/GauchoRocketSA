@@ -27,8 +27,20 @@ class MySqlDatabase {
         return mysqli_fetch_all($result , MYSQLI_ASSOC);
     }
 
-    public function queryAltaUsuario($sql) {
-        mysqli_query($this->conn, $sql);
+    public function queryAltaUsuario($nombre, $apellido, $mail, $clave) {
+        $sql = "INSERT INTO usuario(idRol, nombre, apellido, mail, clave) values (?, ?, ?, ?, ?);";
+        $comando= $this->conn->prepare($sql);
+        $dos=2;
+        $comando->bind_param("issss",$dos,$nombre, $apellido, $mail, $clave );
+        $comando->execute();
+    }
+
+    public function actualizarNombre($nombre)
+    {
+        $sql = "UPDATE usuariologeado SET nombre=?;";
+        $comando = $this->conn->prepare($sql);
+        $comando->bind_param("s", $nombre);
+        $comando->execute();
     }
 
     private function connect() {
