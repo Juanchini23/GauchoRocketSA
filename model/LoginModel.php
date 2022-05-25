@@ -18,7 +18,7 @@ class LoginModel
         foreach ($usuarios as $usuario) {
             if ($usuario["nombre"] == $user && $usuario["clave"] == $clave) {
                 if ($usuario["idRol"] == 1) {
-                    $_SESSION["adminIn"] = 1;
+                    $_SESSION["AdminIn"] = 1;
                     return "Admin" ;
                 }
                 if ($usuario["idRol"] == 2) {

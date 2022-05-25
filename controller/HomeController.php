@@ -10,9 +10,10 @@ class HomeController
         $this->homeModel = $homeModel;
     }
 
-    public function execute(){
+    public function execute()
+    {
 
-        if(isset($_SESSION["ClienIn"])){
+        if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
             $respuesta["loggeado"] = 1;
         } else
             $respuesta = false;
@@ -20,13 +21,15 @@ class HomeController
     }
 
 
-    public function logout(){
+    public function logout()
+    {
         session_encode();
         session_destroy();
         $this->printer->generateView('homeView.html');
     }
 
-    public function registrarse(){
+    public function registrarse()
+    {
 
         $nombre = $_POST["nombre"];
         $apellido = $_POST["apellido"];
@@ -35,11 +38,10 @@ class HomeController
         $duplicado = $this->homeModel->estaDuplicado($mail);
 
         //si el mail ya existe en la base de datos no lo creo y paso mensaje de uuario existente
-        if($duplicado){
+        if ($duplicado) {
             $respuesta["duplicado"] = "Usuario existente";
             $this->execute($respuesta);
-        }
-        //si el mail no existe crea un usuario nuevo correctamente
+        } //si el mail no existe crea un usuario nuevo correctamente
         else {
             $this->homeModel->registrarEnBd($nombre, $apellido, $mail, $clave);
             $respuesta["loggeado"] = $this->homeModel->isUser($nombre, $clave);
