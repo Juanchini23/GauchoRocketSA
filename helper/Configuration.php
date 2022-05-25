@@ -29,6 +29,7 @@ class Configuration {
 
     public function getLogoutController(){
         return new LogoutController($this->getPrinter());
+    }
 
     public function getRegistrarController() {
         return new RegistrarController($this->getRegistrarModel(), $this->getLoginModel(), $this->getPrinter());
@@ -43,10 +44,6 @@ class Configuration {
 
     private function getHomeModel() {
         return new HomeModel($this->getDatabase());
-    }
-
-    private function getLoginModel(){
-        return new LoginModel($this->getDatabase());
     }
 
     private function getDataBase()
