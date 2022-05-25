@@ -2,18 +2,18 @@
 include_once('helper/MySqlDatabase.php');
 include_once('helper/Router.php');
 require_once('helper/MustachePrinter.php');
-include_once('controller/SongsController.php');
+include_once('controller/SessionController.php');
 include_once('controller/ToursController.php');
 include_once('controller/HomeController.php');
-include_once('model/SongModel.php');
+include_once('model/SessionModel.php');
 include_once('model/HomeModel.php');
 include_once('model/TourModel.php');
 include_once("model/HomeModel.php");
 require_once('third-party/mustache/src/Mustache/Autoloader.php');
 
 class Configuration {
-    public function getSongsController() {
-        return new SongsController($this->getSongModel(), $this->getPrinter());
+    public function getSessionController() {
+        return new SessionController($this->getSessionModel());
     }
 
     public function getToursController() {
@@ -24,8 +24,8 @@ class Configuration {
         return new HomeController($this->getHomeModel(), $this->getPrinter());
     }
 
-    private function getSongModel(): SongModel {
-        return new SongModel($this->getDatabase());
+    private function getSessionModel(){
+        return new SessionModel($this->getDatabase());
     }
 
     private function getTourModel() {
