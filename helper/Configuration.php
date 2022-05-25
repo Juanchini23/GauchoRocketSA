@@ -5,6 +5,7 @@ require_once('helper/MustachePrinter.php');
 include_once('controller/LoginController.php');
 include_once('controller/ToursController.php');
 include_once('controller/HomeController.php');
+include_once('controller/LogoutController.php');
 include_once('model/LoginModel.php');
 include_once('model/HomeModel.php');
 include_once('model/TourModel.php');
@@ -18,6 +19,10 @@ class Configuration {
 
     public function getLoginController() {
         return new LoginController($this->getLoginModel(), $this->getPrinter());
+    }
+
+    public function getLogoutController(){
+        return new LogoutController($this->getPrinter());
     }
 
     private function getHomeModel() {
