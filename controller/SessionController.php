@@ -10,13 +10,22 @@ class SessionController
         $this->sessionModel = $sessionModel;
     }
 
-    public function execute(){
+    public function execute()
+    {
 
-        $usuario = $_POST["usuario"];
-        $clave = $_POST["clave"];
-        $_SESSION["loggeado"] = $this->sessionModel->isUser($usuario, $clave);
+        $usuario = $this->validateSiPostParamExiste("usuario");
+        $password = $this->validateSiPostParamExiste("clave");
 
+        $loginValido = $this->sessionModel->login($usuario, $password);
+
+        $_SESSION["login"] = $loginValido;
+
+        header("location: /");
+        exit();
     }
 
-
+    private function validateSiPostParamExiste($valor)
+    {
+        return $_POST[$valor] ?? "";
+    }
 }

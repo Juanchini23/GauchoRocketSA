@@ -16,20 +16,12 @@ class Configuration {
         return new SessionController($this->getSessionModel());
     }
 
-    public function getToursController() {
-        return new ToursController($this->getTourModel(), $this->getPrinter());
-    }
-
     public function getHomeController() {
         return new HomeController($this->getHomeModel(), $this->getPrinter());
     }
 
     private function getSessionModel(){
         return new SessionModel($this->getDatabase());
-    }
-
-    private function getTourModel() {
-        return new TourModel($this->getDatabase());
     }
 
     private function getHomeModel() {

@@ -9,14 +9,10 @@ class SessionModel
         $this->database = $database;
     }
 
-    public function isUser($user, $clave)
+    public function isUser($usuario, $clave)
     {
-        $usuarios = $this->login($user, $clave);
-        foreach ($usuarios as $usuario) {
-            if ($usuario["nombre"] == $user && $usuario["clave"] == $clave) {
-                return true;
-            }
-        }
+        $usuarios = $this->database->query("SELECT nombre, clave, idRol FROM usuario WHERE nombre = '$usuario' AND clave = '$clave'");
+        return sizeof($usuarios) == 1;
     }
 
 }
