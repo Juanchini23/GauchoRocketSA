@@ -1,39 +1,8 @@
 CREATE DATABASE IF NOT EXISTS GauchoRocketSA;
 USE GauchoRocketSA;
 
-CREATE TABLE usuario
-(
-    id       integer not null auto_increment primary key,
-    idRol    smallint,
-    nombre   varchar(20),
-    apellido varchar(20),
-    mail     varchar(30),
-    clave    varchar(50),
-    foreign key (idRol) references rol (id)
-);
-
-insert into usuario(idRol, nombre, apellido, mail, clave)
-values (1, "Administrador", "Programer", "adminpro@gmail.com", "admin1234");
-
-
-CREATE TABLE rol
-(
-    id          smallint not null primary key,
-    descripcion varchar(20)
-);
-
-insert into rol(id, descripcion)
-values (1, "Admin"),
-       (2, "Cliente");
-
 select *
 from rol;
-
-# Para saber que rol tiene alguien
-select nombre, clave
-from usuario u
-         join rol r on u.idRol = r.id
-WHERE descripcion = "Admin";
 
 /* REFACTOR TABLA USUARIO
 el 'idRol' es reemplazado por 'rol' un enumerador para evitar normalizacion y el join en la query
@@ -55,7 +24,18 @@ CREATE TABLE usuario
 
 insert into usuario(rol, nombre, apellido, mail, clave)
 values (2, "Administrador", "Programer", "adminpro@gmail.com", "admin1234");
-/* Para saber que rol tiene alguien*/
+
+/* Para saber que rol tiene alguien */
+
 select nombre, rol, mail
 from usuario
 WHERE rol = 1 OR rol = 'cliente';
+
+Para que se setee el nombre del que sta usando la sesion actualmente, hacerle el insert si o si
+
+create table usuarioLogeado(
+    nombre varchar(50)
+);
+
+insert into usuariologeado (nombre) value ("Hola");
+

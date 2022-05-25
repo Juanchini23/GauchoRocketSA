@@ -5,7 +5,7 @@
     <title>GauchoRocket SA</title>
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/gif" href="GauchoRocketSA/public/IconRocket.svg">
+    <link rel="icon" type="image/gif" href="/public/IconRocket.svg">
     <!-- Css boostrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -16,34 +16,88 @@
     <!-- NavBar-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand font" href="GauchoRocketSA/index.php">
-                <img src="GauchoRocketSA/public/Rocket.svg" class="m-2" style="width: 50px;">
+            <a class="navbar-brand font" href="/">
+                <img src="/public/Rocket.svg" class="m-2" style="width: 50px;">
             </a>
-            <h1 class="d-flex align-items-center text-white ">Gaucho Roket SA</h1>
-            <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation'>
+            <h1 class="d-flex align-items-center text-white ">Gaucho Rocket SA</h1>
+            <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarNav'
+                    aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation'>
                 <span class='navbar-toggler-icon'></span>
             </button>
             <div class='collapse navbar-collapse' id='navbarNav'>
-                <ul class='navbar-nav ms-auto'>
-                    <?php
-                    if (!isset($_SESSION["adminIn"]) && !isset($_SESSION["ClienIn"])) { ?>
+                <ul class='navbar-nav ms-auto align-items-center'>
+                    <!-- mustache-->
+                    {{^loggeado}}
                         <li class='nav-item m-1 d-grid gap-2'>
-                            <a href='GauchoRocketSA/formRegistro.php'><button class='btn btn-dark'>Registarse</button></a>
+                            <button class='btn btn-dark' data-bs-toggle="modal" data-bs-target="#singupModal">
+                                Registarse
+                            </button>
                         </li>
-                        <form class='d-flex' method='post' action='GauchoRocketSA/validar.php'>
+                        <div class="modal fade" id="singupModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Registrarse</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="singup-form" method='post' action='/home/registrarse'>
+                                            <div class="form-group">
+                                                <input type="text" id="singup-email" name="nombre"
+                                                       class="form-control mb-3" placeholder="ingrese nombre" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" id="singup-email" name="apellido"
+                                                       class="form-control mb-3" placeholder="ingrese apellido"
+                                                       required>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" id="singup-email" name="mail"
+                                                       class="form-control mb-3" placeholder="ingrese mail" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" id="singup-password" name="clave"
+                                                       class="form-control mb-3" placeholder="ingrese Password"
+                                                       required>
+                                            </div>
+                                            <button type="submit" class="btn btn-success">Registrarse</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+                        <form class='d-flex' method='post' action='/login'>
+
+                            <hp class="text-center">{{duplicado}}</hp>
                             <li class='nav-item m-1'>
-                                <input type='text' class='form-control' id='usuario' placeholder='Ingrese usuario' name='usuario' required>
+                                <input type='text' class='form-control' id='usuario' placeholder='Ingrese usuario'
+                                       name='usuario' required>
                             </li>
                             <li class='nav-item m-1'>
-                                <input type='password' class='form-control' id='password' placeholder='Ingrese contraseña' name='clave' required>
+                                <input type='password' class='form-control' id='password'
+                                       placeholder='Ingrese contraseña' name='clave' required>
                             </li>
                             <li class='nav-item m-1 d-grid gap-2'>
                                 <button type='submit' class='btn btn-dark'>Ingresar</button>
                             </li>
-                        <?php } else include_once("view/formLogoutView.php");
-                        ?>
+
                         </form>
+                    {{/loggeado}}
+
+                    <!-- mustache-->
+                    {{#loggeado}}
+                        <div class="nav-item m-1 d-flex justify-content-around align-middle">
+                            <p class="me-3 h3 text-white">Hola {{nombre}}</p>
+                            <a href='/logout'>
+                                <button class='btn btn-warning'>Salir</button>
+                            </a>
+                        </div>
+
+                    {{/loggeado}}
+
                 </ul>
             </div>
         </div>
