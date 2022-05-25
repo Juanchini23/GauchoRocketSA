@@ -12,20 +12,20 @@ include_once("model/HomeModel.php");
 require_once('third-party/mustache/src/Mustache/Autoloader.php');
 
 class Configuration {
-    public function getLoginController() {
-        return new LoginController($this->getLoginModel(), $this->getPrinter());
-    }
-
     public function getHomeController() {
         return new HomeController($this->getHomeModel(), $this->getPrinter());
     }
 
-    private function getLoginModel(){
-        return new LoginModel($this->getDatabase());
+    public function getLoginController() {
+        return new LoginController($this->getLoginModel(), $this->getPrinter());
     }
 
     private function getHomeModel() {
         return new HomeModel($this->getDatabase());
+    }
+
+    private function getLoginModel(){
+        return new LoginModel($this->getDatabase());
     }
 
     private function getDataBase()

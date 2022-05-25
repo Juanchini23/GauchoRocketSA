@@ -12,9 +12,9 @@ class HomeController
 
     public function execute()
     {
-
         if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
             $respuesta["loggeado"] = 1;
+            $respuesta["nombre"] = $this->homeModel->solicitarNombreUsuario();
         } else
             $respuesta = false;
         $this->printer->generateView('homeView.html', $respuesta);
