@@ -3,30 +3,41 @@
 class LoginModel
 {
     private $database;
+    private $nombreUsuario;
 
     public function __construct($database)
     {
         $this->database = $database;
     }
 
-    private function login($usuario, $clave){
+    private function login($usuario, $clave)
+    {
         return $this->database->query("SELECT nombre, clave, idRol FROM usuario WHERE nombre = '$usuario' AND clave = '$clave'");
     }
 
-    public function isUser($user, $clave){
+    public function isUser($user, $clave)
+    {
         $usuarios = $this->login($user, $clave);
         foreach ($usuarios as $usuario) {
             if ($usuario["nombre"] == $user && $usuario["clave"] == $clave) {
                 if ($usuario["idRol"] == 1) {
-                    $_SESSION["adminIn"] = 1;
-                    return "Admin" ;
+                    $_SESSION["AdminIn"] = 1;
+                    $this->setNombreUsuario($usuario["nombre"]);
+                    return "Admin";
                 }
                 if ($usuario["idRol"] == 2) {
                     $_SESSION["ClienIn"] = 2;
-                    return  "Clien";
+                    $this->setNombreUsuario($usuario["nombre"]);
+                    return "Clien";
                 }
             }
         }
     }
+
+    public function setNombreUsuario(&$nombreUsuario)
+    {
+        $this->database->queryAltaUsuario("UPDATE usuariologeado SET nombre='$nombreUsuario'");
+    }
+
 
 }
