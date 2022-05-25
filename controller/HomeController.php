@@ -12,22 +12,18 @@ class HomeController
 
     public function execute()
     {
+        if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
+            $respuesta["loggeado"] = 1;
+            $respuesta["nombre"] = $this->homeModel->solicitarNombreUsuario();
+        } else
+            $respuesta = false;
+        $this->printer->generateView('homeView.html', $respuesta);
+    }
+
+    public function logout(){
+        session_encode();
+        session_destroy();
         $this->printer->generateView('homeView.html');
     }
 
-    public function registrarse()
-    {
-        $this->printer->generateView('formRegistro.html');
-    }
-
-
-    public function login(){
-
-        $usuario = $_POST["usuario"];
-        $clave = $_POST["clave"];
-        $respuesta = $this->homeModel->isUser($usuario, $clave);
-        if ($respuesta) {
-            $this->execute();
-        }
-    }
 }
