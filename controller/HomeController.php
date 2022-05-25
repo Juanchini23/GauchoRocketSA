@@ -25,26 +25,5 @@ class HomeController
         $this->printer->generateView('homeView.html');
     }
 
-    public function registrarse(){
 
-        $nombre = $_POST["nombre"];
-        $apellido = $_POST["apellido"];
-        $mail = $_POST["mail"];
-        $clave = $_POST["clave"];
-        $duplicado = $this->homeModel->estaDuplicado($mail);
-
-        //si el mail ya existe en la base de datos no lo creo y paso mensaje de uuario existente
-        if($duplicado){
-            $respuesta["duplicado"] = "Usuario existente";
-            $this->execute($respuesta);
-        }
-        //si el mail no existe crea un usuario nuevo correctamente
-        else {
-            $this->homeModel->registrarEnBd($nombre, $apellido, $mail, $clave);
-            $respuesta["loggeado"] = $this->homeModel->isUser($nombre, $clave);
-            $respuesta["nombre"] = $nombre;
-            $this->execute($respuesta);
-        }
-
-    }
 }
