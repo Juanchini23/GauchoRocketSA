@@ -10,19 +10,14 @@ class HomeController
         $this->homeModel = $homeModel;
     }
 
-    public function execute($respuesta = []){
+    public function execute(){
 
+        if(isset($_SESSION["ClienIn"])){
+            $respuesta["loggeado"] = 1;
+        }
         $this->printer->generateView('homeView.html', $respuesta);
     }
 
-    public function login(){
-
-        $usuario = $_POST["usuario"];
-        $clave = $_POST["clave"];
-        $respuesta["loggeado"] = $this->homeModel->isUser($usuario, $clave);
-        $respuesta["nombre"] = $usuario;
-        $this->execute($respuesta);
-    }
 
     public function logout(){
         session_encode();
