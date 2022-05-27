@@ -10,14 +10,14 @@ class LoginModel
         $this->database = $database;
     }
 
-    private function login($usuario, $clave)
+    private function iniciarSesion($usuario, $clave)
     {
-        return $this->database->query("SELECT nombre, clave, idRol FROM usuario WHERE nombre = '$usuario' AND clave = '$clave'");
+        return $this->database->iniciarSesion($usuario, $clave);
     }
 
     public function isUser($user, $clave)
     {
-        $usuarios = $this->login($user, $clave);
+        $usuarios = $this->iniciarSesion($user, $clave);
         foreach ($usuarios as $usuario) {
             if ($usuario["nombre"] == $user && $usuario["clave"] == $clave) {
                 if ($usuario["idRol"] == 1) {

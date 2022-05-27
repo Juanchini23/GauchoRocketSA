@@ -1,6 +1,7 @@
 <?php
 
-class MySqlDatabase {
+class MySqlDatabase
+{
 
     private $host;
     private $user;
@@ -9,7 +10,8 @@ class MySqlDatabase {
 
     private $conn;
 
-    public function __construct($host, $user, $pass, $database) {
+    public function __construct($host, $user, $pass, $database)
+    {
         $this->host = $host;
         $this->user = $user;
         $this->pass = $pass;
@@ -18,21 +20,34 @@ class MySqlDatabase {
         $this->connect();
     }
 
-    public function __destruct(){
+    public function __destruct()
+    {
         $this->disconnect();
     }
 
-    public function query($sql) {
+    public function query($sql)
+    {
         $result = mysqli_query($this->conn, $sql);
-        return mysqli_fetch_all($result , MYSQLI_ASSOC);
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
-    public function queryAltaUsuario($nombre, $apellido, $mail, $clave) {
+    public function queryAltaUsuario($nombre, $apellido, $mail, $clave)
+    {
         $sql = "INSERT INTO usuario(idRol, nombre, apellido, mail, clave) values (?, ?, ?, ?, ?);";
-        $comando= $this->conn->prepare($sql);
-        $dos=2;
-        $comando->bind_param("issss",$dos,$nombre, $apellido, $mail, $clave );
+        $comando = $this->conn->prepare($sql);
+        $dos = 2;
+        $comando->bind_param("issss", $dos, $nombre, $apellido, $mail, $clave);
         $comando->execute();
+    }
+
+    public function iniciarSesion($nombre, $clave)
+    {
+        $sql = "SELECT * FROM usuario WHERE nombre = ? AND clave = ?";
+        $comando = $this->conn->prepare($sql);
+        $comando->bind_param("ss", $nombre, $clave);
+        $comando->execute();
+        $resultado = $comando->get_result();
+        return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
     }
 
     public function actualizarNombre($nombre)
@@ -43,7 +58,8 @@ class MySqlDatabase {
         $comando->execute();
     }
 
-    private function connect() {
+    private function connect()
+    {
         $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->database);
         if (!$conn) {
             die('Connection failed: ' . mysqli_connect_error());
@@ -51,7 +67,8 @@ class MySqlDatabase {
         $this->conn = $conn;
     }
 
-    private function disconnect() {
+    private function disconnect()
+    {
         mysqli_close($this->conn);
     }
 }
