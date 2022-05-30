@@ -1,3 +1,61 @@
 {{> header}}
 <h3 class="text-center">{{duplicado}}</h3>
+<form action="home/reserva"
+      method="post">
+    <div class="container mt-5 mb-5 bg-success p-3 rounded bg-opacity-75">
+        <h2 class="fs-1 text-center">¡Elegí tu experiencia!</h2>
+        <div class="d-flex justify-content-around mt-5">
+            <div>
+                <input type="radio" name="tipoVuelo" value="ida" id="ida">
+                <label for="ida" class="fw-bolder">Ida</label>
+            </div>
+            <div>
+                <input type="radio" name="tipoVuelo" value="ida-vuelta" id="ida-vuelta">
+                <label for="ida-vuelta" class="fw-bolder">Ida y vuelta</label>
+            </div>
+            <div>
+                <input type="radio" name="tipoVuelo" value="multidestino" id="multidestino">
+                <label for="multidestino" class="fw-bolder">Multidestino</label>
+            </div>
+        </div>
+        <div class="d-flex justify-content-around mt-5 mb-3">
+            <div class="d-flex">
+                <img src="public/origen.svg" width="18px">
+                <select class="form-select ms-1 me-2" aria-label="Default select example" name="origen">
+                    <option value="default" disabled selected>Origen...</option>
+                    <option value="tierra">Tierra</option>
+                    <option value="luna">Luna</option>
+                    <option value="marte">Marte</option>
+                </select>
+                <img src="public/destino.svg" width="20px">
+                <select class="form-select ms-1" aria-label="Default select example" name="destino">
+                    <option value="default" disabled selected>Destino...</option>
+                    <option value="tierra">Tierra</option>
+                    <option value="luna">Luna</option>
+                    <option value="marte">Marte</option>
+                </select>
+            </div>
+            <div class="d-flex">
+                <img src="public/salida.svg" width="20px">
+                <input type="date" name="salida" id="salida" class="form-control ms-1 me-2">
+                <img src="public/llegada.svg" width="20px">
+                <input type="date" name="salida" id="vuelta" class="form-control ms-1">
+            </div>
+            <div class="d-flex">
+                <input type="number" name="personas" id="personas" class="form-control" placeholder="Personas...">
+                <select class="form-select ms-1" aria-label="Default select example" name="clase">
+                    <option value="default" disabled selected>Clase...</option>
+                    <option value="pobre">Pobre</option>
+                    <option value="media">Media</option>
+                    <option value="rico">Rico</option>
+                </select>
+            </div>
+            <div class="d-flex">
+                <button type="submit" class="btn btn-danger d-flex align-items-center"><img src="public/buscar.svg"
+                                                                                            width="15px" class="me-2">Buscar
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
 {{> footer}}

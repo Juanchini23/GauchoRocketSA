@@ -20,10 +20,5 @@ class HomeController
         $this->printer->generateView('homeView.html', $respuesta);
     }
 
-    public function logout(){
-        session_encode();
-        session_destroy();
-        $this->printer->generateView('homeView.html');
-    }
 
 }
