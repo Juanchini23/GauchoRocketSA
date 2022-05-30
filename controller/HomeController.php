@@ -10,24 +10,29 @@ class HomeController
         $this->homeModel = $homeModel;
     }
 
-    public function execute()
+    public function execute($respuesta = [])
     {
-        $this->printer->generateView('homeView.html');
+        if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
+            $respuesta["loggeado"] = 1;
+            $respuesta["nombre"] = $this->homeModel->solicitarNombreUsuario();
+        } else
+            $respuesta = false;
+        $this->printer->generateView('homeView.html', $respuesta);
     }
 
-    public function registrarse()
+    public function reserva()
     {
-        $this->printer->generateView('formRegistro.html');
+        $tipoVuelo = $_POST["tipoVuelo"] ?? "";
+        $origen = $_POST["origen"] ?? "";
+        $destino = $_POST["destino"] ?? "";
+        $salida = $_POST["salida"] ?? "";
+        $vuelta = $_POST["vuelta"] ?? "";
+        $personas = $_POST["personas"] ?? "";
+        $clase = $_POST["clase"] ?? "";
+
+        $respuesta = $this->homeModel->busquedaVuelos($origen, $destino, $salida, $vuelta);
+
+        $this->execute($respuesta);
     }
 
-
-    public function login(){
-
-        $usuario = $_POST["usuario"];
-        $clave = $_POST["clave"];
-        $respuesta = $this->homeModel->isUser($usuario, $clave);
-        if ($respuesta) {
-            $this->execute();
-        }
-    }
 }
