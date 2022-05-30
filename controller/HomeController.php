@@ -10,7 +10,7 @@ class HomeController
         $this->homeModel = $homeModel;
     }
 
-    public function execute()
+    public function execute($respuesta = [])
     {
         if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
             $respuesta["loggeado"] = 1;
@@ -20,5 +20,19 @@ class HomeController
         $this->printer->generateView('homeView.html', $respuesta);
     }
 
+    public function reserva()
+    {
+        $tipoVuelo = $_POST["tipoVuelo"] ?? "";
+        $origen = $_POST["origen"] ?? "";
+        $destino = $_POST["destino"] ?? "";
+        $salida = $_POST["salida"] ?? "";
+        $vuelta = $_POST["vuelta"] ?? "";
+        $personas = $_POST["personas"] ?? "";
+        $clase = $_POST["clase"] ?? "";
+
+        $respuesta = $this->homeModel->busquedaVuelos($origen, $destino, $salida, $vuelta);
+
+        $this->execute($respuesta);
+    }
 
 }
