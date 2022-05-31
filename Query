@@ -2,9 +2,10 @@ CREATE DATABASE IF NOT EXISTS GauchoRocketSA;
 
 USE GauchoRocketSA;
 
-select * from usuario;
-select * from rol;
-
+select *
+from usuario;
+select *
+from rol;
 
 CREATE TABLE rol
 (
@@ -12,48 +13,82 @@ CREATE TABLE rol
     descripcion varchar(20)
 );
 
-
 insert into rol(id, descripcion)
-values (1, "Admin"),
-       (2, "Cliente");
-
-
-
+values (1, 'Admin'),
+       (2, 'Cliente');
 
 CREATE TABLE usuario
 (
-    id       integer not null auto_increment primary key,
-    idRol    smallint,
-    nombre   varchar(20),
-    apellido varchar(20),
-    mail     varchar(30),
-    clave    varchar(50),
-    codigoViajero int not null,
-    foreign key (idRol) references rol (id)
+    id            integer not null auto_increment primary key,
+    idRol         smallint,
+    nombre        varchar(20),
+    apellido      varchar(20),
+    mail          varchar(30),
+    clave         varchar(50),
+    codigoViajero int     not null,
+    foreign key (idRol) references rol (id),
+    foreign key (codigoViajero) references tipoCliente (id)
 );
 
-CREATE TABLE vuelo(
-    id int primary key auto_increment not null,
-    dia varchar(25),
-    duracion int,
-    codigo varchar(50),
-    origen varchar(50),
-    destino varchar(50)
+CREATE TABLE vuelo
+(
+    id          int primary key auto_increment not null,
+    dia         varchar(25),
+    duracion    int,
+    codigo      varchar(50),
+    origen      varchar(50),
+    destino     varchar(50),
+    tipoVuelo   int,
+    foreign key (tipoVuelo) references tipoVuelo (id),
+    tipoEquipo  int,
+    foreign key (tipoEquipo) references tipoEquipo (id),
+    tipoCabina  int,
+    foreign key (tipoCabina) references tipoCabina (id),
+    tipoCliente int,
+    foreign key (tipoCliente) references tipoCliente (id)
 );
 
+CREATE TABLE tipoVuelo
+(
+    id          int primary key not null auto_increment,
+    descripcion varchar(50)
+);
 
+insert into tipoVuelo (descripcion)
+values ('Orbitales'),
+       ('EntreDestinos');
 
-insert into usuario(idRol, nombre, apellido, mail, clave)
-values (2, "a", "Programer", "adminpro@gmail.com", "a");
+CREATE TABLE tipoEquipo
+(
+    id          int primary key not null auto_increment,
+    descripcion varchar(50)
+);
 
-insert into usuario(idRol, nombre, apellido, mail, clave)
-values (1, "Administrador", "Programer", "adminpro@gmail.com", "admin1234");
+insert into tipoEquipo (descripcion)
+values ('OR'),
+       ('BA'),
+       ('AA');
 
+select *
+from tipoEquipo;
 
+CREATE TABLE tipoCabina
+(
+    id          int primary key not null auto_increment,
+    descripcion varchar(50)
+);
 
+insert into tipoEquipo (descripcion)
+values ('T'),
+       ('E'),
+       ('P');
 
-/* Para saber que rol tiene alguien */
+CREATE TABLE tipoCliente
+(
+    id          int primary key not null auto_increment,
+    descripcion int
+);
 
-select nombre, rol, mail
-from usuario
-WHERE rol = 1 OR rol = 'cliente';
+insert into tipoCliente (descripcion)
+values (1),
+       (2);
