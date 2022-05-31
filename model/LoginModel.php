@@ -3,7 +3,6 @@
 class LoginModel
 {
     private $database;
-    private $nombreUsuario;
 
     public function __construct($database)
     {
@@ -22,22 +21,16 @@ class LoginModel
             if ($usuario["nombre"] == $user && $usuario["clave"] == $clave) {
                 if ($usuario["idRol"] == 1) {
                     $_SESSION["AdminIn"] = 1;
-                    $this->setNombreUsuario($usuario["nombre"]);
+                    $_SESSION["usuario"] = $usuario["nombre"];
                     return "Admin";
                 }
                 if ($usuario["idRol"] == 2) {
                     $_SESSION["ClienIn"] = 2;
-                    $this->setNombreUsuario($usuario["nombre"]);
+                    $_SESSION["usuario"] = $usuario["nombre"];
                     return "Clien";
                 }
             }
         }
     }
-
-    public function setNombreUsuario(&$nombreUsuario)
-    {
-        $this->database->actualizarNombre($nombreUsuario);
-    }
-
 
 }

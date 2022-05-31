@@ -14,9 +14,8 @@ class HomeController
     {
         if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
             $respuesta["loggeado"] = 1;
-            $respuesta["nombre"] = $this->homeModel->solicitarNombreUsuario();
-        } else
-            $respuesta = false;
+            $respuesta["nombre"] = $_SESSION["usuario"];
+        }
         $this->printer->generateView('homeView.html', $respuesta);
     }
 
@@ -31,8 +30,9 @@ class HomeController
         $clase = $_POST["clase"] ?? "";
 
         $respuesta = $this->homeModel->busquedaVuelos($origen, $destino, $salida, $vuelta);
+		$data["vuelos"] = $respuesta;
 
-        $this->execute($respuesta);
+		$this->printer->generateView('homeView.html', $data);
     }
 
 }
