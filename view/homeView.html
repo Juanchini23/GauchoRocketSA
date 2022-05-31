@@ -4,20 +4,6 @@
       method="post">
     <div class="container mt-5 mb-5 bg-success p-3 rounded bg-opacity-75">
         <h2 class="fs-1 text-center">¡Elegí tu experiencia!</h2>
-        <div class="d-flex justify-content-around mt-5">
-            <div>
-                <input type="radio" name="tipoVuelo" value="ida" id="ida">
-                <label for="ida" class="fw-bolder">Ida</label>
-            </div>
-            <div>
-                <input type="radio" name="tipoVuelo" value="ida-vuelta" id="ida-vuelta">
-                <label for="ida-vuelta" class="fw-bolder">Ida y vuelta</label>
-            </div>
-            <div>
-                <input type="radio" name="tipoVuelo" value="multidestino" id="multidestino">
-                <label for="multidestino" class="fw-bolder">Multidestino</label>
-            </div>
-        </div>
         <div class="d-flex justify-content-around mt-5 mb-3 flex-wrap">
             <div class="d-flex">
                 <img src="public/origen.svg" width="18px">
@@ -38,8 +24,6 @@
             <div class="d-flex">
                 <img src="public/salida.svg" width="20px">
                 <input type="date" name="salida" id="salida" class="form-control ms-1 me-2">
-                <img src="public/llegada.svg" width="20px">
-                <input type="date" name="salida" id="vuelta" class="form-control ms-1">
             </div>
             <div class="d-flex">
                 <input type="number" name="personas" id="personas" class="form-control" placeholder="Personas...">
@@ -58,32 +42,11 @@
         </div>
     </div>
 </form>
-<!--{{#respuesta}}-->
-<!--{{#vuelo}}-->
-<!--<div>-->
-<!--    <h1>1{{origen}}</h1>-->
-<!--</div>-->
-<!--{{/vuelo}}-->
-<!--{{/respuesta}}-->
-
-<!--{{#respuesta}}-->
-<!--<div>-->
-<!--    <h1>2{{vuelo}}</h1>-->
-<!--</div>-->
-<!--{{/respuesta}}-->
-
-<!--{{#vuelo}}-->
-<!--<div>-->
-<!--    <h1>3{{origen}}</h1>-->
-<!--</div>-->
-<!--{{/vuelo}}-->
 
 {{#respuesta}}
 <div>
-    <h1>4{{origen}}</h1>
+    <h1>{{origen}}</h1>
 </div>
 {{/respuesta}}
-
-{{origen}}
 
 {{> footer}}

@@ -26,6 +26,7 @@ class RegistrarController{
         $apellido = $_POST["apellido"];
         $mail = $_POST["mail"];
         $clave = $_POST["clave"];
+        $centro = $_POST["centro"];
         $duplicado = $this->registrarModel->estaDuplicado($mail);
         //si el mail ya existe en la base de datos no lo creo y paso mensaje de usuario existente
         if($duplicado){
@@ -34,7 +35,7 @@ class RegistrarController{
         }
         //si el mail no existe crea un usuario nuevo correctamente
         else {
-            $this->registrarModel->registrarEnBd($nombre, $apellido, $mail, $clave);
+            $this->registrarModel->registrarEnBd($nombre, $apellido, $mail, $clave, $centro);
             $respuesta["loggeado"] = $this->loginModel->isUser($nombre, $clave);
             $respuesta["nombre"] = $nombre;
             $this->execute($respuesta); // donde meto la respuesta?

@@ -31,12 +31,12 @@ class MySqlDatabase
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
-    public function queryAltaUsuario($nombre, $apellido, $mail, $clave)
+    public function queryAltaUsuario($nombre, $apellido, $mail, $clave, $codigoViajero)
     {
-        $sql = "INSERT INTO usuario(idRol, nombre, apellido, mail, clave) values (?, ?, ?, ?, ?);";
+        $sql = "INSERT INTO usuario(idRol, nombre, apellido, mail, clave, codigoViajero) values (?, ?, ?, ?, ?, ?);";
         $comando = $this->conn->prepare($sql);
         $dos = 2;
-        $comando->bind_param("issss", $dos, $nombre, $apellido, $mail, $clave);
+        $comando->bind_param("issssi", $dos, $nombre, $apellido, $mail, $clave, $codigoViajero);
         $comando->execute();
     }
 

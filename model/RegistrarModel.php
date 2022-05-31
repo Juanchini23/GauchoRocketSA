@@ -11,9 +11,10 @@ class RegistrarModel{
 
 
     //siempre registra un usuario del tipo cliente
-    public function registrarEnBd($nombre, $apellido, $mail, $clave){
-
-        $this->database->queryAltaUsuario($nombre, $apellido, $mail, $clave);
+    public function registrarEnBd($nombre, $apellido, $mail, $clave, $centro){
+        $codigoViajero = rand(1,3);
+//        $this->database->restarCapacidadDiaria($centro);
+        $this->database->queryAltaUsuario($nombre, $apellido, $mail, $clave, $codigoViajero);
     }
 
 

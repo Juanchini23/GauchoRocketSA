@@ -91,4 +91,20 @@ CREATE TABLE tipoCliente
 
 insert into tipoCliente (descripcion)
 values (1),
-       (2);
+       (2),
+       (3);
+
+CREATE TABLE centroMedico
+(
+    id              int primary key not null auto_increment,
+    descripcion     varchar(50),
+    capacidadDiaria int
+);
+
+insert into centroMedico (descripcion, capacidadDiaria)
+values ('Buenos Aires', 300),
+       ('Shangai', 210),
+       ('Ankara', 200);
+
+select *
+from centroMedico;
