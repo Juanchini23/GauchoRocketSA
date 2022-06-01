@@ -1,8 +1,8 @@
 {{> header}}
 <h3 class="text-center">{{duplicado}}</h3>
-<form action="home/reserva"
+<form action="home/busqueda"
       method="post">
-    <div class="container mt-5 mb-5 bg-success p-3 rounded bg-opacity-75">
+    <div class="container mt-5 mb-5 bg-success p-3 rounded">
         <h2 class="fs-1 text-center">¡Elegí tu experiencia!</h2>
         <div class="d-flex justify-content-around mt-5 mb-3 flex-wrap">
             <div class="d-flex">
@@ -42,11 +42,38 @@
         </div>
     </div>
 </form>
-
-{{#respuesta}}
-<div>
-    <h1>{{origen}}</h1>
+<div class="container">
+    <table class="table table-hover bg-success bg-opacity-75 rounded">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Dia</th>
+            <th scope="col">Duracion</th>
+            <th scope="col">Codigo</th>
+            <th scope="col">Origen</th>
+            <th scope="col">Destino</th>
+            <th scope="col">Cabina</th>
+            <th scope="col">Equipo</th>
+            <th scope="col">Vuelo</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#vuelo}}
+        <tr>
+            <th scope="row">1</th>
+            <td>{{dia}}</td>
+            <td>{{duracion}}Hs</td>
+            <td>{{codigo}}</td>
+            <td>{{origen}}</td>
+            <td>{{destino}}</td>
+            <td>{{tipoCabina}}</td>
+            <td>{{tipoEquipo}}</td>
+            <td>{{tipoVuelo}}</td>
+            <td><a class="text-white" href="#">Reservar</a></td>
+        </tr>
+        {{/vuelo}}
+        </tbody>
+    </table>
 </div>
-{{/respuesta}}
 
 {{> footer}}

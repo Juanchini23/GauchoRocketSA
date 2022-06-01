@@ -30,16 +30,51 @@ CREATE TABLE usuario
     foreign key (codigoViajero) references tipoCliente (id)
 );
 
-CREATE TABLE vuelo
+# Tabla planificacion es la de grilla
+
+CREATE TABLE planificacion
+(
+    id          int primary key not null auto_increment,
+    dia         varchar(20),
+    horaPartida int,
+    idOrigen    int,
+    foreign key (idOrigen) references origen (id),
+    idModelo      int,
+    foreign key (idModelo) references modelo (id),
+    idTipoVuelo int,
+    foreign key (idTipoVuelo) references tipoVuelo (id)
+);
+
+CREATE TABLE origen
 (
     id          int primary key auto_increment not null,
-    dia         varchar(25),
-    duracion    int,
-    codigo      varchar(50),
-    origen      varchar(50),
-    destino     varchar(50),
-    tipoVuelo   int,
+    descripcion varchar(50)
+);
+
+insert into origen (descripcion)
+values ('BA'),
+       ('AK');
+
+CREATE TABLE vuelo
+(
+    id        int primary key auto_increment not null,
+    dia       varchar(25),
+    duracion  int,
+    codigo    varchar(50),
+    idOrigen  int,
+    foreign key (idOrigen) references origen (id),
+    destino   varchar(50),
+    tipoVuelo int,
     foreign key (tipoVuelo) references tipoVuelo (id),
+    modelo    int,
+    foreign key (modelo) references modelo (id)
+);
+
+CREATE TABLE modelo
+(
+    id          int primary key not null auto_increment,
+    idNave      int,
+    foreign key (idNave) references nave (id),
     tipoEquipo  int,
     foreign key (tipoEquipo) references tipoEquipo (id),
     tipoCabina  int,
@@ -47,6 +82,15 @@ CREATE TABLE vuelo
     tipoCliente int,
     foreign key (tipoCliente) references tipoCliente (id)
 );
+
+CREATE TABLE nave
+(
+    id        int primary key not null auto_increment,
+    modelo    varchar(20),
+    matricula varchar(20)
+);
+
+# Reeplantear mañana
 
 CREATE TABLE tipoVuelo
 (
@@ -56,7 +100,50 @@ CREATE TABLE tipoVuelo
 
 insert into tipoVuelo (descripcion)
 values ('Orbitales'),
-       ('EntreDestinos');
+       ('Tour'),
+       ('EntreDestinosUno'),
+       ('EntreDestinosDos');
+
+# /Reeplantear mañana
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 CREATE TABLE tipoEquipo
 (
@@ -75,24 +162,35 @@ from tipoEquipo;
 CREATE TABLE tipoCabina
 (
     id          int primary key not null auto_increment,
-    descripcion varchar(50)
+    descripcion varchar(50),
+    capacidad   int
 );
 
-insert into tipoEquipo (descripcion)
-values ('T'),
-       ('E'),
-       ('P');
+insert into tipoCabina (descripcion, capacidad)
+values ('T', 50),
+       ('E', 40),
+       ('P', 25);
+
+select *
+from tipoCabina;
 
 CREATE TABLE tipoCliente
 (
     id          int primary key not null auto_increment,
-    descripcion int
+    descripcion varchar(10)
 );
 
 insert into tipoCliente (descripcion)
-values (1),
-       (2),
-       (3);
+values ('1'),
+       ('2'),
+       ('3'),
+       ('1,2'),
+       ('1,3'),
+       ('2,3'),
+       ('1,2,3');
+
+select *
+from tipoCliente;
 
 CREATE TABLE centroMedico
 (

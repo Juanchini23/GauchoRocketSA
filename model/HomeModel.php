@@ -10,7 +10,7 @@ class HomeModel
         $this->database = $database;
     }
 
-    public function busquedaVuelos($origen, $destino, $salida, $vuelta)
+    public function busquedaVuelos($origen, $destino)
     {
         return $this->database->query("SELECT * FROM vuelo WHERE origen =  '$origen' AND destino = '$destino';");
 //        AND salida = '$salida' AND vuelta = '$vuelta'

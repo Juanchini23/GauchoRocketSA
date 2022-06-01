@@ -19,20 +19,25 @@ class HomeController
         $this->printer->generateView('homeView.html', $respuesta);
     }
 
-    public function reserva()
+    public function busqueda()
     {
-        $tipoVuelo = $_POST["tipoVuelo"] ?? "";
+//        $tipoVuelo = $_POST["tipoVuelo"] ?? "";
         $origen = $_POST["origen"] ?? "";
         $destino = $_POST["destino"] ?? "";
-        $salida = $_POST["salida"] ?? "";
-        $vuelta = $_POST["vuelta"] ?? "";
-        $personas = $_POST["personas"] ?? "";
-        $clase = $_POST["clase"] ?? "";
+//        $salida = $_POST["salida"] ?? "";
+//        $vuelta = $_POST["vuelta"] ?? "";
+//        $personas = $_POST["personas"] ?? "";
+//        $clase = $_POST["clase"] ?? "";
 
-        $respuesta = $this->homeModel->busquedaVuelos($origen, $destino, $salida, $vuelta);
-		$data["vuelos"] = $respuesta;
+        $respuesta = $this->homeModel->busquedaVuelos($origen, $destino);
+        $data["vuelo"] = $respuesta;
 
-		$this->printer->generateView('homeView.html', $data);
+        if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
+            $data["loggeado"] = 1;
+            $data["nombre"] = $_SESSION["usuario"];
+        }
+
+        $this->printer->generateView('homeView.html', $data);
     }
 
 }
