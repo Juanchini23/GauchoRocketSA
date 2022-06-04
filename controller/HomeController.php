@@ -21,16 +21,10 @@ class HomeController
 
     public function busqueda()
     {
-//        $tipoVuelo = $_POST["tipoVuelo"] ?? "";
         $origen = $_POST["origen"] ?? "";
-        $destino = $_POST["destino"] ?? "";
-//        $salida = $_POST["salida"] ?? "";
-//        $vuelta = $_POST["vuelta"] ?? "";
-//        $personas = $_POST["personas"] ?? "";
-//        $clase = $_POST["clase"] ?? "";
 
-        $respuesta = $this->homeModel->busquedaVuelos($origen, $destino);
-        $data["vuelo"] = $respuesta;
+        $respuesta = $this->homeModel->busquedaVuelos($origen);
+        $data["planificacion"] = $respuesta;
 
         if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
             $data["loggeado"] = 1;

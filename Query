@@ -39,11 +39,25 @@ CREATE TABLE planificacion
     horaPartida int,
     idOrigen    int,
     foreign key (idOrigen) references origen (id),
-    idModelo      int,
+    idModelo    int,
     foreign key (idModelo) references modelo (id),
     idTipoVuelo int,
     foreign key (idTipoVuelo) references tipoVuelo (id)
 );
+
+INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
+VALUES ('L', 8, 1, 1, 1);
+
+INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
+VALUES ('L', 8, 2, 1, 1);
+
+SELECT p.dia, p.horaPartida, o.descripcion as "origen", n.modelo as "modelo", tv.descripcion as "tipoVuelo"
+FROM planificacion p
+         JOIN origen o ON p.idOrigen = o.id
+         JOIN modelo m ON p.idModelo = m.id
+         JOIN nave n ON m.idNave = n.id
+         JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
+WHERE o.descripcion = 'BA';
 
 CREATE TABLE origen
 (
@@ -54,6 +68,8 @@ CREATE TABLE origen
 insert into origen (descripcion)
 values ('BA'),
        ('AK');
+
+# Esta es
 
 CREATE TABLE vuelo
 (
@@ -83,12 +99,18 @@ CREATE TABLE modelo
     foreign key (tipoCliente) references tipoCliente (id)
 );
 
+INSERT INTO modelo (idNave, tipoEquipo, tipoCabina, tipoCliente)
+VALUES (1, 2, 6, 6);
+
 CREATE TABLE nave
 (
     id        int primary key not null auto_increment,
     modelo    varchar(20),
     matricula varchar(20)
 );
+
+INSERT INTO nave (modelo, matricula)
+VALUES ("Zorzal", "BA1");
 
 # Reeplantear mañana
 
@@ -103,47 +125,6 @@ values ('Orbitales'),
        ('Tour'),
        ('EntreDestinosUno'),
        ('EntreDestinosDos');
-
-# /Reeplantear mañana
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 CREATE TABLE tipoEquipo
 (
@@ -161,15 +142,14 @@ from tipoEquipo;
 
 CREATE TABLE tipoCabina
 (
-    id          int primary key not null auto_increment,
-    descripcion varchar(50),
-    capacidad   int
+    id        int primary key not null auto_increment,
+    turista   int,
+    ejecutivo int,
+    primera   int
 );
 
-insert into tipoCabina (descripcion, capacidad)
-values ('T', 50),
-       ('E', 40),
-       ('P', 25);
+insert into tipoCabina (turista, ejecutivo, primera)
+values (0, 0, 100);
 
 select *
 from tipoCabina;

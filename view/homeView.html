@@ -9,16 +9,8 @@
                 <img src="public/origen.svg" width="18px">
                 <select class="form-select ms-1 me-2" aria-label="Default select example" name="origen">
                     <option value="default" disabled selected>Origen...</option>
-                    <option value="tierra">Tierra</option>
-                    <option value="luna">Luna</option>
-                    <option value="marte">Marte</option>
-                </select>
-                <img src="public/destino.svg" width="20px">
-                <select class="form-select ms-1" aria-label="Default select example" name="destino">
-                    <option value="default" disabled selected>Destino...</option>
-                    <option value="tierra">Tierra</option>
-                    <option value="luna">Luna</option>
-                    <option value="marte">Marte</option>
+                    <option value="BA">BA</option>
+                    <option value="AK">AK</option>
                 </select>
             </div>
             <div class="d-flex">
@@ -46,32 +38,24 @@
     <table class="table table-hover bg-success bg-opacity-75 rounded">
         <thead>
         <tr>
-            <th scope="col">Id</th>
             <th scope="col">Dia</th>
-            <th scope="col">Duracion</th>
-            <th scope="col">Codigo</th>
+            <th scope="col">Hora Partifa</th>
             <th scope="col">Origen</th>
-            <th scope="col">Destino</th>
-            <th scope="col">Cabina</th>
-            <th scope="col">Equipo</th>
-            <th scope="col">Vuelo</th>
+            <th scope="col">Nave</th>
+            <th scope="col">Tipo Viaje</th>
         </tr>
         </thead>
         <tbody>
-        {{#vuelo}}
+        {{#planificacion}}
         <tr>
-            <th scope="row">1</th>
             <td>{{dia}}</td>
-            <td>{{duracion}}Hs</td>
-            <td>{{codigo}}</td>
+            <td>{{horaPartida}}Hs</td>
             <td>{{origen}}</td>
-            <td>{{destino}}</td>
-            <td>{{tipoCabina}}</td>
-            <td>{{tipoEquipo}}</td>
+            <td>{{modelo}}</td>
             <td>{{tipoVuelo}}</td>
             <td><a class="text-white" href="#">Reservar</a></td>
         </tr>
-        {{/vuelo}}
+        {{/planificacion}}
         </tbody>
     </table>
 </div>
