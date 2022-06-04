@@ -12,7 +12,7 @@ class HomeModel
 
     public function busquedaVuelos($origen)
     {
-        return $this->database->query("SELECT p.dia, p.horaPartida, o.descripcion as 'origen', n.modelo as 'modelo', tv.descripcion as 'tipoVuelo'
+        return $this->database->query("SELECT p.id, p.dia, p.horaPartida, o.descripcion as 'origen', n.modelo as 'modelo', tv.descripcion as 'tipoVuelo'
 FROM planificacion p
          JOIN origen o ON p.idOrigen = o.id
          JOIN modelo m ON p.idModelo = m.id
@@ -27,6 +27,12 @@ WHERE o.descripcion = '$origen';");
         foreach ($usurios as $usurio) {
             return $usurio["nombre"];
         }
+    }
+
+    public function getEspecificacion($id)
+    {
+        return $this->database->query("");
+
     }
 
 

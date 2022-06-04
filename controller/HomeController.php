@@ -34,4 +34,18 @@ class HomeController
         $this->printer->generateView('homeView.html', $data);
     }
 
+    public function especifiacion()
+    {
+        if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
+            $data["loggeado"] = 1;
+            $data["nombre"] = $_SESSION["usuario"];
+        }
+
+        $id = $_GET["id"];
+
+        $respuesta = $this->homeModel->getEspecificacion($id);
+        $data["especifiacion"] = $respuesta;
+
+        $this->printer->generateView('homeView.html', $data);
+    }
 }

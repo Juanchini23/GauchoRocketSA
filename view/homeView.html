@@ -1,4 +1,117 @@
 {{> header}}
+<div class="bg-secondary text-center">
+    <h2 class="pt-4">¡Hace un viaje Suborbital o un Tour!</h2>
+
+    <div class="container mt-5 pb-5 mb-5">
+        <div class="d-flex justify-content-around mb-5">
+            <button class="btn btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#orbitales"
+                    aria-expanded="false" aria-controls="orbitales">
+                Orbitales
+            </button>
+            <button class="btn btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#tour"
+                    aria-expanded="false" aria-controls="tour">
+                Tour
+            </button>
+        </div>
+        <div class="collapse mb-4" id="orbitales">
+            <div class="card card-body bg-dark">
+                <form action="#"
+                      method="post">
+                    <div class="container mb-5 p-3 rounded">
+                        <div class="d-flex justify-content-around mb-3 flex-wrap">
+                            <div class="d-flex">
+                                <select class="form-select ms-1 me-2" aria-label="Default select example" name="origen">
+                                    <option value="default" disabled selected>Dia...</option>
+                                    <option value="L">Lunes</option>
+                                    <option value="M">Martes</option>
+                                </select>
+                            </div>
+                            <div class="d-flex">
+                                <select class="form-select ms-1 me-2" aria-label="Default select example" name="origen">
+                                    <option value="default" disabled selected>Origen...</option>
+                                    <option value="BA">BA</option>
+                                    <option value="AK">AK</option>
+                                </select>
+                            </div>
+                            <div class="d-flex">
+                                <button type="submit" class="btn btn-danger d-flex align-items-center"><img
+                                        src="public/buscar.svg"
+                                        width="15px" class="me-2">Buscar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <table class="table table-hover bg-warning bg-opacity-75 rounded">
+                    <thead>
+                    <tr>
+                        <th scope="col">Dia</th>
+                        <th scope="col">Origen</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#planificacion}}
+                    <tr>
+                        <td>{{dia}}</td>
+                        <td>{{origen}}</td>
+                        <td><a class="text-white" href="#">Reservar</a></td>
+                    </tr>
+                    {{/planificacion}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="collapse mt-4" id="tour">
+            <div class="card card-body bg-dark">
+                <form action="#"
+                      method="post">
+                    <div class="container mb-5 p-3 rounded">
+                        <div class="d-flex justify-content-around mb-3 flex-wrap">
+                            <div class="d-flex">
+                                <select class="form-select ms-1 me-2" aria-label="Default select example" name="origen">
+                                    <option value="default" disabled selected>Dia...</option>
+                                    <option value="L">Lunes</option>
+                                    <option value="M">Martes</option>
+                                </select>
+                            </div>
+                            <div class="d-flex">
+                                <select class="form-select ms-1 me-2" aria-label="Default select example" name="origen">
+                                    <option value="default" disabled selected>Origen...</option>
+                                    <option value="BA">BA</option>
+                                    <option value="AK">AK</option>
+                                </select>
+                            </div>
+                            <div class="d-flex">
+                                <button type="submit" class="btn btn-danger d-flex align-items-center"><img
+                                        src="public/buscar.svg"
+                                        width="15px" class="me-2">Buscar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <table class="table table-hover bg-warning bg-opacity-75 rounded">
+                    <thead>
+                    <tr>
+                        <th scope="col">Dia</th>
+                        <th scope="col">Origen</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#planificacion}}
+                    <tr>
+                        <td>{{dia}}</td>
+                        <td>{{origen}}</td>
+                        <td><a class="text-white" href="#">Reservar</a></td>
+                    </tr>
+                    {{/planificacion}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<h2 class="text-center">Para una experiencia mas personalizada</h2>
 <h3 class="text-center">{{duplicado}}</h3>
 <form action="home/busqueda"
       method="post">
@@ -16,15 +129,6 @@
             <div class="d-flex">
                 <img src="public/salida.svg" width="20px">
                 <input type="date" name="salida" id="salida" class="form-control ms-1 me-2">
-            </div>
-            <div class="d-flex">
-                <input type="number" name="personas" id="personas" class="form-control" placeholder="Personas...">
-                <select class="form-select ms-1" aria-label="Default select example" name="clase">
-                    <option value="default" disabled selected>Clase...</option>
-                    <option value="pobre">Pobre</option>
-                    <option value="media">Media</option>
-                    <option value="rico">Rico</option>
-                </select>
             </div>
             <div class="d-flex">
                 <button type="submit" class="btn btn-danger d-flex align-items-center"><img src="public/buscar.svg"
@@ -53,7 +157,7 @@
             <td>{{origen}}</td>
             <td>{{modelo}}</td>
             <td>{{tipoVuelo}}</td>
-            <td><a class="text-white" href="#">Reservar</a></td>
+            <td><a class="text-white" href="home/especifiacion?id={{id}}">Reservar</a></td>
         </tr>
         {{/planificacion}}
         </tbody>
