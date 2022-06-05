@@ -59,7 +59,7 @@ class HomeController
         $dia = $_POST["dia"];
         $origen = $_POST["origen"];
 
-        $respuesta = $this->homeModel->getOrbitales($dia, origen);
+        $respuesta = $this->homeModel->getOrbitales($dia, $origen);
         $data["orbitales"] = $respuesta;
 
 
