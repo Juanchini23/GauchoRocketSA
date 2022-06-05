@@ -1,3 +1,54 @@
 {{> header}}
+<div class="container mt-5 mb-5 bg-dark bg-opacity-75 rounded p-3">
+    <form action="orbital/busqueda"
+          method="post">
+        <div class="container mb-5 p-3 rounded">
+            <div class="d-flex justify-content-around mb-3 flex-wrap">
+                <div class="d-flex">
+                    <select class="form-select ms-1 me-2" aria-label="Default select example" name="dia">
+                        <option value="default" disabled selected>Dia...</option>
+                        <option value="L">Lunes</option>
+                        <option value="M">Martes</option>
+                        <option value="X">Miercoles</option>
+                        <option value="J">Jueves</option>
+                        <option value="V">Viernes</option>
+                        <option value="S">Sabado</option>
+                        <option value="D">Domingo</option>
+                    </select>
+                </div>
+                <div class="d-flex">
+                    <select class="form-select ms-1 me-2" aria-label="Default select example" name="origen">
+                        <option value="default" disabled selected>Origen...</option>
+                        <option value="BA">BA</option>
+                        <option value="AK">AK</option>
+                    </select>
+                </div>
+                <div class="d-flex">
+                    <button type="submit" class="btn btn-danger d-flex align-items-center"><img
+                            src="public/buscar.svg"
+                            width="15px" class="me-2">Buscar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <table class="table table-hover bg-primary bg-opacity-75 rounded">
+        <thead>
+        <tr>
+            <th scope="col">Dia</th>
+            <th scope="col">Origen</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#planificacion}}
+        <tr>
+            <td>{{dia}}</td>
+            <td>{{origen}}</td>
+            <td><a class="text-white" href="#">Reservar</a></td>
+        </tr>
+        {{/planificacion}}
+        </tbody>
+    </table>
+</div>
 
 {{> footer}}
