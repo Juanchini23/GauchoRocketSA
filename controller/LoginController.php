@@ -18,9 +18,11 @@ class LoginController
         $usuario = $_POST["usuario"] ?? "";
         $clave = $_POST["clave"] ?? "";
         $respuesta["loggeado"] = $this->loginModel->isUser($usuario, $clave);
-        $respuesta["nombre"] = $usuario;
+        //$respuesta["nombre2"] = $_SESSION["usuario"];
 
-        $this->printer->generateView('homeView.html', $respuesta);
+        header("location: /");
+		exit();
+
     }
 
 }

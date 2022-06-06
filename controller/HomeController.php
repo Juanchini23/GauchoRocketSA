@@ -14,25 +14,39 @@ class HomeController
     {
         if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
             $respuesta["loggeado"] = 1;
-            $respuesta["nombre"] = $this->homeModel->solicitarNombreUsuario();
-        } else
-            $respuesta = false;
+            $respuesta["nombre"] = $_SESSION["usuario"];
+        }
         $this->printer->generateView('homeView.html', $respuesta);
     }
 
-    public function reserva()
+    public function busqueda()
     {
-        $tipoVuelo = $_POST["tipoVuelo"] ?? "";
         $origen = $_POST["origen"] ?? "";
-        $destino = $_POST["destino"] ?? "";
-        $salida = $_POST["salida"] ?? "";
-        $vuelta = $_POST["vuelta"] ?? "";
-        $personas = $_POST["personas"] ?? "";
-        $clase = $_POST["clase"] ?? "";
 
-        $respuesta = $this->homeModel->busquedaVuelos($origen, $destino, $salida, $vuelta);
+        $respuesta = $this->homeModel->busquedaVuelos($origen);
+        $data["planificacion"] = $respuesta;
 
-        $this->execute($respuesta);
+        if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
+            $data["loggeado"] = 1;
+            $data["nombre"] = $_SESSION["usuario"];
+        }
+
+        $this->printer->generateView('homeView.html', $data);
+    }
+
+    public function especifiacion()
+    {
+        if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
+            $data["loggeado"] = 1;
+            $data["nombre"] = $_SESSION["usuario"];
+        }
+
+        $id = $_GET["id"];
+
+        $respuesta = $this->homeModel->getEspecificacion($id);
+        $data["especifiacion"] = $respuesta;
+
+        $this->printer->generateView('homeView.html', $data);
     }
 
 }

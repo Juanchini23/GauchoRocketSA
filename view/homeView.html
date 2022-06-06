@@ -1,54 +1,38 @@
 {{> header}}
-<h3 class="text-center">{{duplicado}}</h3>
-<form action="home/reserva"
-      method="post">
-    <div class="container mt-5 mb-5 bg-success p-3 rounded bg-opacity-75">
-        <h2 class="fs-1 text-center">¡Elegí tu experiencia!</h2>
-        <div class="d-flex justify-content-around mt-5">
-            <div>
-                <input type="radio" name="tipoVuelo" value="ida" id="ida">
-                <label for="ida" class="fw-bolder">Ida</label>
-            </div>
-            <div>
-                <input type="radio" name="tipoVuelo" value="ida-vuelta" id="ida-vuelta">
-                <label for="ida-vuelta" class="fw-bolder">Ida y vuelta</label>
-            </div>
-            <div>
-                <input type="radio" name="tipoVuelo" value="multidestino" id="multidestino">
-                <label for="multidestino" class="fw-bolder">Multidestino</label>
-            </div>
+<div class="bg-secondary text-center">
+    <h2 class="pt-4">¡Hace un viaje Suborbital o un Tour!</h2>
+
+    <div class="container mt-5 pb-5 mb-5">
+        <div class="d-flex justify-content-around mb-5">
+            <a href="orbital"><button class="btn btn-warning" type="button">
+                Orbitales
+            </button></a>
+            <a href="tour"><button class="btn btn-warning" type="button">
+                Orbitales
+            </button></a>
         </div>
-        <div class="d-flex justify-content-around mt-5 mb-3">
+
+
+    </div>
+</div>
+<h2 class="text-center">Para una experiencia mas personalizada</h2>
+<h3 class="text-center">{{duplicado}}</h3>
+<form action="home/busqueda"
+      method="post">
+    <div class="container mt-5 mb-5 bg-success p-3 rounded">
+        <h2 class="fs-1 text-center">¡Elegí tu experiencia!</h2>
+        <div class="d-flex justify-content-around mt-5 mb-3 flex-wrap">
             <div class="d-flex">
                 <img src="public/origen.svg" width="18px">
                 <select class="form-select ms-1 me-2" aria-label="Default select example" name="origen">
                     <option value="default" disabled selected>Origen...</option>
-                    <option value="tierra">Tierra</option>
-                    <option value="luna">Luna</option>
-                    <option value="marte">Marte</option>
-                </select>
-                <img src="public/destino.svg" width="20px">
-                <select class="form-select ms-1" aria-label="Default select example" name="destino">
-                    <option value="default" disabled selected>Destino...</option>
-                    <option value="tierra">Tierra</option>
-                    <option value="luna">Luna</option>
-                    <option value="marte">Marte</option>
+                    <option value="BA">BA</option>
+                    <option value="AK">AK</option>
                 </select>
             </div>
             <div class="d-flex">
                 <img src="public/salida.svg" width="20px">
                 <input type="date" name="salida" id="salida" class="form-control ms-1 me-2">
-                <img src="public/llegada.svg" width="20px">
-                <input type="date" name="salida" id="vuelta" class="form-control ms-1">
-            </div>
-            <div class="d-flex">
-                <input type="number" name="personas" id="personas" class="form-control" placeholder="Personas...">
-                <select class="form-select ms-1" aria-label="Default select example" name="clase">
-                    <option value="default" disabled selected>Clase...</option>
-                    <option value="pobre">Pobre</option>
-                    <option value="media">Media</option>
-                    <option value="rico">Rico</option>
-                </select>
             </div>
             <div class="d-flex">
                 <button type="submit" class="btn btn-danger d-flex align-items-center"><img src="public/buscar.svg"
@@ -58,32 +42,30 @@
         </div>
     </div>
 </form>
-<!--{{#respuesta}}-->
-<!--{{#vuelo}}-->
-<!--<div>-->
-<!--    <h1>1{{origen}}</h1>-->
-<!--</div>-->
-<!--{{/vuelo}}-->
-<!--{{/respuesta}}-->
-
-<!--{{#respuesta}}-->
-<!--<div>-->
-<!--    <h1>2{{vuelo}}</h1>-->
-<!--</div>-->
-<!--{{/respuesta}}-->
-
-<!--{{#vuelo}}-->
-<!--<div>-->
-<!--    <h1>3{{origen}}</h1>-->
-<!--</div>-->
-<!--{{/vuelo}}-->
-
-{{#respuesta}}
-<div>
-    <h1>4{{origen}}</h1>
+<div class="container">
+    <table class="table table-hover bg-success bg-opacity-75 rounded">
+        <thead>
+        <tr>
+            <th scope="col">Dia</th>
+            <th scope="col">Hora Partifa</th>
+            <th scope="col">Origen</th>
+            <th scope="col">Nave</th>
+            <th scope="col">Tipo Viaje</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#planificacion}}
+        <tr>
+            <td>{{dia}}</td>
+            <td>{{horaPartida}}Hs</td>
+            <td>{{origen}}</td>
+            <td>{{modelo}}</td>
+            <td>{{tipoVuelo}}</td>
+            <td><a class="text-white" href="home/especifiacion?id={{id}}">Reservar</a></td>
+        </tr>
+        {{/planificacion}}
+        </tbody>
+    </table>
 </div>
-{{/respuesta}}
-
-{{origen}}
 
 {{> footer}}

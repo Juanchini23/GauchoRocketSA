@@ -10,10 +10,15 @@ class HomeModel
         $this->database = $database;
     }
 
-    public function busquedaVuelos($origen, $destino, $salida, $vuelta)
+    public function busquedaVuelos($origen)
     {
-        return $this->database->query("SELECT * FROM vuelo WHERE origen =  '$origen' AND destino = '$destino';");
-//        AND salida = '$salida' AND vuelta = '$vuelta'
+        return $this->database->query("SELECT p.id, p.dia, p.horaPartida, o.descripcion as 'origen', n.modelo as 'modelo', tv.descripcion as 'tipoVuelo'
+FROM planificacion p
+         JOIN origen o ON p.idOrigen = o.id
+         JOIN modelo m ON p.idModelo = m.id
+         JOIN nave n ON m.idNave = n.id
+         JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
+WHERE o.descripcion = '$origen';");
     }
 
     public function solicitarNombreUsuario()
@@ -22,6 +27,12 @@ class HomeModel
         foreach ($usurios as $usurio) {
             return $usurio["nombre"];
         }
+    }
+
+    public function getEspecificacion($id)
+    {
+        return $this->database->query("");
+
     }
 
 

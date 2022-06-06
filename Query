@@ -2,9 +2,10 @@ CREATE DATABASE IF NOT EXISTS GauchoRocketSA;
 
 USE GauchoRocketSA;
 
-select * from usuario;
-select * from rol;
-
+select *
+from usuario;
+select *
+from rol;
 
 CREATE TABLE rol
 (
@@ -12,70 +13,193 @@ CREATE TABLE rol
     descripcion varchar(20)
 );
 
-
 insert into rol(id, descripcion)
-values (1, "Admin"),
-       (2, "Cliente");
-
-
-
+values (1, 'Admin'),
+       (2, 'Cliente');
 
 CREATE TABLE usuario
 (
-    id       integer not null auto_increment primary key,
-    idRol    smallint,
-    nombre   varchar(20),
-    apellido varchar(20),
-    mail     varchar(30),
-    clave    varchar(50),
-    foreign key (idRol) references rol (id)
+    id            integer not null auto_increment primary key,
+    idRol         smallint,
+    nombre        varchar(20),
+    apellido      varchar(20),
+    mail          varchar(30),
+    clave         varchar(50),
+    codigoViajero int     not null,
+    foreign key (idRol) references rol (id),
+    foreign key (codigoViajero) references tipoCliente (id)
 );
 
+# Tabla planificacion es la de grilla
 
-insert into usuario(idRol, nombre, apellido, mail, clave)
-values (2, "a", "Programer", "adminpro@gmail.com", "a");
-
-insert into usuario(idRol, nombre, apellido, mail, clave)
-values (1, "Administrador", "Programer", "adminpro@gmail.com", "admin1234");
-
-
-
-
-/* Para saber que rol tiene alguien */
-
-select nombre, rol, mail
-from usuario
-WHERE rol = 1 OR rol = 'cliente';
-
-Para que se setee el nombre del que sta usando la sesion actualmente, hacerle el insert si o si
-
-create table usuarioLogeado(
-    nombre varchar(50)
-);
-
-insert into usuariologeado (nombre) value ("Hola");
-
-
-
-
-
-
-
-
-/* REFACTOR TABLA USUARIO
-el 'idRol' es reemplazado por 'rol' un enumerador para evitar normalizacion y el join en la query
-Ademas, el valor por defecto ahora es cliente en vez de admin
-la cantidad de caracteres de un md5 es de 32
-*/
-DROP TABLE IF EXISTS usuario;
-DROP TABLE IF EXISTS rol;
-CREATE TABLE usuario
+CREATE TABLE planificacion
 (
-    id       integer not null auto_increment primary key,
-    rol    enum('cliente', 'admin'),
-    nombre   varchar(20),
-    apellido varchar(20),
-    mail     varchar(30),
-    clave    varchar(32)
+    id          int primary key not null auto_increment,
+    dia         varchar(20),
+    horaPartida int,
+    idOrigen    int,
+    foreign key (idOrigen) references origen (id),
+    idModelo    int,
+    foreign key (idModelo) references modelo (id),
+    idTipoVuelo int,
+    foreign key (idTipoVuelo) references tipoVuelo (id)
 );
 
+INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
+VALUES ('L', 8, 1, 1, 1);
+
+INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
+VALUES ('L', 8, 2, 1, 1);
+
+# Circuito
+
+SELECT p.id, p.dia, p.horaPartida, o.descripcion as "origen", n.modelo as "modelo", tv.descripcion as "tipoVuelo"
+FROM planificacion p
+         JOIN origen o ON p.idOrigen = o.id
+         JOIN modelo m ON p.idModelo = m.id
+         JOIN nave n ON m.idNave = n.id
+         JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
+WHERE o.descripcion = 'BA';
+
+# Orbitales
+
+SELECT p.id, p.dia, p.horaPartida, o.descripcion as "origen", n.modelo as "modelo"
+FROM planificacion p
+         JOIN origen o ON p.idOrigen = o.id
+         JOIN modelo m ON p.idModelo = m.id
+         JOIN nave n ON m.idNave = n.id
+         JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
+WHERE o.descripcion = 'BA'
+AND p.dia = 'D'
+AND tv.descripcion = 'Orbitales';
+
+# Vuelo, Origen, Destino, Precio
+
+
+CREATE TABLE origen
+(
+    id          int primary key auto_increment not null,
+    descripcion varchar(50)
+);
+
+insert into origen (descripcion)
+values ('BA'),
+       ('AK');
+
+# Esta es
+
+CREATE TABLE vuelo
+(
+    id        int primary key auto_increment not null,
+    dia       varchar(25),
+    duracion  int,
+    codigo    varchar(50),
+    idOrigen  int,
+    foreign key (idOrigen) references origen (id),
+    destino   varchar(50),
+    tipoVuelo int,
+    foreign key (tipoVuelo) references tipoVuelo (id),
+    modelo    int,
+    foreign key (modelo) references modelo (id)
+);
+
+CREATE TABLE modelo
+(
+    id          int primary key not null auto_increment,
+    idNave      int,
+    foreign key (idNave) references nave (id),
+    tipoEquipo  int,
+    foreign key (tipoEquipo) references tipoEquipo (id),
+    tipoCabina  int,
+    foreign key (tipoCabina) references tipoCabina (id),
+    tipoCliente int,
+    foreign key (tipoCliente) references tipoCliente (id)
+);
+
+INSERT INTO modelo (idNave, tipoEquipo, tipoCabina, tipoCliente)
+VALUES (1, 2, 6, 6);
+
+CREATE TABLE nave
+(
+    id        int primary key not null auto_increment,
+    modelo    varchar(20),
+    matricula varchar(20)
+);
+
+INSERT INTO nave (modelo, matricula)
+VALUES ('Zorzal', 'BA1');
+
+# Reeplantear mañana
+
+CREATE TABLE tipoVuelo
+(
+    id          int primary key not null auto_increment,
+    descripcion varchar(50)
+);
+
+insert into tipoVuelo (descripcion)
+values ('Orbitales'),
+       ('Tour'),
+       ('EntreDestinosUno'),
+       ('EntreDestinosDos');
+
+CREATE TABLE tipoEquipo
+(
+    id          int primary key not null auto_increment,
+    descripcion varchar(50)
+);
+
+insert into tipoEquipo (descripcion)
+values ('OR'),
+       ('BA'),
+       ('AA');
+
+select *
+from tipoEquipo;
+
+CREATE TABLE tipoCabina
+(
+    id        int primary key not null auto_increment,
+    turista   int,
+    ejecutivo int,
+    primera   int
+);
+
+insert into tipoCabina (turista, ejecutivo, primera)
+values (0, 0, 100);
+
+select *
+from tipoCabina;
+
+CREATE TABLE tipoCliente
+(
+    id          int primary key not null auto_increment,
+    descripcion varchar(10)
+);
+
+insert into tipoCliente (descripcion)
+values ('1'),
+       ('2'),
+       ('3'),
+       ('1,2'),
+       ('1,3'),
+       ('2,3'),
+       ('1,2,3');
+
+select *
+from tipoCliente;
+
+CREATE TABLE centroMedico
+(
+    id              int primary key not null auto_increment,
+    descripcion     varchar(50),
+    capacidadDiaria int
+);
+
+insert into centroMedico (descripcion, capacidadDiaria)
+values ('Buenos Aires', 300),
+       ('Shangai', 210),
+       ('Ankara', 200);
+
+select *
+from centroMedico;
