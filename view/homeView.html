@@ -1,25 +1,26 @@
 {{> header}}
-<h3 class="text-center text-danger bg-warning">{{duplicado}}</h3>
-
+{{#duplicado}}
+<h3 class="text-center text-danger bg-warning m-0 p-2">{{duplicado}}</h3>
+{{/duplicado}}
 
 <div class="bg-secondary text-center" style="background-image: url('/public/estrellitas.jpg')">
-    <h2 class="pt-4 text-white">¡Hace un viaje Orbital o un Tour!</h2>
-
-    <div class="container mt-5 pb-5 mb-5">
+    <h2 class="pt-5 text-white">¡Hace un viaje Orbital o un Tour!</h2>
+    <div class="container mt-5 pb-5 pt-3 mb-5">
         <div class="d-flex justify-content-around mb-5">
-            <a href="orbital"><button class="btn btn-warning" type="button">
-                Orbitales
-            </button></a>
-            <a href="tour"><button class="btn btn-warning" type="button">
-                Tour
-            </button></a>
+            <a href="orbital">
+                <button class="btn btn-primary" type="button">
+                    Orbitales
+                </button>
+            </a>
+            <a href="tour">
+                <button class="btn btn-primary" type="button">
+                    Tour
+                </button>
+            </a>
         </div>
-
-
     </div>
 </div>
 <h2 class="text-center">Para una experiencia mas personalizada</h2>
-
 <form action="home/busqueda"
       method="post">
     <div class="container mt-5 mb-5 bg-success p-3 rounded">
