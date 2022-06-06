@@ -34,3 +34,4 @@ AND p.dia = '$dia')
 AND tv.descripcion = 'Tour'");
         }
     }
+}
