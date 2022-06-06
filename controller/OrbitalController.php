@@ -12,7 +12,7 @@ class OrbitalController
         $this->printer = $printer;
     }
 
-    public function execute($data =[])
+    public function execute($data = [])
     {
         if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
             $data["loggeado"] = 1;
@@ -29,13 +29,12 @@ class OrbitalController
             $data["nombre"] = $_SESSION["usuario"];
         }
 
-        $dia = $_POST["dia"];
-        $origen = $_POST["origen"];
+        $dia = $_POST["dia"] ?? "";
+        $origen = $_POST["origen"] ?? "";
 
-        $respuesta = $this->homeModel->getOrbitales($dia, $origen);
+        $respuesta = $this->orbitalModel->getOrbitales($dia, $origen);
         $data["orbitales"] = $respuesta;
 
-
-        $this->printer->generateView('homeView.html', $data);
+        $this->printer->generateView('orbitalView.html', $data);
     }
 }
