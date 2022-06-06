@@ -49,20 +49,4 @@ class HomeController
         $this->printer->generateView('homeView.html', $data);
     }
 
-    public function busquedaOrbital()
-    {
-        if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
-            $data["loggeado"] = 1;
-            $data["nombre"] = $_SESSION["usuario"];
-        }
-
-        $dia = $_POST["dia"];
-        $origen = $_POST["origen"];
-
-        $respuesta = $this->homeModel->getOrbitales($dia, $origen);
-        $data["orbitales"] = $respuesta;
-
-
-        $this->printer->generateView('homeView.html', $data);
-    }
 }

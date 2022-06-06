@@ -8,7 +8,4 @@ class TourModel {
         $this->database = $database;
     }
 
-    public function  getTours(){
-        return $this->database->query('SELECT * FROM presentaciones');
-    }
 }

@@ -12,12 +12,30 @@ class OrbitalController
         $this->printer = $printer;
     }
 
-    public function execute()
+    public function execute($data =[])
     {
         if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
             $data["loggeado"] = 1;
             $data["nombre"] = $_SESSION["usuario"];
         }
-        $this->printer->generateView('orbitalView.html', $data = []);
+
+        $this->printer->generateView('orbitalView.html', $data);
+    }
+
+    public function busquedaOrbital()
+    {
+        if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
+            $data["loggeado"] = 1;
+            $data["nombre"] = $_SESSION["usuario"];
+        }
+
+        $dia = $_POST["dia"];
+        $origen = $_POST["origen"];
+
+        $respuesta = $this->homeModel->getOrbitales($dia, $origen);
+        $data["orbitales"] = $respuesta;
+
+
+        $this->printer->generateView('homeView.html', $data);
     }
 }

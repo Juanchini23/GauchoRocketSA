@@ -4,18 +4,18 @@ include_once('helper/Router.php');
 require_once('helper/MustachePrinter.php');
 
 include_once('controller/LoginController.php');
-include_once('controller/ToursController.php');
 include_once('controller/HomeController.php');
 include_once('controller/LogoutController.php');
 include_once('controller/RegistrarController.php');
 include_once('controller/OrbitalController.php');
+include_once('controller/TourController.php');
 
 include_once('model/RegistrarModel.php');
 include_once('model/LoginModel.php');
 include_once('model/HomeModel.php');
-include_once('model/TourModel.php');
 include_once('model/HomeModel.php');
 include_once('model/OrbitalModel.php');
+include_once('model/TourModel.php');
 
 require_once('third-party/mustache/src/Mustache/Autoloader.php');
 
@@ -47,6 +47,11 @@ class Configuration
         return new OrbitalController($this->getOrbitalModel(), $this->getPrinter());
     }
 
+    public function getTourController()
+    {
+        return new TourController($this->getTourModel(), $this->getPrinter());
+    }
+
     private function getRegistrarModel()
     {
         return new RegistrarModel($this->getDatabase());
@@ -65,6 +70,11 @@ class Configuration
     private function getOrbitalModel()
     {
         return new OrbitalModel($this->getDataBase());
+    }
+
+    private function getTourModel()
+    {
+        return new TourModel($this->getDataBase());
     }
 
     private function getDataBase()
