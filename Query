@@ -219,6 +219,9 @@ VALUES ('L', 8, 1, 5, 2);
 INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
 VALUES ('D', 8, 1, 5, 2);
 
+INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
+VALUES ('M', 8, 1, 1, 3);
+
 # Circuito
 
 SELECT p.id, p.dia, p.horaPartida, o.descripcion as "origen", n.modelo as "modelo", tv.descripcion as "tipoVuelo"
