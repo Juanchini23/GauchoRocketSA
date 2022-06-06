@@ -1,6 +1,6 @@
 <?php
 
-class TourModel
+class OrbitalModel
 {
 
     private $dataBase;
@@ -10,7 +10,7 @@ class TourModel
         $this->dataBase = $dataBase;
     }
 
-    public function getTours($dia, $origen)
+    public function getOrbitales($dia, $origen)
     {
         if (strlen($dia) == null || strlen($origen) == null) {
             return $this->dataBase->query("SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', o.descripcion as 'origen', n.modelo as 'modelo'
@@ -21,7 +21,7 @@ FROM planificacion p
          JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
 WHERE (o.descripcion = '$origen'
 OR p.dia = '$dia')
-AND tv.descripcion = 'Tour'");
+AND tv.descripcion = 'Orbitales'");
         } else {
             return $this->dataBase->query("SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', o.descripcion as 'origen', n.modelo as 'modelo'
 FROM planificacion p
@@ -31,7 +31,9 @@ FROM planificacion p
          JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
 WHERE (o.descripcion = '$origen'
 AND p.dia = '$dia')
-AND tv.descripcion = 'Tour'");
+AND tv.descripcion = 'Orbitales'");
         }
+
+
     }
 }
