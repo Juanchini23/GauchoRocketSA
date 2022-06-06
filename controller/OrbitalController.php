@@ -22,7 +22,7 @@ class OrbitalController
         $this->printer->generateView('orbitalView.html', $data);
     }
 
-    public function busquedaOrbital()
+    public function busqueda()
     {
         if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
             $data["loggeado"] = 1;

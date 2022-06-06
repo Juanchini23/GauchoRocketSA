@@ -33,13 +33,14 @@
         </tr>
         </thead>
         <tbody>
-        {{#planificacion}}
+        {{#tours}}
         <tr>
-            <td>{{dia}}</td>
-            <td>{{origen}}</td>
-            <td><a class="text-white" href="#">Reservar</a></td>
+            <td class="text-white">{{dia}}</td>
+            <td class="text-white">{{hora}}Hs</td>
+            <td class="text-white">{{origen}}</td>
+            <td><a class="text-white" href="tour/reservar?id={{id}}">Reservar</a></td>
         </tr>
-        {{/planificacion}}
+        {{/tours}}
         </tbody>
     </table>
 </div>
