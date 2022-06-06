@@ -73,6 +73,17 @@ WHERE o.descripcion = 'BA'
 AND p.dia = 'D'
 AND tv.descripcion = 'Orbitales';
 
+# Tour
+SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', o.descripcion as 'origen', n.modelo as 'modelo'
+FROM planificacion p
+         JOIN origen o ON p.idOrigen = o.id
+         JOIN modelo m ON p.idModelo = m.id
+         JOIN nave n ON m.idNave = n.id
+         JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
+WHERE o.descripcion = 'BA'
+AND p.dia = 'D'
+AND tv.descripcion = 'Tour';
+
 # Vuelo, Origen, Destino, Precio
 
 
@@ -203,3 +214,14 @@ values ('Buenos Aires', 300),
 
 select *
 from centroMedico;
+
+
+nuevas juanchini
+INSERT INTO nave (modelo, matricula)
+VALUES ('Calandria', 'O1'),('Zorzal', 'BA1');
+
+INSERT INTO modelo (idNave, tipoEquipo, tipoCabina, tipoCliente)
+VALUES (2, 2, 1, 6),  (1, 2, 1, 6);
+
+INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
+VALUES ('L', 8, 1, 3, 2);
