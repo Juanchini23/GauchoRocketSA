@@ -22,6 +22,10 @@ class HomeController
     public function busqueda()
     {
         $origen = $_POST["origen"] ?? "";
+        $fecha = $_POST["fecha"] ?? "";
+
+        // como saber el dia de la semana que es la fecha que nos llega desde el formulario de entredestinos
+        //echo date('l', strtotime($fecha));
 
         $respuesta = $this->homeModel->busquedaVuelos($origen);
         $data["planificacion"] = $respuesta;
