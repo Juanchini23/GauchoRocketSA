@@ -15,12 +15,14 @@ class LoginController
     public function execute()
     {   // poner lo de isset a lo que viene por post porque sino dice undefinied cuando queremos
         // romper pegando el link en ventana de incognito
-        $usuario = $_POST["usuario"];
-        $clave = $_POST["clave"];
+        $usuario = $_POST["usuario"] ?? "";
+        $clave = md5($_POST["clave"] ?? "");
         $respuesta["loggeado"] = $this->loginModel->isUser($usuario, $clave);
-        $respuesta["nombre"] = $usuario;
+        //$respuesta["nombre2"] = $_SESSION["usuario"];
 
-        $this->printer->generateView('homeView.html', $respuesta);
+        header("location: /");
+		exit();
+
     }
 
 }

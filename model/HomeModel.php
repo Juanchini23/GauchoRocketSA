@@ -10,50 +10,30 @@ class HomeModel
         $this->database = $database;
     }
 
-    public function getVuelos()
+    public function busquedaVuelos($origen)
     {
-
+        return $this->database->query("SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', o.descripcion as 'origen', n.modelo as 'modelo', tv.descripcion as 'tipoVuelo'
+FROM planificacion p
+         JOIN origen o ON p.idOrigen = o.id
+         JOIN modelo m ON p.idModelo = m.id
+         JOIN nave n ON m.idNave = n.id
+         JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
+WHERE o.descripcion = '$origen'
+AND (tv.descripcion = 'EntreDestinosUno' || tv.descripcion = 'EntreDestinosDos' )");
     }
 
     public function solicitarNombreUsuario()
     {
         $usurios = $this->database->query("SELECT * FROM usuarioLogeado");
-        foreach ($usurios as $usurio){
+        foreach ($usurios as $usurio) {
             return $usurio["nombre"];
         }
     }
 
-
-    //siempre registra un usuario del tipo cliente
-    public function registrarEnBd($nombre, $apellido, $mail, $clave)
+    public function getEspecificacion($id)
     {
+        return $this->database->query("");
 
-        $this->database->queryAltaUsuario("INSERT INTO usuario(idRol, nombre, apellido, mail, clave)
-                                            values (2, '$nombre', '$apellido', '$mail', '$clave');");
-    }
-
-
-    //me devuelve un array con todos los mails de los usuarios
-    public function consultaMailTodosLosUsuarios()
-    {
-        return $this->database->query("SELECT mail FROM usuario");
-    }
-
-    public function estaDuplicado($mail)
-    {
-        $duplicado = false;
-
-        //consulto todos los mails y los guardo
-        $todosLosMails = $this->consultaMailTodosLosUsuarios();
-
-        //recorro todos los mails y me devuelve true o false si esta repetido
-        foreach ($todosLosMails as $mails) {
-            if ($mails["mail"] == $mail) {
-                $duplicado = true;
-                break;
-            }
-        }
-        return $duplicado;
     }
 
 

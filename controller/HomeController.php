@@ -10,36 +10,43 @@ class HomeController
         $this->homeModel = $homeModel;
     }
 
-    public function execute()
+    public function execute($respuesta = [])
     {
         if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
             $respuesta["loggeado"] = 1;
-            $respuesta["nombre"] = $this->homeModel->solicitarNombreUsuario();
-        } else
-            $respuesta = false;
+            $respuesta["nombre"] = $_SESSION["usuario"];
+        }
         $this->printer->generateView('homeView.html', $respuesta);
     }
 
-    public function registrarse()
+    public function busqueda()
     {
+        $origen = $_POST["origen"] ?? "";
 
-        $nombre = $_POST["nombre"];
-        $apellido = $_POST["apellido"];
-        $mail = $_POST["mail"];
-        $clave = $_POST["clave"];
-        $duplicado = $this->homeModel->estaDuplicado($mail);
+        $respuesta = $this->homeModel->busquedaVuelos($origen);
+        $data["planificacion"] = $respuesta;
 
-        //si el mail ya existe en la base de datos no lo creo y paso mensaje de uuario existente
-        if ($duplicado) {
-            $respuesta["duplicado"] = "Usuario existente";
-            $this->execute($respuesta);
-        } //si el mail no existe crea un usuario nuevo correctamente
-        else {
-            $this->homeModel->registrarEnBd($nombre, $apellido, $mail, $clave);
-            $respuesta["loggeado"] = $this->homeModel->isUser($nombre, $clave);
-            $respuesta["nombre"] = $nombre;
-            $this->execute($respuesta);
+        if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
+            $data["loggeado"] = 1;
+            $data["nombre"] = $_SESSION["usuario"];
         }
 
+        $this->printer->generateView('homeView.html', $data);
     }
+
+    public function especifiacion()
+    {
+        if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
+            $data["loggeado"] = 1;
+            $data["nombre"] = $_SESSION["usuario"];
+        }
+
+        $id = $_GET["id"];
+
+        $respuesta = $this->homeModel->getEspecificacion($id);
+        $data["especifiacion"] = $respuesta;
+
+        $this->printer->generateView('homeView.html', $data);
+    }
+
 }
