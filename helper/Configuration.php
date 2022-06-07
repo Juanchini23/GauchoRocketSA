@@ -17,6 +17,7 @@ include_once('model/HomeModel.php');
 include_once('model/OrbitalModel.php');
 include_once('model/TourModel.php');
 
+require_once('helper/Validator.php');
 require_once('third-party/mustache/src/Mustache/Autoloader.php');
 
 class Configuration

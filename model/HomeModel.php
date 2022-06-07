@@ -12,13 +12,14 @@ class HomeModel
 
     public function busquedaVuelos($origen)
     {
-        return $this->database->query("SELECT p.id, p.dia, p.horaPartida, o.descripcion as 'origen', n.modelo as 'modelo', tv.descripcion as 'tipoVuelo'
+        return $this->database->query("SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', o.descripcion as 'origen', n.modelo as 'modelo', tv.descripcion as 'tipoVuelo'
 FROM planificacion p
          JOIN origen o ON p.idOrigen = o.id
          JOIN modelo m ON p.idModelo = m.id
          JOIN nave n ON m.idNave = n.id
          JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
-WHERE o.descripcion = '$origen';");
+WHERE o.descripcion = '$origen'
+AND (tv.descripcion = 'EntreDestinosUno' || tv.descripcion = 'EntreDestinosDos' )");
     }
 
     public function solicitarNombreUsuario()
