@@ -25,9 +25,9 @@ class HomeController
         $fecha = $_POST["fecha"] ?? "";
 
         // como saber el dia de la semana que es la fecha que nos llega desde el formulario de entredestinos
-        //echo date('l', strtotime($fecha));
+        $dia = date('l', strtotime($fecha));
 
-        $respuesta = $this->homeModel->busquedaVuelos($origen);
+        $respuesta = $this->homeModel->busquedaVuelos($origen,$dia);
         $data["planificacion"] = $respuesta;
 
         if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
