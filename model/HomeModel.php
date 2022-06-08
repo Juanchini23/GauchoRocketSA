@@ -4,12 +4,12 @@ class HomeModel
 {
 
 
-    private $database;
+    private $dataBase;
 
-    public function __construct($database)
+    public function __construct($dataBase)
     {
 
-        $this->database = $database;
+        $this->dataBase = $dataBase;
     }
 
     public function busquedaVuelos($origen, $dia)
@@ -50,7 +50,7 @@ class HomeModel
         }
 
         if (strlen($diaLetra) == null || strlen($origen) == null) {
-            return $this->database->query("SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', o.descripcion as 'origen', n.modelo as 'modelo'
+            return $this->dataBase->query("SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', o.descripcion as 'origen', n.modelo as 'modelo'
 FROM planificacion p
          JOIN origen o ON p.idOrigen = o.id
          JOIN modelo m ON p.idModelo = m.id
@@ -60,7 +60,7 @@ WHERE (o.descripcion = '$origen'
 OR p.dia = '$diaLetra')
 AND (tv.descripcion = 'EntreDestinosUno' || tv.descripcion = 'EntreDestinosDos' )");
         } else {
-            return $this->database->query("SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', o.descripcion as 'origen', n.modelo as 'modelo'
+            return $this->dataBase->query("SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', o.descripcion as 'origen', n.modelo as 'modelo'
 FROM planificacion p
          JOIN origen o ON p.idOrigen = o.id
          JOIN modelo m ON p.idModelo = m.id
@@ -74,7 +74,7 @@ AND (tv.descripcion = 'EntreDestinosUno' || tv.descripcion = 'EntreDestinosDos' 
 
     public function solicitarNombreUsuario()
     {
-        $usurios = $this->database->query("SELECT * FROM usuarioLogeado");
+        $usurios = $this->dataBase->query("SELECT * FROM usuarioLogeado");
         foreach ($usurios as $usurio) {
             return $usurio["nombre"];
         }
@@ -82,7 +82,7 @@ AND (tv.descripcion = 'EntreDestinosUno' || tv.descripcion = 'EntreDestinosDos' 
 
     public function getEspecificacion($id)
     {
-        return $this->database->query("");
+        return $this->dataBase->query("");
 
     }
 
