@@ -34,7 +34,7 @@ class HomeController
             $data["loggeado"] = 1;
             $data["nombre"] = $_SESSION["usuario"];
         }
-
+        $data["fecha"]=$fecha;
         $this->printer->generateView('homeView.html', $data);
     }
 
@@ -46,7 +46,9 @@ class HomeController
         }
 
         $id = $_GET["id"];
-
+        $fechaViaje= $_GET["fechaviaje"];
+        $idUser = $_SESSION["idUserLog"];
+        $this->homeModel->guardarViajeFecha($id, $fechaViaje, $idUser);
         $respuesta = $this->homeModel->getEspecificacion($id);
         $data["especifiacion"] = $respuesta;
 

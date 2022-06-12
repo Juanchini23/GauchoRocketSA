@@ -226,3 +226,11 @@ values ('Buenos Aires', 300),
 
 select *
 from centroMedico;
+
+CREATE TABLE reserva
+(
+  id               integer not null auto_increment primary key,
+  idUsuario        smallint,
+  idPlanificacion  smallint,
+  fecha            date
+);

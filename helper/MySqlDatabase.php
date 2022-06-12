@@ -58,6 +58,14 @@ class MySqlDatabase
         $comando->execute();
     }
 
+    private function guardarVueloFecha($id, $fechaViaje, $idUser){
+        $sql = "INSERT INTO reserva(idUsuario, idPlanificacion, fecha) values (?, ?, ?);";
+        $comando = $this->conn->prepare($sql);
+        $comando->bind_param("iid", $id, $fechaViaje, $idUser);
+        $comando->execute();
+
+    }
+
     private function connect()
     {
         $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->database);
