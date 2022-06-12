@@ -88,9 +88,10 @@ AND (tv.descripcion = 'EntreDestinosUno' || tv.descripcion = 'EntreDestinosDos' 
 
     }
 
-    public function guardarViajeFecha($id, $fechaViaje, $idUser){
-        date("Y,m,d", strtotime($fechaViaje));
-        $this->dataBase->guardarVueloFecha($id, $fechaViaje, $idUser);
+    public function guardarViajeFecha($idUser, $id, $fechaViaje){
+        $date = date_create($fechaViaje);
+        $date = $date->format('Y-m-d');
+        $this->dataBase->guardarVueloFecha($idUser, $id, $date);
     }
 
 }

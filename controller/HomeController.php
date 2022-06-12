@@ -48,7 +48,7 @@ class HomeController
         $id = $_GET["id"];
         $fechaViaje= $_GET["fechaviaje"];
         $idUser = $_SESSION["idUserLog"];
-        $this->homeModel->guardarViajeFecha($id, $fechaViaje, $idUser);
+        $this->homeModel->guardarViajeFecha($idUser, $id, $fechaViaje);
         //$respuesta = $this->homeModel->getEspecificacion($id);
         //$data["especifiacion"] = $respuesta;
 
