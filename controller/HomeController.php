@@ -49,8 +49,8 @@ class HomeController
         $fechaViaje= $_GET["fechaviaje"];
         $idUser = $_SESSION["idUserLog"];
         $this->homeModel->guardarViajeFecha($id, $fechaViaje, $idUser);
-        $respuesta = $this->homeModel->getEspecificacion($id);
-        $data["especifiacion"] = $respuesta;
+        //$respuesta = $this->homeModel->getEspecificacion($id);
+        //$data["especifiacion"] = $respuesta;
 
         $this->printer->generateView('homeView.html', $data);
     }

@@ -229,8 +229,10 @@ from centroMedico;
 
 CREATE TABLE reserva
 (
-  id               integer not null auto_increment primary key,
-  idUsuario        smallint,
-  idPlanificacion  smallint,
-  fecha            date
+    id               int not null auto_increment primary key,
+    idUsuario        int,
+    foreign key (idUsuario) references usuario(id),
+    idPlanificacion  int,
+	foreign key (idPlanificacion) references planificacion(id),
+    fecha            date
 );
