@@ -50,8 +50,9 @@ class HomeController
         $this->homeModel->guardarViajeFecha($idUser, $id, $fechaViaje);
         //$respuesta = $this->homeModel->getEspecificacion($id);
 //        $data["especifiacion"] = $respuesta;
+        $data []= "";
 
-        $this->printer->generateView('reservaView.html', $data = []);
+        $this->printer->generateView('reservaView.html', $data);
     }
 
 }
