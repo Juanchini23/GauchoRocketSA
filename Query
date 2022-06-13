@@ -99,6 +99,23 @@ insert into rol(id, descripcion)
 values (1, 'Admin'),
        (2, 'Cliente');
 
+create table destino
+(
+    id          int auto_increment not null primary key,
+    descripcion varchar(50)
+);
+
+insert into destino (descripcion)
+values ('Titan'),
+       ('Encedalo'),
+       ('Io'),
+       ('Europa'),
+       ('Ganimedes'),
+       ('Marte'),
+       ('Luna'),
+       ('HotelOrbital'),
+       ('EEI');
+
 CREATE TABLE usuario
 (
     id            integer not null auto_increment primary key,
@@ -175,20 +192,20 @@ WHERE (o.descripcion = 'BA'
 
 # Vuelo, Origen, Destino, Precio
 
-CREATE TABLE vuelo
-(
-    id        int primary key auto_increment not null,
-    dia       varchar(25),
-    duracion  int,
-    codigo    varchar(50),
-    idOrigen  int,
-    foreign key (idOrigen) references origen (id),
-    destino   varchar(50),
-    tipoVuelo int,
-    foreign key (tipoVuelo) references tipoVuelo (id),
-    modelo    int,
-    foreign key (modelo) references modelo (id)
-);
+# CREATE TABLE vuelo
+# (
+#     id        int primary key auto_increment not null,
+#     dia       varchar(25),
+#     duracion  int,
+#     codigo    varchar(50),
+#     idOrigen  int,
+#     foreign key (idOrigen) references origen (id),
+#     destino   varchar(50),
+#     tipoVuelo int,
+#     foreign key (tipoVuelo) references tipoVuelo (id),
+#     modelo    int,
+#     foreign key (modelo) references modelo (id)
+# );
 
 CREATE TABLE modelo
 (
@@ -211,6 +228,7 @@ INSERT INTO modelo (idNave, tipoEquipo, tipoCliente)
 VALUES (2, 2, 6),
        (1, 2, 6);
 
+
 CREATE TABLE reserva
 (
     id              int not null auto_increment primary key,
@@ -218,5 +236,7 @@ CREATE TABLE reserva
     foreign key (idUsuario) references usuario (id),
     idPlanificacion int,
     foreign key (idPlanificacion) references planificacion (id),
-    fecha           date
+    fecha           date,
+    idDestino       int,
+    foreign key (idDestino) references destino (id)
 );

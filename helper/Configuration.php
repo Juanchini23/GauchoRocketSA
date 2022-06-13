@@ -9,6 +9,7 @@ include_once('controller/LogoutController.php');
 include_once('controller/RegistrarController.php');
 include_once('controller/OrbitalController.php');
 include_once('controller/TourController.php');
+include_once('controller/ReservaController.php');
 
 include_once('model/RegistrarModel.php');
 include_once('model/LoginModel.php');
@@ -16,6 +17,7 @@ include_once('model/HomeModel.php');
 include_once('model/HomeModel.php');
 include_once('model/OrbitalModel.php');
 include_once('model/TourModel.php');
+include_once('model/ReservaModel.php');
 
 require_once('helper/Validator.php');
 require_once('third-party/mustache/src/Mustache/Autoloader.php');
@@ -53,6 +55,11 @@ class Configuration
         return new TourController($this->getTourModel(), $this->getPrinter());
     }
 
+    public function getReservaController()
+    {
+        return new ReservaController($this->getReservaModel(), $this->getPrinter());
+    }
+
     private function getRegistrarModel()
     {
         return new RegistrarModel($this->getDatabase());
@@ -76,6 +83,11 @@ class Configuration
     private function getTourModel()
     {
         return new TourModel($this->getDataBase());
+    }
+
+    private function getReservaModel()
+    {
+        return new ReservaModel($this->getDataBase());
     }
 
     private function getDataBase()
