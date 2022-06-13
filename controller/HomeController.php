@@ -26,7 +26,6 @@ class HomeController
 
         // como saber el dia de la semana que es la fecha que nos llega desde el formulario de entredestinos
         $dia = date('l', strtotime($fecha));
-
         $respuesta = $this->homeModel->busquedaVuelos($origen,$dia);
         $data["planificacion"] = $respuesta;
 
@@ -47,12 +46,12 @@ class HomeController
 
         $id = $_GET["id"];
         $fechaViaje= $_GET["fechaviaje"];
-        $idUser = $_SESSION["idUserLog"];
+        $idUser = $_SESSION["idUserLog"] ?? "";
         $this->homeModel->guardarViajeFecha($idUser, $id, $fechaViaje);
         //$respuesta = $this->homeModel->getEspecificacion($id);
-        //$data["especifiacion"] = $respuesta;
+//        $data["especifiacion"] = $respuesta;
 
-        $this->printer->generateView('homeView.html', $data);
+        $this->printer->generateView('reservaView.html', $data = []);
     }
 
 }

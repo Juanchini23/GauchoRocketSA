@@ -36,7 +36,7 @@
             </div>
             <div class="d-flex">
                 <img src="public/salida.svg" width="20px">
-                <input type="date" name="fecha" id="fecha" class="form-control ms-1 me-2">
+                <input type="date" name="fecha" id="fecha" class="form-control ms-1 me-2" required>
             </div>
             <div class="d-flex">
                 <button type="submit" class="btn btn-danger d-flex align-items-center"><img src="public/buscar.svg"
@@ -61,11 +61,16 @@
         {{#planificacion}}
         <tr>
             <td>{{dia}}</td>
-            <td>{{horaPartida}}Hs</td>
+            <td>{{hora}}Hs</td>
             <td>{{origen}}</td>
             <td>{{modelo}}</td>
             <td>{{tipoVuelo}}</td>
+            {{^loggeado}}
+            <td class="text-danger fw-bold">Inicie sesion</td>
+            {{/loggeado}}
+            {{#loggeado}}
             <td><a class="text-white" href="home/especifiacion?id={{id}}&fechaviaje={{fecha}}">Reservar</a></td>
+            {{/loggeado}}
         </tr>
         {{/planificacion}}
         </tbody>
