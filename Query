@@ -1,90 +1,21 @@
 CREATE DATABASE IF NOT EXISTS GauchoRocketSA;
-
+DROP DATABASE GauchoRocketSA;
 USE GauchoRocketSA;
 
 select *
 from usuario;
 select *
 from rol;
-
-CREATE TABLE rol
-(
-    id          smallint not null primary key,
-    descripcion varchar(20)
-);
-
-insert into rol(id, descripcion)
-values (1, 'Admin'),
-       (2, 'Cliente');
-
-CREATE TABLE usuario
-(
-    id            integer not null auto_increment primary key,
-    idRol         smallint,
-    nombre        varchar(20),
-    apellido      varchar(20),
-    mail          varchar(30),
-    clave         varchar(50),
-    codigoViajero int     not null,
-    foreign key (idRol) references rol (id),
-    foreign key (codigoViajero) references tipoCliente (id)
-);
-
-# Tabla planificacion es la de grilla
-
-CREATE TABLE planificacion
-(
-    id          int primary key not null auto_increment,
-    dia         varchar(20),
-    horaPartida int,
-    idOrigen    int,
-    foreign key (idOrigen) references origen (id),
-    idModelo    int,
-    foreign key (idModelo) references modelo (id),
-    idTipoVuelo int,
-    foreign key (idTipoVuelo) references tipoVuelo (id)
-);
-
-INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
-VALUES ('L', 8, 1, 1, 1);
-
-INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
-VALUES ('L', 8, 2, 1, 1);
-
-# Circuito
-
-SELECT p.id, p.dia, p.horaPartida, o.descripcion as "origen", n.modelo as "modelo", tv.descripcion as "tipoVuelo"
-FROM planificacion p
-         JOIN origen o ON p.idOrigen = o.id
-         JOIN modelo m ON p.idModelo = m.id
-         JOIN nave n ON m.idNave = n.id
-         JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
-WHERE o.descripcion = 'BA';
-
-# Orbitales
-
-SELECT p.id, p.dia, p.horaPartida, o.descripcion as "origen", n.modelo as "modelo"
-FROM planificacion p
-         JOIN origen o ON p.idOrigen = o.id
-         JOIN modelo m ON p.idModelo = m.id
-         JOIN nave n ON m.idNave = n.id
-         JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
-WHERE o.descripcion = 'BA'
-AND p.dia = 'D'
-AND tv.descripcion = 'Orbitales';
-
-# Tour
-SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', o.descripcion as 'origen', n.modelo as 'modelo'
-FROM planificacion p
-         JOIN origen o ON p.idOrigen = o.id
-         JOIN modelo m ON p.idModelo = m.id
-         JOIN nave n ON m.idNave = n.id
-         JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
-WHERE o.descripcion = 'BA'
-AND p.dia = 'D'
-AND tv.descripcion = 'Tour';
-
-# Vuelo, Origen, Destino, Precio
+select *
+from usuario;
+select *
+from rol;
+select *
+from tipoEquipo;
+select *
+from tipoCliente;
+select *
+from centroMedico;
 
 
 CREATE TABLE origen
@@ -96,200 +27,6 @@ CREATE TABLE origen
 insert into origen (descripcion)
 values ('BA'),
        ('AK');
-
-# Esta es
-
-CREATE TABLE vuelo
-(
-    id        int primary key auto_increment not null,
-    dia       varchar(25),
-    duracion  int,
-    codigo    varchar(50),
-    idOrigen  int,
-    foreign key (idOrigen) references origen (id),
-    destino   varchar(50),
-    tipoVuelo int,
-    foreign key (tipoVuelo) references tipoVuelo (id),
-    modelo    int,
-    foreign key (modelo) references modelo (id)
-);
-
-CREATE TABLE modelo
-(
-    id          int primary key not null auto_increment,
-    idNave      int,
-    foreign key (idNave) references nave (id),
-    tipoEquipo  int,
-    foreign key (tipoEquipo) references tipoEquipo (id),
-    tipoCabina  int,
-    foreign key (tipoCabina) references tipoCabina (id),
-    tipoCliente int,
-    foreign key (tipoCliente) references tipoCliente (id)
-);
-
-INSERT INTO modelo (idNave, tipoEquipo, tipoCabina, tipoCliente)
-VALUES (1, 2, 6, 6);
-
-CREATE TABLE nave
-(
-    id        int primary key not null auto_increment,
-    modelo    varchar(20),
-    matricula varchar(20)
-);
-
-INSERT INTO nave (modelo, matricula)
-VALUES ('Zorzal', 'BA1');
-
-# Reeplantear mañana
-
-CREATE TABLE tipoVuelo
-(
-    id          int primary key not null auto_increment,
-    descripcion varchar(50)
-);
-
-insert into tipoVuelo (descripcion)
-values ('Orbitales'),
-       ('Tour'),
-       ('EntreDestinosUno'),
-       ('EntreDestinosDos');
-
-CREATE TABLE tipoEquipo
-(
-    id          int primary key not null auto_increment,
-    descripcion varchar(50)
-);
-
-CREATE DATABASE IF NOT EXISTS GauchoRocketSA;
-
-USE GauchoRocketSA;
-
-select *
-from usuario;
-select *
-from rol;
-
-CREATE TABLE rol
-(
-    id          smallint not null primary key,
-    descripcion varchar(20)
-);
-
-insert into rol(id, descripcion)
-values (1, 'Admin'),
-       (2, 'Cliente');
-
-CREATE TABLE usuario
-(
-    id            integer not null auto_increment primary key,
-    idRol         smallint,
-    nombre        varchar(20),
-    apellido      varchar(20),
-    mail          varchar(30),
-    clave         varchar(50),
-    codigoViajero int     not null,
-    foreign key (idRol) references rol (id),
-    foreign key (codigoViajero) references tipoCliente (id)
-);
-
-# Tabla planificacion es la de grilla
-
-CREATE TABLE planificacion
-(
-    id          int primary key not null auto_increment,
-    dia         varchar(20),
-    horaPartida int,
-    idOrigen    int,
-    foreign key (idOrigen) references origen (id),
-    idModelo    int,
-    foreign key (idModelo) references modelo (id),
-    idTipoVuelo int,
-    foreign key (idTipoVuelo) references tipoVuelo (id)
-);
-
-INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
-VALUES ('L', 8, 1, 1, 1);
-
-INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
-VALUES ('L', 8, 2, 1, 1);
-
-INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
-VALUES ('L', 8, 1, 5, 2);
-
-INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
-VALUES ('D', 8, 1, 5, 2);
-
-# Circuito
-
-SELECT p.id, p.dia, p.horaPartida, o.descripcion as "origen", n.modelo as "modelo", tv.descripcion as "tipoVuelo"
-FROM planificacion p
-         JOIN origen o ON p.idOrigen = o.id
-         JOIN modelo m ON p.idModelo = m.id
-         JOIN nave n ON m.idNave = n.id
-         JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
-WHERE o.descripcion = 'BA';
-
-# Orbitales
-
-SELECT p.id, p.dia, p.horaPartida, o.descripcion as "origen", n.modelo as "modelo"
-FROM planificacion p
-         JOIN origen o ON p.idOrigen = o.id
-         JOIN modelo m ON p.idModelo = m.id
-         JOIN nave n ON m.idNave = n.id
-         JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
-WHERE o.descripcion = 'BA'
-  AND p.dia = 'D'
-  AND tv.descripcion = 'Orbitales';
-
-# Vuelo, Origen, Destino, Precio
-
-
-CREATE TABLE origen
-(
-    id          int primary key auto_increment not null,
-    descripcion varchar(50)
-);
-
-insert into origen (descripcion)
-values ('BA'),
-       ('AK');
-
-# Esta es
-
-CREATE TABLE vuelo
-(
-    id        int primary key auto_increment not null,
-    dia       varchar(25),
-    duracion  int,
-    codigo    varchar(50),
-    idOrigen  int,
-    foreign key (idOrigen) references origen (id),
-    destino   varchar(50),
-    tipoVuelo int,
-    foreign key (tipoVuelo) references tipoVuelo (id),
-    modelo    int,
-    foreign key (modelo) references modelo (id)
-);
-
-CREATE TABLE modelo
-(
-    id          int primary key not null auto_increment,
-    idNave      int,
-    foreign key (idNave) references nave (id),
-    tipoEquipo  int,
-    foreign key (tipoEquipo) references tipoEquipo (id),
-    tipoCabina  int,
-    foreign key (tipoCabina) references tipoCabina (id),
-    tipoCliente int,
-    foreign key (tipoCliente) references tipoCliente (id)
-);
-
-INSERT INTO modelo (idNave, tipoEquipo, tipoCabina, tipoCliente)
-VALUES (1, 2, 1, 6);
-
-INSERT INTO modelo (idNave, tipoEquipo, tipoCabina, tipoCliente)
-VALUES (2, 2, 1, 6),
-       (1, 2, 1, 6);
 
 CREATE TABLE nave
 (
@@ -301,9 +38,6 @@ CREATE TABLE nave
 INSERT INTO nave (modelo, matricula)
 VALUES ('Calandria', 'O1'),
        ('Zorzal', 'BA1');
-
-
-# Reeplantear mañana
 
 CREATE TABLE tipoVuelo
 (
@@ -328,23 +62,6 @@ values ('OR'),
        ('BA'),
        ('AA');
 
-select *
-from tipoEquipo;
-
-CREATE TABLE tipoCabina
-(
-    id        int primary key not null auto_increment,
-    turista   int,
-    ejecutivo int,
-    primera   int
-);
-
-insert into tipoCabina (turista, ejecutivo, primera)
-values (0, 0, 100);
-
-select *
-from tipoCabina;
-
 CREATE TABLE tipoCliente
 (
     id          int primary key not null auto_increment,
@@ -360,9 +77,6 @@ values ('1'),
        ('2,3'),
        ('1,2,3');
 
-select *
-from tipoCliente;
-
 CREATE TABLE centroMedico
 (
     id              int primary key not null auto_increment,
@@ -375,5 +89,154 @@ values ('Buenos Aires', 300),
        ('Shangai', 210),
        ('Ankara', 200);
 
-select *
-from centroMedico;
+CREATE TABLE rol
+(
+    id          smallint not null primary key,
+    descripcion varchar(20)
+);
+
+insert into rol(id, descripcion)
+values (1, 'Admin'),
+       (2, 'Cliente');
+
+create table destino
+(
+    id          int auto_increment not null primary key,
+    descripcion varchar(50)
+);
+
+insert into destino (descripcion)
+values ('Titan'),
+       ('Encedalo'),
+       ('Io'),
+       ('Europa'),
+       ('Ganimedes'),
+       ('Marte'),
+       ('Luna'),
+       ('HotelOrbital'),
+       ('EEI');
+
+CREATE TABLE usuario
+(
+    id            integer not null auto_increment primary key,
+    idRol         smallint,
+    nombre        varchar(20),
+    apellido      varchar(20),
+    mail          varchar(30),
+    clave         varchar(50),
+    codigoViajero int     not null,
+    foreign key (idRol) references rol (id),
+    foreign key (codigoViajero) references tipoCliente (id)
+);
+
+# Tabla planificacion es la de grilla
+
+CREATE TABLE planificacion
+(
+    id          int primary key not null auto_increment,
+    dia         varchar(20),
+    horaPartida int,
+    idOrigen    int,
+    foreign key (idOrigen) references origen (id),
+    idModelo    int,
+    foreign key (idModelo) references modelo (id),
+    idTipoVuelo int,
+    foreign key (idTipoVuelo) references tipoVuelo (id)
+);
+
+INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
+VALUES ('L', 8, 1, 1, 1);
+
+INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
+VALUES ('L', 8, 2, 1, 1);
+
+INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
+VALUES ('L', 8, 1, 1, 2);
+
+INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
+VALUES ('D', 8, 1, 1, 2);
+
+# Circuito
+
+SELECT p.id, p.dia, p.horaPartida, o.descripcion as "origen", n.modelo as "modelo", tv.descripcion as "tipoVuelo"
+FROM planificacion p
+         JOIN origen o ON p.idOrigen = o.id
+         JOIN modelo m ON p.idModelo = m.id
+         JOIN nave n ON m.idNave = n.id
+         JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
+WHERE o.descripcion = 'BA';
+
+# Orbitales
+
+SELECT p.id, p.dia, p.horaPartida, o.descripcion as "origen", n.modelo as "modelo"
+FROM planificacion p
+         JOIN origen o ON p.idOrigen = o.id
+         JOIN modelo m ON p.idModelo = m.id
+         JOIN nave n ON m.idNave = n.id
+         JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
+WHERE o.descripcion = 'BA'
+  AND p.dia = 'D'
+  AND tv.descripcion = 'Orbitales';
+
+# Tour
+
+SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', o.descripcion as 'origen', n.modelo as 'modelo'
+FROM planificacion p
+         JOIN origen o ON p.idOrigen = o.id
+         JOIN modelo m ON p.idModelo = m.id
+         JOIN nave n ON m.idNave = n.id
+         JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
+WHERE (o.descripcion = 'BA'
+    OR p.dia = 'D')
+  AND tv.descripcion = 'Tour';
+
+# Vuelo, Origen, Destino, Precio
+
+# CREATE TABLE vuelo
+# (
+#     id        int primary key auto_increment not null,
+#     dia       varchar(25),
+#     duracion  int,
+#     codigo    varchar(50),
+#     idOrigen  int,
+#     foreign key (idOrigen) references origen (id),
+#     destino   varchar(50),
+#     tipoVuelo int,
+#     foreign key (tipoVuelo) references tipoVuelo (id),
+#     modelo    int,
+#     foreign key (modelo) references modelo (id)
+# );
+
+CREATE TABLE modelo
+(
+    id          int primary key not null auto_increment,
+    idNave      int,
+    foreign key (idNave) references nave (id),
+    tipoEquipo  int,
+    foreign key (tipoEquipo) references tipoEquipo (id),
+    turista     int,
+    ejecutivo   int,
+    primera     int,
+    tipoCliente int,
+    foreign key (tipoCliente) references tipoCliente (id)
+);
+
+INSERT INTO modelo (idNave, tipoEquipo, tipoCliente)
+VALUES (1, 2, 6);
+
+INSERT INTO modelo (idNave, tipoEquipo, tipoCliente)
+VALUES (2, 2, 6),
+       (1, 2, 6);
+
+
+CREATE TABLE reserva
+(
+    id              int not null auto_increment primary key,
+    idUsuario       int,
+    foreign key (idUsuario) references usuario (id),
+    idPlanificacion int,
+    foreign key (idPlanificacion) references planificacion (id),
+    fecha           date,
+    idDestino       int,
+    foreign key (idDestino) references destino (id)
+);

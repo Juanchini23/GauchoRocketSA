@@ -2,11 +2,11 @@
 
 class RegistrarModel{
 
-    private $database;
+    private $dataBase;
 
-    public function __construct($database){
+    public function __construct($dataBase){
 
-        $this->database = $database;
+        $this->dataBase = $dataBase;
     }
 
 
@@ -14,13 +14,13 @@ class RegistrarModel{
     public function registrarEnBd($nombre, $apellido, $mail, $clave, $centro){
         $codigoViajero = rand(1,3);
 //        $this->database->restarCapacidadDiaria($centro);
-        $this->database->queryAltaUsuario($nombre, $apellido, $mail, $clave, $codigoViajero);
+        $this->dataBase->queryAltaUsuario($nombre, $apellido, $mail, $clave, $codigoViajero);
     }
 
 
     //me devuelve un array con todos los mails de los usuarios
     public function consultaMailTodosLosUsuarios(){
-        return $this->database->query("SELECT mail FROM usuario");
+        return $this->dataBase->query("SELECT mail FROM usuario");
     }
 
     public function estaDuplicado($mail){
