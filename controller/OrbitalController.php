@@ -12,7 +12,7 @@ class OrbitalController
         $this->printer = $printer;
     }
 
-    public function execute($data = [])
+    public function execute()
     {
         $data = Validator::validarSesion();
 

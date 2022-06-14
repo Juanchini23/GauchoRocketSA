@@ -14,9 +14,8 @@ class RegistrarController
         $this->loginModel = $loginModel;
     }
 
-    public function execute($data = [])
+    public function execute()
     {
-
         $data = Validator::validarSesion();
 
         $this->printer->generateView('homeView.html', $data);

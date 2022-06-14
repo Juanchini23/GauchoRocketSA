@@ -14,7 +14,7 @@ class HomeController
         $this->homeModel = $homeModel;
     }
 
-    public function execute($respuesta = [])
+    public function execute()
     {
         $data = Validator::validarSesion();
 
