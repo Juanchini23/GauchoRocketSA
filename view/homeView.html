@@ -84,29 +84,29 @@
         </tr>
         </thead>
         <tbody>
-        <form action="reserva" method="post">
-            {{#planificacion}}
-            <tr>
-                <td>{{dia}}</td>
-                <td>{{hora}}Hs</td>
-                <td>{{origen}}</td>
-                <td><input type="text" name="destino" value="{{destino}}" class="border-0" readonly disabled></td>
-                <td>{{modelo}}</td>
-                <td>{{tipoVuelo}}</td>
-                {{^loggeado}}
-                <td class="text-danger fw-bold">Inicie sesion</td>
-                {{/loggeado}}
-                {{#loggeado}}d
-				<input type="hidden" name="destino" value="{{destino}}" class="border-0" readonly disabled>
-                <td>
+        {{#planificacion}}
+        <tr>
+            <td>{{dia}}</td>
+            <td>{{hora}}Hs</td>
+            <td>{{origen}}</td>
+            <td>{{destino}}</td>
+            <td>{{modelo}}</td>
+            <td>{{tipoVuelo}}</td>
+            {{^loggeado}}
+            <td class="text-danger fw-bold">Inicie sesion</td>
+            {{/loggeado}}
+            {{#loggeado}}
+            <input type="hidden" name="destino" value="{{destino}}" class="border-0" readonly disabled>
+            <td>
+                <a href="reserva?id={{id}}&fechavuelo={{fecha}}">
                     <button class="btn btn-warning" type="submit">
                         Confirmar
                     </button>
-                </td>
-                {{/loggeado}}
-            </tr>
-            {{/planificacion}}
-        </form>
+                </a>
+            </td>
+            {{/loggeado}}
+        </tr>
+        {{/planificacion}}
         </tbody>
     </table>
 </div>

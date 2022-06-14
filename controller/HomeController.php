@@ -20,7 +20,7 @@ class HomeController
             $respuesta["loggeado"] = 1;
             $respuesta["nombre"] = $_SESSION["usuario"];
         }
-        if(isset($_SESSION["origen"]) && isset( $_SESSION["fecha"]) && isset($_SESSION["destino"])){
+        if (isset($_SESSION["origen"]) && isset($_SESSION["fecha"]) && isset($_SESSION["destino"])) {
             $localStorage = $this->homeModel->busquedaVuelos($_SESSION["origen"], $_SESSION["fecha"]);
             $respuesta["planificacion"] = $localStorage;
         }
@@ -30,12 +30,11 @@ class HomeController
 
     public function busqueda()
     {
-        // guardar la variable de session en una busqueda
-
         $origen = $_POST["origen"] ?? "";
         $fecha = $_POST["fecha"] ?? "";
         $destino = $_POST["destino"] ?? "";
 
+        // LocalStorage
         $_SESSION["origen"] = $origen;
         $_SESSION["fecha"] = $fecha;
         $_SESSION["destino"] = $destino;
