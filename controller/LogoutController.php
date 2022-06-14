@@ -12,7 +12,8 @@ class LogoutController
     public function execute(){
         session_encode();
         session_destroy();
-        $this->printer->generateView('homeView.html');
+        header("location: /");
+		exit();
     }
 
 }

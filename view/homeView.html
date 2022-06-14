@@ -32,12 +32,37 @@
                     <option value="default" disabled selected>Origen...</option>
                     <option value="BA">BA</option>
                     <option value="AK">AK</option>
+                    <option value="EEI">EEI</option>
+                    <option value="HotelOrbital">Hotel Orbital</option>
+                    <option value="Luna">Luna</option>
+                    <option value="Marte">Marte</option>
+                    <option value="Ganimedes">Ganimedes</option>
+                    <option value="Europa">Europa</option>
+                    <option value="Io">Io</option>
+                    <option value="Encedalo">Encedalo</option>
+                    <option value="Titan">Titan</option>
                 </select>
             </div>
             <div class="d-flex">
                 <img src="public/salida.svg" width="20px">
-                <input type="date" name="salida" id="salida" class="form-control ms-1 me-2">
+                <input type="date" name="fecha" id="fecha" class="form-control ms-1 me-2" required>
             </div>
+            <div class="d-flex">
+                <img src="public/destino.svg" width="22px">
+                <select class="form-select ms-1 me-2" aria-label="Default select example" name="destino">
+                    <option value="default" disabled selected>Destino...</option>
+                    <option value="EEI">EEI</option>
+                    <option value="HotelOrbital">Hotel Orbital</option>
+                    <option value="Luna">Luna</option>
+                    <option value="Marte">Marte</option>
+                    <option value="Ganimedes">Ganimedes</option>
+                    <option value="Europa">Europa</option>
+                    <option value="Io">Io</option>
+                    <option value="Encedalo">Encedalo</option>
+                    <option value="Titan">Titan</option>
+                </select>
+            </div>
+
             <div class="d-flex">
                 <button type="submit" class="btn btn-danger d-flex align-items-center"><img src="public/buscar.svg"
                                                                                             width="15px" class="me-2">Buscar
@@ -47,12 +72,13 @@
     </div>
 </form>
 <div class="container">
-    <table class="table table-hover bg-success bg-opacity-75 rounded">
+    <table class="table table-hover bg-opacity-7 rounded">
         <thead>
         <tr>
             <th scope="col">Dia</th>
             <th scope="col">Hora Partifa</th>
             <th scope="col">Origen</th>
+            <th scope="col">Destino</th>
             <th scope="col">Nave</th>
             <th scope="col">Tipo Viaje</th>
         </tr>
@@ -61,15 +87,29 @@
         {{#planificacion}}
         <tr>
             <td>{{dia}}</td>
-            <td>{{horaPartida}}Hs</td>
+            <td>{{hora}}Hs</td>
             <td>{{origen}}</td>
+            <td>{{destino}}</td>
             <td>{{modelo}}</td>
             <td>{{tipoVuelo}}</td>
-            <td><a class="text-white" href="home/especifiacion?id={{id}}">Reservar</a></td>
+            {{^loggeado}}
+            <td class="text-danger fw-bold">Inicie sesion</td>
+            {{/loggeado}}
+            {{#loggeado}}
+            <input type="hidden" name="destino" value="{{destino}}" class="border-0" readonly disabled>
+            <td>
+                <a href="reserva?id={{id}}&fechavuelo={{fecha}}">
+                    <button class="btn btn-warning" type="submit">
+                        Confirmar
+                    </button>
+                </a>
+            </td>
+            {{/loggeado}}
         </tr>
         {{/planificacion}}
         </tbody>
     </table>
 </div>
-
+<!--<a class="text-white" href="reserva?id={{id}}&fechaviaje={{fecha}}&destino={{destino}}">Reservar</a>-->
+<!--<input type="text" name="inputname" value="{{origen}}" class="border-0 bg-success" readonly>-->
 {{> footer}}
