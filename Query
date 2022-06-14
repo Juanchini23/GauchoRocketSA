@@ -129,6 +129,46 @@ CREATE TABLE usuario
     foreign key (codigoViajero) references tipoCliente (id)
 );
 
+
+
+# Vuelo, Origen, Destino, Precio
+
+# CREATE TABLE vuelo
+# (
+#     id        int primary key auto_increment not null,
+#     dia       varchar(25),
+#     duracion  int,
+#     codigo    varchar(50),
+#     idOrigen  int,
+#     foreign key (idOrigen) references origen (id),
+#     destino   varchar(50),
+#     tipoVuelo int,
+#     foreign key (tipoVuelo) references tipoVuelo (id),
+#     modelo    int,
+#     foreign key (modelo) references modelo (id)
+# );
+
+CREATE TABLE modelo
+(
+    id          int primary key not null auto_increment,
+    idNave      int,
+    foreign key (idNave) references nave (id),
+    tipoEquipo  int,
+    foreign key (tipoEquipo) references tipoEquipo (id),
+    turista     int,
+    ejecutivo   int,
+    primera     int,
+    tipoCliente int,
+    foreign key (tipoCliente) references tipoCliente (id)
+);
+
+INSERT INTO modelo (idNave, tipoEquipo, tipoCliente)
+VALUES (1, 2, 6);
+
+INSERT INTO modelo (idNave, tipoEquipo, tipoCliente)
+VALUES (2, 2, 6),
+       (1, 2, 6);
+
 # Tabla planificacion es la de grilla
 
 CREATE TABLE planificacion
@@ -189,44 +229,6 @@ FROM planificacion p
 WHERE (o.descripcion = 'BA'
     OR p.dia = 'D')
   AND tv.descripcion = 'Tour';
-
-# Vuelo, Origen, Destino, Precio
-
-# CREATE TABLE vuelo
-# (
-#     id        int primary key auto_increment not null,
-#     dia       varchar(25),
-#     duracion  int,
-#     codigo    varchar(50),
-#     idOrigen  int,
-#     foreign key (idOrigen) references origen (id),
-#     destino   varchar(50),
-#     tipoVuelo int,
-#     foreign key (tipoVuelo) references tipoVuelo (id),
-#     modelo    int,
-#     foreign key (modelo) references modelo (id)
-# );
-
-CREATE TABLE modelo
-(
-    id          int primary key not null auto_increment,
-    idNave      int,
-    foreign key (idNave) references nave (id),
-    tipoEquipo  int,
-    foreign key (tipoEquipo) references tipoEquipo (id),
-    turista     int,
-    ejecutivo   int,
-    primera     int,
-    tipoCliente int,
-    foreign key (tipoCliente) references tipoCliente (id)
-);
-
-INSERT INTO modelo (idNave, tipoEquipo, tipoCliente)
-VALUES (1, 2, 6);
-
-INSERT INTO modelo (idNave, tipoEquipo, tipoCliente)
-VALUES (2, 2, 6),
-       (1, 2, 6);
 
 
 CREATE TABLE reserva
