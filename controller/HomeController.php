@@ -4,6 +4,10 @@ class HomeController
 {
     private $printer;
 
+	private $circuitoUnoBA = array("tierra"=>0, "eei"=>4,  "orbitalHotel"=>8, "luna"=>16, "marte"=>26);
+	private $circuitoUnoAA = array("tierra"=>0, "eei"=>3,   "orbitalHotel"=>6,   "luna"=>9,   "marte"=>22);
+
+
     public function __construct($homeModel, $printer)
     {
         $this->printer = $printer;
@@ -21,6 +25,8 @@ class HomeController
 
     public function busqueda()
     {
+	// guardar la variable de session en una busqueda
+
         $origen = $_POST["origen"] ?? "";
         $fecha = $_POST["fecha"] ?? "";
         $destino = $_POST["destino"] ?? "";

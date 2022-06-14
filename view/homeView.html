@@ -96,7 +96,8 @@
                 {{^loggeado}}
                 <td class="text-danger fw-bold">Inicie sesion</td>
                 {{/loggeado}}
-                {{#loggeado}}
+                {{#loggeado}}d
+				<input type="hidden" name="destino" value="{{destino}}" class="border-0" readonly disabled>
                 <td>
                     <button class="btn btn-warning" type="submit">
                         Confirmar
