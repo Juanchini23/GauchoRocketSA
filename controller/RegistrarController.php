@@ -14,13 +14,12 @@ class RegistrarController
         $this->loginModel = $loginModel;
     }
 
-    public function execute($respuesta = [])
+    public function execute($data = [])
     {
 
-        if (isset($_SESSION["ClienIn"])) {
-            $respuesta["loggeado"] = 1;
-        }
-        $this->printer->generateView('homeView.html', $respuesta);
+        $data = Validator::validarSesion();
+
+        $this->printer->generateView('homeView.html', $data);
     }
 
     public function registrarse()

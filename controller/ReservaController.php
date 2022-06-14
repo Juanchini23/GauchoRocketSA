@@ -14,10 +14,8 @@ class ReservaController
 
     public function execute()
     {
-        if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
-            $data["loggeado"] = 1;
-            $data["nombre"] = $_SESSION["usuario"];
-        }
+        $data = Validator::validarSesion();
+
         $id = $_GET["id"] ?? "";
         $fechaViaje = $_GET["fechaviaje"] ?? "";
         $idUser = $_SESSION["idUserLog"] ?? "";
@@ -29,9 +27,9 @@ class ReservaController
         $planificacion = $this->reservaModel->getPlanificacion($id);
         $usuario = $this->reservaModel->getUsuario($idUser);
 
-        $data["planificacion"]= $planificacion;
-        $data["usuario"]= $usuario;
-        $data["fechaSalida"]= $fechaViaje;
+        $data["planificacion"] = $planificacion;
+        $data["usuario"] = $usuario;
+        $data["fechaSalida"] = $fechaViaje;
 
         $this->printer->generateView('reservaView.html', $data);
     }

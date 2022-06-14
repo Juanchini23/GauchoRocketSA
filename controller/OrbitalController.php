@@ -14,10 +14,7 @@ class OrbitalController
 
     public function execute($data = [])
     {
-        if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
-            $data["loggeado"] = 1;
-            $data["nombre"] = $_SESSION["usuario"];
-        }
+        $data = Validator::validarSesion();
 
         $this->printer->generateView('orbitalView.html', $data);
     }
