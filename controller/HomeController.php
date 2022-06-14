@@ -21,7 +21,8 @@ class HomeController
             $respuesta["nombre"] = $_SESSION["usuario"];
         }
         if (isset($_SESSION["origen"]) && isset($_SESSION["fecha"]) && isset($_SESSION["destino"])) {
-            $localStorage = $this->homeModel->busquedaVuelos($_SESSION["origen"], $_SESSION["fecha"]);
+            $dia = date('l', strtotime($_SESSION["fecha"]));
+            $localStorage = $this->homeModel->busquedaVuelos($_SESSION["origen"], $dia);
             $respuesta["planificacion"] = $localStorage;
         }
 

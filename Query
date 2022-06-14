@@ -239,6 +239,14 @@ CREATE TABLE reserva
     idPlanificacion int,
     foreign key (idPlanificacion) references planificacion (id),
     fecha           date,
+    idOrigenReserva       int,
+    foreign key (idOrigenReserva ) references origen (id),
     idDestino       int,
     foreign key (idDestino) references destino (id)
 );
+
+INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
+VALUES ('X', 8, 1, 3, 3);
+
+INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
+VALUES ('J', 8, 1, 3, 4);

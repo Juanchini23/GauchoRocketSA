@@ -17,4 +17,11 @@ class ReservaModel
         $this->dataBase->guardarVueloFecha($idUser, $id, $date);
     }
 
+    public function getPlanificacion($id){
+        $this->dataBase->getPlani($id);
+    }
+
+    public function getUsuario($idUser){
+        $this->dataBase->getUsu($idUser);
+    }
 }
