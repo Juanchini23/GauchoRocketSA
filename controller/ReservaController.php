@@ -25,10 +25,8 @@ class ReservaController
         // usuario: nombre apellido
 
         $planificacion = $this->reservaModel->getPlanificacion($id);
-        $usuario = $this->reservaModel->getUsuario($idUser);
 
         $data["planificacion"] = $planificacion;
-        $data["usuario"] = $usuario;
         $data["fechaSalida"] = $fechaViaje;
 
         $this->printer->generateView('reservaView.html', $data);
@@ -37,6 +35,6 @@ class ReservaController
     public function reservar()
     {
 
-//        $this->reservaModel->guardarViajeFecha($idUser, $id, $fechaViaje);
+        //$this->reservaModel->guardarViajeFecha($idUser, $id, $fechaViaje);
     }
 }

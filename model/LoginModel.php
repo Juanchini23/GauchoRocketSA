@@ -23,12 +23,14 @@ class LoginModel
                     $_SESSION["AdminIn"] = 1;
                     $_SESSION["usuario"] = $usuario["nombre"];
                     $_SESSION["idUserLog"] = $usuario["id"];
+                    $_SESSION["apellido"] = $usuario["apellido"];
                     return "Admin";
                 }
                 if ($usuario["idRol"] == 2) {
                     $_SESSION["ClienIn"] = 2;
                     $_SESSION["usuario"] = $usuario["nombre"];
                     $_SESSION["idUserLog"] = $usuario["id"];
+                    $_SESSION["apellido"] = $usuario["apellido"];
                     return "Clien";
                 }
             }
