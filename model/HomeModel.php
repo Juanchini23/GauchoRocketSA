@@ -18,31 +18,31 @@ class HomeModel
 
         switch ($dia) {
             case "Monday":
-                $diaLetra = "L";
+                $diaLetra = "Lunes";
                 break;
 
             case "Tuesday":
-                $diaLetra = "M";
+                $diaLetra = "Martes";
                 break;
 
             case "Wednesday":
-                $diaLetra = "X";
+                $diaLetra = "Miercoles";
                 break;
 
             case "Thursday":
-                $diaLetra = "J";
+                $diaLetra = "Jueves";
                 break;
 
             case "Friday":
-                $diaLetra = "V";
+                $diaLetra = "Viernes";
                 break;
 
             case "Saturday":
-                $diaLetra = "S";
+                $diaLetra = "Sabado";
                 break;
 
             case "Sunday":
-                $diaLetra = "D";
+                $diaLetra = "Domingo";
                 break;
 
             default:

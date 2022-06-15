@@ -18,7 +18,7 @@ class ReservaModel
     }
 
     public function getPlanificacion($id){
-        $this->dataBase->getPlani($id);
+       return $this->dataBase->getPlani($id);
     }
 
     public function getUsuario($idUser){

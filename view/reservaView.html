@@ -3,6 +3,7 @@
 <h1 class="text-center text-danger mt-5 mb-5">Por favor inicie sesion</h1>
 {{/loggeado}}
 {{#loggeado}}
+{{#planificacion}}
 <div class="bg-secondary bg-opacity-75 text-center pt-4 pb-4    ">
 
     <div class="rounded container bg-primary bg-opacity-25 pt-5">
@@ -10,9 +11,9 @@
         <div class="p-3 row pt-5">
             <div class=" ps-5 p-2 text-start col-6">
                 <h4 class="text-center mb-5">Datos del vuelo</h4>
-                <h5>Origen: <span></span></h5>
+                <h5>Origen: <span class="text-white">{{origen}}</span></h5>
                 <div class="d-flex mb-2 mt-2">
-                    <h5>Destino: <span></span></h5>
+                    <h5>Destino: <span class="text-white"></span></h5>
                     <select class="form-select ms-5 me-2 w-25" aria-label="Default select example" name="destino">
                         <option value="default" disabled selected>Destino...</option>
                         <option value="EEI">EEI</option>
@@ -26,16 +27,16 @@
                         <option value="Titan">Titan</option>
                     </select>
                 </div>
-                <h5>Dia de salida: <span></span></h5>
-                <h5>Dia de llegada: <span></span></h5>
-                <h5>Hora de salida: <span></span></h5>
-                <h5>Hora de llegada: <span></span></h5>
+                <h5>Dia de salida: <span class="text-white">{{dia}}</span></h5>
+                <h5>Dia de llegada: <span class="text-white"></span></h5>
+                <h5>Hora de salida: <span class="text-white">{{hora}}Hs</span></h5>
+                <h5>Hora de llegada: <span class="text-white"></span></h5>
             </div>
             <div class="text-start col-6">
                 <h4 class="text-center mb-5">Datos de reserva</h4>
-                <h5>Nombre titular: <span></span></h5>
-                <h5>Apellido titular: <span></span></h5>
-                <h5>Cantidad de butacas: <span></span></h5>
+                <h5>Nombre titular: <span class="text-white"></span></h5>
+                <h5>Apellido titular: <span class="text-white"></span></h5>
+                <h5>Cantidad de butacas: <span class="text-white"></span></h5>
                 <div class="form-group mb-4">
                     <p>¡Selecciona un método de pago!</p>
                     <label><input type="radio" name="centro" value="1" class="me-1" required>Mercado Pago</label>
@@ -50,5 +51,6 @@
         </div>
     </div>
 </div>
+{{/planificacion}}
 {{/loggeado}}
 {{> footer}}

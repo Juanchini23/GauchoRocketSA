@@ -67,7 +67,18 @@ class MySqlDatabase
     }
 
     public function getPlani($id){
-
+        $sql = "SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', o.descripcion as 'origen', n.modelo as 'modelo', tv.descripcion as 'tipoVuelo'
+         FROM planificacion p
+         JOIN origen o ON p.idOrigen = o.id
+         JOIN modelo m ON p.idModelo = m.id
+         JOIN nave n ON m.idNave = n.id
+         JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
+         WHERE p.id = ?;";
+        $comando = $this->conn->prepare($sql);
+        $comando->bind_param("i", $id);
+        $comando->execute();
+        $resultado = $comando->get_result();
+        return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
     }
 
     public function getUsu($id){
