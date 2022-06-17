@@ -24,4 +24,9 @@ class ReservaModel
     public function getUsuario($idUser){
         $this->dataBase->getUsu($idUser);
     }
+
+    public function getDatosModelo($id)
+    {
+        return $this->dataBase->getDatosModelo($id);
+    }
 }

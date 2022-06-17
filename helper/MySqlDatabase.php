@@ -67,9 +67,9 @@ class MySqlDatabase
     }
 
     public function getPlani($id){
-        $sql = "SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', o.descripcion as 'origen', n.modelo as 'modelo', tv.descripcion as 'tipoVuelo'
+        $sql = "SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', l.descripcion as 'origen', n.modelo as 'modelo', tv.descripcion as 'tipoVuelo'
          FROM planificacion p
-         JOIN origen o ON p.idOrigen = o.id
+         JOIN lugar l ON p.idOrigen = l.id
          JOIN modelo m ON p.idModelo = m.id
          JOIN nave n ON m.idNave = n.id
          JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
@@ -82,7 +82,7 @@ class MySqlDatabase
     }
 
     public function getDatosModelo($id){
-        $sql ="SELECT n.modelo as 'nombre', m.turista as 'turista', m.ejecutivo as 'ejecutivo', m.primera as 'primera', te.descripcion as 'tipoEquipo', tc.descripcion as 'tipoCliente'
+        $sql ="SELECT n.modelo as 'nombreNave', m.turista as 'turista', m.ejecutivo as 'ejecutivo', m.primera as 'primera', te.descripcion as 'tipoEquipo', tc.descripcion as 'tipoCliente'
 FROM planificacion p
     JOIN modelo m ON p.idModelo = m.id
     JOIN nave n on m.idNave = n.id

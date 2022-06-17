@@ -27,6 +27,7 @@ class ReservaController
         $planificacion = $this->reservaModel->getPlanificacion($id);
         $datosModelo = $this->reservaModel->getDatosModelo($id);
 
+        $data["idPlanificaicon"] = $id;
         $data["datosModelo"] = $datosModelo;
         $data["planificacion"] = $planificacion;
         $data["fechaSalida"] = $fechaViaje;
@@ -36,7 +37,7 @@ class ReservaController
 
     public function reservar()
     {
-
+        //agarrar el id del logueado
         //$this->reservaModel->guardarViajeFecha($idUser, $id, $fechaViaje);
     }
 }

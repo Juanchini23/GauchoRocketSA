@@ -44,8 +44,4 @@ class RegistrarModel
         return $duplicado;
     }
 
-    public function getDatosModelo($id)
-    {
-        return $this->dataBase->getDatosModelo($id);
-    }
 }
