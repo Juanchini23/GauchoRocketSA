@@ -81,6 +81,21 @@ class MySqlDatabase
         return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
     }
 
+    public function getDatosModelo($id){
+        $sql ="SELECT n.modelo as 'nombre', m.turista as 'turista', m.ejecutivo as 'ejecutivo', m.primera as 'primera', te.descripcion as 'tipoEquipo', tc.descripcion as 'tipoCliente'
+FROM planificacion p
+    JOIN modelo m ON p.idModelo = m.id
+    JOIN nave n on m.idNave = n.id
+    JOIN tipoEquipo tE on m.tipoEquipo = te.id
+    JOIN tipoCliente tC on m.tipoCliente = tc.id
+WHERE p.id = ?;";
+        $comando = $this->conn->prepare($sql);
+        $comando->bind_param("i", $id);
+        $comando->execute();
+        $resultado = $comando->get_result();
+        return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
+    }
+
     public function getUsu($id){
 
     }

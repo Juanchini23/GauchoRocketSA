@@ -25,7 +25,9 @@ class ReservaController
         // usuario: nombre apellido
 
         $planificacion = $this->reservaModel->getPlanificacion($id);
+        $datosModelo = $this->reservaModel->getDatosModelo($id);
 
+        $data["datosModelo"] = $datosModelo;
         $data["planificacion"] = $planificacion;
         $data["fechaSalida"] = $fechaViaje;
 
