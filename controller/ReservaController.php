@@ -26,18 +26,30 @@ class ReservaController
 
         $planificacion = $this->reservaModel->getPlanificacion($id);
         $datosModelo = $this->reservaModel->getDatosModelo($id);
+        $datosLLegada = $this->reservaModel->getDatosLlegada($id, $fechaViaje);
 
-        $data["idPlanificaicon"] = $id;
+        $data["idPlanificacion"] = $id;
         $data["datosModelo"] = $datosModelo;
         $data["planificacion"] = $planificacion;
         $data["fechaSalida"] = $fechaViaje;
+        $data["datosLlegada"] = $datosLLegada;
 
         $this->printer->generateView('reservaView.html', $data);
     }
 
     public function reservar()
     {
-        //agarrar el id del logueado
+        $destino = $_POST["destino"] ?? "";
+        $butaca = $_POST["butaca"] ?? "";
+        $cantidadAsientos = $_POST["cantidadAsientos"] ?? "";
+        $metodoPago = $_POST["metodoPago"] ?? "";
+        $idUser = $_SESSION["idUserLog"] ?? "";
+        $idPlanificacion = $_POST["idPlanificacion"] ?? "";
+        $fechaViaje = $_POST["dia"] ?? "";
+        var_dump($destino, $butaca, $cantidadAsientos, $metodoPago, $idPlanificacion, $idUser, $fechaViaje);
+
+
+        // Generar una reserva
         //$this->reservaModel->guardarViajeFecha($idUser, $id, $fechaViaje);
     }
 }
