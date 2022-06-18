@@ -28,20 +28,14 @@ function getHoraLlegada(destino) {
     return calculo
 }
 
-function getHoraFinal(horaSalida, horaDestino) {
-    if (((horaSalida + horaDestino) >= 23) && ((horaSalida + horaDestino) < 48)) {
-        console.log("entre 1")
-        return horaLlegadaFinal = (horaSalida + horaDestino) - 24;
+function getHoraFinal(cuenta) {
+    if (cuenta < 24) {
+        return cuenta;
+    } else if (cuenta >= 23 && cuenta < 48) {
+        return cuenta - 24;
+    } else if (cuenta >= 48) {
+        return cuenta - 48;
     }
-    if ((horaSalida + horaDestino) >= 48) {
-        console.log("entre 2")
-        return horaLlegadaFinal = (horaSalida + horaDestino) - 48;
-    }
-    if ((horaSalida + horaDestino) < 24) {
-        console.log("entre 3")
-        return (horaSalida + horaDestino);
-    }
-
 }
 
 $(document).ready(function () {
@@ -49,10 +43,9 @@ $(document).ready(function () {
         let destino = $("#destino").val();
         let horaSalida = $("#horaSalida").html();
         let horaDestino = getHoraLlegada(destino);
-        console.log(horaDestino);
-        let calculoHoraLLegada = getHoraFinal(horaSalida, horaDestino);
-        console.log(calculoHoraLLegada);
-
-
+        let cuenta = parseInt(horaSalida) + parseInt(horaDestino);
+        let calculoHoraLLegada = getHoraFinal(cuenta);
+        $("#horaSalida").html().empty();
+        $("#horaSalida").html(calculoHoraLLegada);
     })
 });
