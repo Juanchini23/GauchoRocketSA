@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS GauchoRocketSA;
 DROP DATABASE GauchoRocketSA;
+CREATE DATABASE IF NOT EXISTS GauchoRocketSA;
 USE GauchoRocketSA;
 
 select *
@@ -25,8 +25,17 @@ CREATE TABLE nave
 );
 
 INSERT INTO nave (modelo, matricula)
-VALUES ('Calandria', 'O1'),
+VALUES ('Aguila', 'AA1'),
+       ('Aguilucho', 'BA8'),
+       ('Calandria', 'O1'),
+       ('Canario', 'BA13'),
+       ('Carancho', 'BA4'),
+       ('Colibri', 'O3'),
+       ('Condor', 'AA2'),
+       ('Guanaco', 'AA4'),
+       ('Halcon', 'AA3'),
        ('Zorzal', 'BA1');
+
 
 CREATE TABLE tipoVuelo
 (
@@ -120,25 +129,6 @@ CREATE TABLE usuario
     foreign key (codigoViajero) references tipoCliente (id)
 );
 
-
-
-# Vuelo, Origen, Destino, Precio
-
-# CREATE TABLE vuelo
-# (
-#     id        int primary key auto_increment not null,
-#     dia       varchar(25),
-#     duracion  int,
-#     codigo    varchar(50),
-#     idOrigen  int,
-#     foreign key (idOrigen) references origen (id),
-#     destino   varchar(50),
-#     tipoVuelo int,
-#     foreign key (tipoVuelo) references tipoVuelo (id),
-#     modelo    int,
-#     foreign key (modelo) references modelo (id)
-# );
-
 CREATE TABLE modelo
 (
     id          int primary key not null auto_increment,
@@ -153,12 +143,17 @@ CREATE TABLE modelo
     foreign key (tipoCliente) references tipoCliente (id)
 );
 
-INSERT INTO modelo (idNave, tipoEquipo, tipoCliente)
-VALUES (1, 2, 6);
-
-INSERT INTO modelo (idNave, tipoEquipo, tipoCliente)
-VALUES (2, 2, 6),
-       (1, 2, 6);
+INSERT INTO modelo(idNave, tipoEquipo, turista, ejecutivo, primera, tipoCliente)
+VALUES (1, 3, 200, 75, 25, 6),
+       (2, 2, 0, 50, 10, 6),
+       (3, 1, 200, 75, 25, 7),
+       (4, 2, 0, 70, 10, 6),
+       (5, 2, 110, 0, 0, 6),
+       (6, 1, 100, 18, 2, 7),
+       (7, 3, 300, 10, 40, 6),
+       (8, 3, 0, 0, 100, 3),
+       (9, 3, 150, 25, 25, 3),
+       (10, 2, 50, 50, 0, 6);
 
 # Tabla planificacion es la de grilla
 
@@ -175,17 +170,22 @@ CREATE TABLE planificacion
     foreign key (idTipoVuelo) references tipoVuelo (id)
 );
 
-INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
-VALUES ('L', 8, 1, 1, 1);
+INSERT INTO planificacion(dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
+VALUES ('Lunes', 8, 1, 10, 3),
+       ('Lunes', 8, 2, 5, 4),
+       ('Lunes', 9, 2, 4, 3),
+       ('Lunes', 15, 1, 9, 2),
+       ('Lunes', 20, 1, 8, 3),
+       ('Lunes', 20, 2, 7, 4),
+       ('Lunes', 21, 1, 9, 3),
+       ('Lunes', 8, 1, 3, 1),
+       ('Lunes', 8, 2, 6, 1),
+       ('Lunes', 9, 1, 3, 1),
+       ('Lunes', 9, 2, 6, 1),
+       ('Lunes', 12, 1, 3, 1);
 
-INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
-VALUES ('L', 8, 2, 1, 1);
 
-INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
-VALUES ('L', 8, 1, 1, 2);
 
-INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
-VALUES ('D', 8, 1, 1, 2);
 
 # Circuito
 
@@ -224,20 +224,14 @@ WHERE (l.descripcion = 'BA'
 
 CREATE TABLE reserva
 (
-    id              int not null auto_increment primary key,
-    idUsuario       int,
+    id               int not null auto_increment primary key,
+    idUsuario        int,
     foreign key (idUsuario) references usuario (id),
-    idPlanificacion int,
+    idPlanificacion  int,
     foreign key (idPlanificacion) references planificacion (id),
-    fecha           date,
-    idOrigenReserva       int,
-    foreign key (idOrigenReserva ) references lugar (id),
-    idDestinoReserva       int,
+    fecha            date,
+    idOrigenReserva  int,
+    foreign key (idOrigenReserva) references lugar (id),
+    idDestinoReserva int,
     foreign key (idDestinoReserva) references lugar (id)
 );
-
-INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
-VALUES ('X', 8, 1, 3, 3);
-
-INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
-VALUES ('J', 8, 1, 3, 4);
