@@ -173,8 +173,8 @@ CREATE TABLE planificacion
 INSERT INTO planificacion(dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
 VALUES ('Lunes', 8, 1, 10, 3),
        ('Lunes', 8, 2, 5, 4),
-       ('Lunes', 9, 2, 4, 3),
-       ('Lunes', 15, 1, 9, 2),
+       ('Lunes', 9, 2, 4, 4),
+       ('Lunes', 15, 1, 9, 3),
        ('Lunes', 20, 1, 8, 3),
        ('Lunes', 20, 2, 7, 4),
        ('Lunes', 21, 1, 9, 3),
@@ -182,7 +182,23 @@ VALUES ('Lunes', 8, 1, 10, 3),
        ('Lunes', 8, 2, 6, 1),
        ('Lunes', 9, 1, 3, 1),
        ('Lunes', 9, 2, 6, 1),
-       ('Lunes', 12, 1, 3, 1);
+       ('Lunes', 12, 1, 3, 1),
+       ('Martes', 8, 2, 5, 4),
+       ('Martes', 9, 1, 4, 3),
+       ('Martes', 9, 1, 9, 4),
+       ('Martes', 9, 2, 10, 4),
+       ('Martes', 15, 1, 2, 3),
+       ('Martes', 18, 2, 7, 3),
+       ('Martes', 21, 1, 8, 4),
+       ('Martes', 22, 1, 8, 3),
+       ('Martes', 8, 1, 3, 1),
+       ('Martes', 8, 2, 6, 1),
+       ('Martes', 9, 1, 3, 1),
+       ('Martes', 9, 2, 6, 1),
+       ('Martes', 12, 1, 3, 1),
+
+
+       ;
 
 
 
