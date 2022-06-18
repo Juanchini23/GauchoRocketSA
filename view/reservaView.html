@@ -4,7 +4,7 @@
 {{/loggeado}}
 {{#loggeado}}
 {{#planificacion}}
-<form action="reserva/reservar" method="post">
+<form action="reserva/reservar" method="post" id="form">
     <div class="bg-secondary bg-opacity-75 text-center pt-4 pb-4    ">
 
         <div class="rounded container bg-primary bg-opacity-25 pt-5">
@@ -48,6 +48,7 @@
                     <h5>Dia de llegada: <span class="text-white">{{diaLlegada}}</span></h5>
                     <h5>Hora de salida: <span class="text-white" id="horaSalida">{{hora}}</span>hs</h5>
                     <h5>Hora de llegada: <span class="text-white" id="horaLlegada">-.-</span>hs</h5>
+<!--                    <input type="number" name="llegadaHora" id="llegadaHora" class="d-none" value="">-->
                     {{/datosLlegada}}
                 </div>
                 <div class="text-start col-6">
@@ -74,6 +75,7 @@
                     <input type="hidden" name="nombre" value="{{nombre}}" class="d-none">
                     <input type="hidden" name="apellido" value="{{apellido}}" class="d-none">
                     <input type="hidden" name="idPlanificacion" value="{{idPlanificacion}}" class="d-none">
+<!--                    <input type="hidden" name="llegadaHora" id="llegadaHora" class="d-none">-->
                     <!--     agregar inputs de datos calculados               -->
 
                     <button class="btn btn-success" type="submit">

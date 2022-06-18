@@ -48,4 +48,11 @@ $(document).ready(function () {
         $("#horaLlegada").empty();
         $("#horaLlegada").text(calculoHoraLLegada);
     })
+
+    $("#form").submit((e)=>{
+        let horaLlegada = $("#horaLlegada").html();
+        $("#llegadaHora").val=5;
+    })
 });
+
+
