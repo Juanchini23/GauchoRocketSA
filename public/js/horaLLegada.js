@@ -45,7 +45,7 @@ $(document).ready(function () {
         let horaDestino = getHoraLlegada(destino);
         let cuenta = parseInt(horaSalida) + parseInt(horaDestino);
         let calculoHoraLLegada = getHoraFinal(cuenta);
-        $("#horaSalida").html().empty();
-        $("#horaSalida").html(calculoHoraLLegada);
+        $("#horaLlegada").empty();
+        $("#horaLlegada").text(calculoHoraLLegada);
     })
 });
