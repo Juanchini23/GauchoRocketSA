@@ -48,8 +48,8 @@ class ReservaController
         $idPlanificacion = $_POST["idPlanificacion"] ?? "";
         $fechaViaje = $_POST["dia"] ?? "";
         $horaLlegada = $_POST["llegadaHora"] ?? "";
-        //var_dump($destino, $butaca, $cantidadAsientos, $metodoPago, $idPlanificacion, $idUser, $fechaViaje);
-        var_dump($horaLlegada);
+        var_dump($destino, $butaca, $cantidadAsientos, $metodoPago, $idPlanificacion, $idUser, $fechaViaje, $horaLlegada);
+
 
         // Generar una reserva
         //$this->reservaModel->guardarViajeFecha($idUser, $id, $fechaViaje);

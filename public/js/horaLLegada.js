@@ -47,12 +47,11 @@ $(document).ready(function () {
         let calculoHoraLLegada = getHoraFinal(cuenta);
         $("#horaLlegada").empty();
         $("#horaLlegada").text(calculoHoraLLegada);
+        $("#aca").empty();
+        $("#aca").append(`<input type="number" name="llegadaHora" value="${calculoHoraLLegada}">`);
     })
 
-    $("#form").submit((e)=>{
-        let horaLlegada = $("#horaLlegada").html();
-        $("#llegadaHora").val=5;
-    })
+
 });
 
 

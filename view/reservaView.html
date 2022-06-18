@@ -48,8 +48,8 @@
                     <h5>Dia de llegada: <span class="text-white">{{diaLlegada}}</span></h5>
                     <h5>Hora de salida: <span class="text-white" id="horaSalida">{{hora}}</span>hs</h5>
                     <h5>Hora de llegada: <span class="text-white" id="horaLlegada">-.-</span>hs</h5>
-<!--                    <input type="number" name="llegadaHora" id="llegadaHora" class="d-none" value="">-->
-                    {{/datosLlegada}}
+
+                   {{/datosLlegada}}
                 </div>
                 <div class="text-start col-6">
                     <h4 class="text-center mb-5">Datos de reserva</h4>
@@ -75,7 +75,7 @@
                     <input type="hidden" name="nombre" value="{{nombre}}" class="d-none">
                     <input type="hidden" name="apellido" value="{{apellido}}" class="d-none">
                     <input type="hidden" name="idPlanificacion" value="{{idPlanificacion}}" class="d-none">
-<!--                    <input type="hidden" name="llegadaHora" id="llegadaHora" class="d-none">-->
+                    <div class="invisible d-none" id="aca" ></div>
                     <!--     agregar inputs de datos calculados               -->
 
                     <button class="btn btn-success" type="submit">
