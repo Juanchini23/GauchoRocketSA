@@ -34,6 +34,7 @@ class ReservaModel
 
     public function getDatosLlegada($id, $fehaViaje)
     {
+        //$horaSalida = $this->dataBase->getHorarioSalida($id);
         $miFecha = date('Y-m-d H:i:s');
         $diaLlegada = 1;
         $horaLlegada = strtotime('+5 hour', strtotime($miFecha));

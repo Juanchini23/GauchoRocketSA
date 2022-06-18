@@ -30,7 +30,7 @@
                     <h5>Origen: <span class="text-white">{{origen}}</span></h5>
                     <div class="d-flex mb-2 mt-2">
                         <h5>Destino: <span class="text-white"></span></h5>
-                        <select class="form-select ms-5 me-2 w-25" aria-label="Default select example" name="destino">
+                        <select class="form-select ms-5 me-2 w-25" aria-label="Default select example" name="destino" id="destino">
                             <option value="default" disabled selected>Destino...</option>
                             <option value="EEI">EEI</option>
                             <option value="HotelOrbital">Hotel Orbital</option>
@@ -85,6 +85,7 @@
         </div>
     </div>
 </form>
+<script src="public/js/horaLlegada.js"></script>
 {{/planificacion}}
 {{/loggeado}}
 {{> footer}}
