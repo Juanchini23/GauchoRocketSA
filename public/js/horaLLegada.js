@@ -47,8 +47,8 @@ $(document).ready(function () {
         let calculoHoraLLegada = getHoraFinal(cuenta);
         $("#horaLlegada").empty();
         $("#horaLlegada").text(calculoHoraLLegada);
-        $("#aca").empty();
-        $("#aca").append(`<input type="number" name="llegadaHora" value="${calculoHoraLLegada}">`);
+        $("#llegadaHora").empty();
+        $("#llegadaHora").append(`<input type="number" name="llegadaHora" value="${calculoHoraLLegada}">`);
     })
 
 
