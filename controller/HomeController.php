@@ -14,18 +14,17 @@ class HomeController
         $this->homeModel = $homeModel;
     }
 
-    public function execute($respuesta = [])
+    public function execute()
     {
-        if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
-            $respuesta["loggeado"] = 1;
-            $respuesta["nombre"] = $_SESSION["usuario"];
-        }
+        $data = Validator::validarSesion();
+
         if (isset($_SESSION["origen"]) && isset($_SESSION["fecha"]) && isset($_SESSION["destino"])) {
-            $localStorage = $this->homeModel->busquedaVuelos($_SESSION["origen"], $_SESSION["fecha"]);
-            $respuesta["planificacion"] = $localStorage;
+            $dia = date('l', strtotime($_SESSION["fecha"]));
+            $localStorage = $this->homeModel->busquedaVuelos($_SESSION["origen"], $dia);
+            $data["planificacion"] = $localStorage;
         }
 
-        $this->printer->generateView('homeView.html', $respuesta);
+        $this->printer->generateView('homeView.html', $data);
     }
 
     public function busqueda()

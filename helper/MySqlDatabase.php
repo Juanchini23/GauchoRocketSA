@@ -61,8 +61,42 @@ class MySqlDatabase
     public function guardarVueloFecha($idUser, $id, $date){
         $sql = "INSERT INTO reserva(idUsuario, idPlanificacion, fecha) values (?, ?, ?);";
         $comando = $this->conn->prepare($sql);
-        $comando->bind_param("iid", $idUser, $id, $date);
+        $comando->bind_param("iis", $idUser, $id, $date);
         $comando->execute();
+
+    }
+
+    public function getPlani($id){
+        $sql = "SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', l.descripcion as 'origen', n.modelo as 'modelo', tv.descripcion as 'tipoVuelo'
+         FROM planificacion p
+         JOIN lugar l ON p.idOrigen = l.id
+         JOIN modelo m ON p.idModelo = m.id
+         JOIN nave n ON m.idNave = n.id
+         JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
+         WHERE p.id = ?;";
+        $comando = $this->conn->prepare($sql);
+        $comando->bind_param("i", $id);
+        $comando->execute();
+        $resultado = $comando->get_result();
+        return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
+    }
+
+    public function getDatosModelo($id){
+        $sql ="SELECT n.modelo as 'nombreNave', m.turista as 'turista', m.ejecutivo as 'ejecutivo', m.primera as 'primera', te.descripcion as 'tipoEquipo', tc.descripcion as 'tipoCliente'
+FROM planificacion p
+    JOIN modelo m ON p.idModelo = m.id
+    JOIN nave n on m.idNave = n.id
+    JOIN tipoEquipo tE on m.tipoEquipo = te.id
+    JOIN tipoCliente tC on m.tipoCliente = tc.id
+WHERE p.id = ?;";
+        $comando = $this->conn->prepare($sql);
+        $comando->bind_param("i", $id);
+        $comando->execute();
+        $resultado = $comando->get_result();
+        return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
+    }
+
+    public function getUsu($id){
 
     }
 

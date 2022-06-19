@@ -3,6 +3,19 @@
 <h3 class="text-center text-danger bg-warning m-0 p-2">{{duplicado}}</h3>
 {{/duplicado}}
 
+{{#vacio}}
+<div class="d-flex justify-content-center flex-wrap bg-warning">
+    <img src="/public/error.svg" class="m-2 bg-white rounded-circle" width="50px">
+    <h3 class="text-center text-danger m-0 p-2">{{vacio}}</h3>
+</div>
+
+<div class="d-flex justify-content-center flex-wrap bg-warning">
+    <img src="/public/constructora.svg" class="m-2" width="50px">
+    <h3 class="text-center text-success m-0 p-2">Solucionemoslo!!!</h3>
+    <img src="/public/chicoMuyAplicado.svg" class="m-2" width="50px">
+</div>
+{{/vacio}}
+
 <div class="bg-secondary text-center" style="background-image: url('/public/estrellitas.jpg')">
     <h2 class="pt-5 text-white">¡Hace un viaje Orbital o un Tour!</h2>
     <div class="container mt-5 pb-5 pt-3 mb-5">
@@ -47,21 +60,6 @@
                 <img src="public/salida.svg" width="20px">
                 <input type="date" name="fecha" id="fecha" class="form-control ms-1 me-2" required>
             </div>
-            <div class="d-flex">
-                <img src="public/destino.svg" width="22px">
-                <select class="form-select ms-1 me-2" aria-label="Default select example" name="destino">
-                    <option value="default" disabled selected>Destino...</option>
-                    <option value="EEI">EEI</option>
-                    <option value="HotelOrbital">Hotel Orbital</option>
-                    <option value="Luna">Luna</option>
-                    <option value="Marte">Marte</option>
-                    <option value="Ganimedes">Ganimedes</option>
-                    <option value="Europa">Europa</option>
-                    <option value="Io">Io</option>
-                    <option value="Encedalo">Encedalo</option>
-                    <option value="Titan">Titan</option>
-                </select>
-            </div>
 
             <div class="d-flex">
                 <button type="submit" class="btn btn-danger d-flex align-items-center"><img src="public/buscar.svg"
@@ -96,9 +94,8 @@
             <td class="text-danger fw-bold">Inicie sesion</td>
             {{/loggeado}}
             {{#loggeado}}
-            <input type="hidden" name="destino" value="{{destino}}" class="border-0" readonly disabled>
             <td>
-                <a href="reserva?id={{id}}&fechavuelo={{fecha}}">
+                <a href="reserva?id={{id}}&fechavuelo={{fecha}}&hora={{hora}}">
                     <button class="btn btn-warning" type="submit">
                         Confirmar
                     </button>
@@ -110,6 +107,7 @@
         </tbody>
     </table>
 </div>
+<!--<input type="hidden" name="destino" value="{{destino}}" class="border-0" readonly disabled>-->
 <!--<a class="text-white" href="reserva?id={{id}}&fechaviaje={{fecha}}&destino={{destino}}">Reservar</a>-->
 <!--<input type="text" name="inputname" value="{{origen}}" class="border-0 bg-success" readonly>-->
 {{> footer}}

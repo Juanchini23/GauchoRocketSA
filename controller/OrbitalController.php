@@ -12,12 +12,9 @@ class OrbitalController
         $this->printer = $printer;
     }
 
-    public function execute($data = [])
+    public function execute()
     {
-        if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
-            $data["loggeado"] = 1;
-            $data["nombre"] = $_SESSION["usuario"];
-        }
+        $data = Validator::validarSesion();
 
         $this->printer->generateView('orbitalView.html', $data);
     }

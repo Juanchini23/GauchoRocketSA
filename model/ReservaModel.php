@@ -17,4 +17,27 @@ class ReservaModel
         $this->dataBase->guardarVueloFecha($idUser, $id, $date);
     }
 
+    public function getPlanificacion($id)
+    {
+        return $this->dataBase->getPlani($id);
+    }
+
+    public function getUsuario($idUser)
+    {
+        $this->dataBase->getUsu($idUser);
+    }
+
+    public function getDatosModelo($id)
+    {
+        return $this->dataBase->getDatosModelo($id);
+    }
+
+    public function getDatosLlegada($id, $fehaViaje)
+    {
+        //$horaSalida = $this->dataBase->getHorarioSalida($id);
+        $miFecha = date('Y-m-d H:i:s');
+        $diaLlegada = 1;
+        $horaLlegada = strtotime('+5 hour', strtotime($miFecha));
+        return array(["diaLlegada" => $diaLlegada, "horaLLegada" => $horaLlegada]);
+    }
 }
