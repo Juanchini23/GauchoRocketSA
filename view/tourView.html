@@ -1,7 +1,9 @@
 {{> header}}
 
 <div class="d-flex justify-content-center flex-wrap m-3">
-    <a href="/"><button type="button" class="btn btn-warning">Volver</button></a>
+    <a href="/">
+        <button type="button" class="btn btn-warning">Volver</button>
+    </a>
 </div>
 
 
@@ -31,6 +33,15 @@
             </div>
         </div>
     </form>
+
+    {{#sinDatosTours}}
+    <div class="d-flex justify-content-center flex-wrap bg-warning">
+        <img src="/public/error.svg" class="m-2 bg-white rounded-circle" width="50px">
+        <h3 class="m-3">{{sinDatosTours}}</h3>
+    </div>
+    {{/sinDatosTours}}
+
+    {{#tours}}
     <table class="table table-hover bg-primary bg-opacity-75 rounded">
         <thead>
         <tr>
@@ -39,7 +50,6 @@
         </tr>
         </thead>
         <tbody>
-        {{#tours}}
         <tr>
             <td class="text-white">{{dia}}</td>
             <td class="text-white">{{hora}}Hs</td>
