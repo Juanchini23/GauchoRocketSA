@@ -28,7 +28,7 @@ function getHoraLlegada(destino) {
     return calculo
 }
 
-function getHoraFinal(cuenta) {
+function getHoraFinal(cuenta, diaSalida, diaLlegada) {
     if (cuenta < 24) {
         return cuenta;
     } else if (cuenta >= 23 && cuenta < 48) {
@@ -38,17 +38,65 @@ function getHoraFinal(cuenta) {
     }
 }
 
+function getDiaLLegada(cuenta, diaSalida) {
+    if (cuenta < 24) {
+        return diaSalida;
+    } else if (cuenta >= 23 && cuenta < 48) {
+        switch (diaSalida) {
+            case "Lunes":
+                return "Martes";
+            case "Martes":
+                return "Miercoles";
+            case "Miercoles":
+                return "Jueves";
+            case "Jueves":
+                return "Viernes";
+            case "Viernes":
+                return "Sabado";
+            case "Sabado":
+                return "Domingo";
+            case "Domindo":
+                return "Lunes";
+        }
+    } else if (cuenta >= 48) {
+        switch (diaSalida) {
+            case "Lunes":
+                return "Miercoles";
+            case "Martes":
+                return "Jueves";
+            case "Miercoles":
+                return "Viernes";
+            case "Jueves":
+                return "Sabado";
+            case "Viernes":
+                return "Domingo";
+            case "Sabado":
+                return "Lunes";
+            case "Domindo":
+                return "Martes";
+        }
+    }
+}
+
 $(document).ready(function () {
     $("#destino").change(function (e) {
+        let diaSalida = $("#diaSalida").html();
         let destino = $("#destino").val();
         let horaSalida = $("#horaSalida").html();
         let horaDestino = getHoraLlegada(destino);
         let cuenta = parseInt(horaSalida) + parseInt(horaDestino);
         let calculoHoraLLegada = getHoraFinal(cuenta);
+        let diaLlegada = getDiaLLegada(cuenta, diaSalida);
+
         $("#horaLlegada").empty();
         $("#horaLlegada").text(calculoHoraLLegada);
         $("#llegadaHora").empty();
         $("#llegadaHora").append(`<input type="number" name="llegadaHora" value="${calculoHoraLLegada}">`);
+
+        $("#diaLlegada").empty();
+        $("#diaLlegada").text(diaLlegada);
+        console.log(diaLlegada);
+        console.log(diaSalida);
     })
 
 
