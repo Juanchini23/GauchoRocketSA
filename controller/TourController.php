@@ -30,7 +30,13 @@ class TourController
         $origen = $_POST["origen"] ?? "";
 
         $respuesta = $this->tourModel->getTours($dia, $origen);
-        $data["tours"] = $respuesta;
+
+        if($respuesta){
+            $data["tours"] = $respuesta;
+        } else{
+            $data["sinDatosTours"] = "Error! Debe seleccionar un dia y un origen";
+        }
+
 
         $this->printer->generateView('tourView.html', $data);
     }
