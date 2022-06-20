@@ -104,26 +104,6 @@ WHERE p.id = ?;";
 
     }
 
-    public function getTours($dia, $origen)
-    {
-
-        //proteccion para el SQL  :-)
-        $diaSeguro = htmlentities($dia,ENT_QUOTES,'utf-8');
-        $origenSeguro = htmlentities($origen,ENT_QUOTES,'utf-8');
-
-        $sql = ("SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', l.descripcion as 'origen', n.modelo as 'modelo'
-                    FROM planificacion p
-                        JOIN lugar l ON p.idOrigen = l.id
-                        JOIN modelo m ON p.idModelo = m.id
-                        JOIN nave n ON m.idNave = n.id
-                        JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
-                    WHERE (l.descripcion = '{$origenSeguro}' OR p.dia = '{$diaSeguro}') AND tv.descripcion = 'Tour'");
-
-        $result = mysqli_query($this->conn, $sql);
-        return mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-    }
-
 
     private function connect()
     {

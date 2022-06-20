@@ -15,7 +15,7 @@
                 <div class="d-flex">
                     <select class="form-select ms-1 me-2" aria-label="Default select example" name="dia">
                         <option value="default" disabled selected>Dia...</option>
-                        <option value="D">Domingo</option>
+                        <option value="Domingo">Domingo</option>
                     </select>
                 </div>
                 <div class="d-flex">
@@ -34,6 +34,18 @@
         </div>
     </form>
 
+    <!--form para el boton que buscar todos los vuelos-->
+    <form action="tour/busquedaTodosLosTours">
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-info d-flex align-items-center m-3">
+                <p class="m-3 h5">Mostrar todos los vuelos</p>
+                <img src="/public/tierraNave.svg" width="48px">
+            </button>
+        </div>
+    </form>
+
+
+
     {{#sinDatosTours}}
     <div class="d-flex justify-content-center flex-wrap bg-warning">
         <img src="/public/error.svg" class="m-2 bg-white rounded-circle" width="50px">
@@ -41,21 +53,24 @@
     </div>
     {{/sinDatosTours}}
 
-    {{#tours}}
+
     <table class="table table-hover bg-primary bg-opacity-75 rounded">
         <thead>
         <tr>
             <th scope="col">Dia</th>
             <th scope="col">Duracion</th>
             <th scope="col">Origen</th>
+            <th scope="col">Nave</th>
         </tr>
         </thead>
         <tbody>
+        {{#tours}}
         <tr>
             <td class="text-white">{{dia}}</td>
             <td class="text-white">{{hora}}Hs</td>
             <td class="text-white">{{origen}}</td>
-            <td><a class="text-dark bg-warning p-1 " href="tour/reservar?id={{id}}">Reservar</a></td>
+            <td class="text-white">{{modelo}}</td>
+            <td><a class="text-dark bg-warning p-1" href="tour/reservar?id={{id}}">Reservar</a></td>
         </tr>
         {{/tours}}
         </tbody>
