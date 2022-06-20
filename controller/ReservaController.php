@@ -48,6 +48,7 @@ class ReservaController
         $idPlanificacion = $_POST["idPlanificacion"] ?? "";
         $fechaViaje = $_POST["dia"] ?? "";
         $horaLlegada = $_POST["llegadaHora"] ?? "";
+
         var_dump($destino, $butaca, $cantidadAsientos, $metodoPago, $idPlanificacion, $idUser, $fechaViaje, $horaLlegada);
 
 

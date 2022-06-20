@@ -1,7 +1,9 @@
 {{> header}}
 
 <div class="d-flex justify-content-center flex-wrap p-3 bg-secondary bg-opacity-75">
-    <a href="/"><button type="button" class="btn btn-warning">Volver</button></a>
+    <a href="/">
+        <button type="button" class="btn btn-warning">Volver</button>
+    </a>
 </div>
 
 
@@ -36,7 +38,8 @@
                     <h5>Origen: <span class="text-white">{{origen}}</span></h5>
                     <div class="d-flex mb-2 mt-2">
                         <h5>Destino: <span class="text-white"></span></h5>
-                        <select class="form-select ms-5 me-2 w-25" aria-label="Default select example" name="destino" id="destino">
+                        <select class="form-select ms-5 me-2 w-25" aria-label="Default select example" name="destino"
+                                id="destino">
                             <option value="default" disabled selected>Destino...</option>
                             <option value="EEI">EEI</option>
                             <option value="HotelOrbital">Hotel Orbital</option>
@@ -50,12 +53,12 @@
                         </select>
                     </div>
                     {{#datosLlegada}}
-                    <h5>Dia de salida: <span class="text-white">{{dia}}</span></h5>
-                    <h5>Dia de llegada: <span class="text-white">{{diaLlegada}}</span></h5>
+                    <h5>Dia de salida: <span class="text-white" id="diaSalida">{{dia}}</span></h5>
                     <h5>Hora de salida: <span class="text-white" id="horaSalida">{{hora}}</span>hs</h5>
+                    <h5>Dia de llegada: <span class="text-white" id="diaLlegada"> </span></h5>
                     <h5>Hora de llegada: <span class="text-white" id="horaLlegada">-.-</span>hs</h5>
 
-                   {{/datosLlegada}}
+                    {{/datosLlegada}}
                 </div>
                 <div class="text-start col-6">
                     <h4 class="text-center mb-5">Datos de reserva</h4>
@@ -81,7 +84,7 @@
                     <input type="hidden" name="nombre" value="{{nombre}}" class="d-none">
                     <input type="hidden" name="apellido" value="{{apellido}}" class="d-none">
                     <input type="hidden" name="idPlanificacion" value="{{idPlanificacion}}" class="d-none">
-                    <div class="invisible d-none" id="llegadaHora" ></div>
+                    <div class="invisible d-none" id="llegadaHora"></div>
                     <!--     agregar inputs de datos calculados               -->
 
                     <button class="btn btn-success" type="submit">
