@@ -34,13 +34,22 @@
         </div>
     </form>
 
-    <!--si le dan click a buscar sin datos salta esto-->
+    <!--Si no hay vuelos que matcheen con la BD-->
     {{#sinDatosTours}}
     <div class="d-flex justify-content-center flex-wrap bg-warning">
-        <img src="/public/error.svg" class="m-2 bg-white rounded-circle" width="50px">
+        <img src="/public/surprised.svg" class="m-2 bg-white rounded-circle" width="50px">
         <h3 class="m-3">{{sinDatosTours}}</h3>
     </div>
     {{/sinDatosTours}}
+
+
+    <!--si le dan click a buscar sin datos salta esto-->
+    {{#errorSinSeleccion}}
+    <div class="d-flex justify-content-center flex-wrap bg-warning">
+        <img src="/public/error.svg" class="m-2 bg-white rounded-circle" width="50px">
+        <h3 class="m-3">{{errorSinSeleccion}}</h3>
+    </div>
+    {{/errorSinSeleccion}}
 
     <!--form para el boton que buscar todos los vuelos-->
     <form action="tour/busquedaTodosLosTours">
@@ -68,7 +77,7 @@
             <td class="text-white">{{hora}}Hs</td>
             <td class="text-white">{{origen}}</td>
             <td class="text-white">{{modelo}}</td>
-            <td><a class="text-dark bg-warning p-1" href="tour/reservar?id={{id}}">Reservar</a></td>
+            <td><a class="text-dark bg-warning p-1" href="tour/confirmarVueloTour?id={{id}}">Reservar</a></td>
         </tr>
         {{/tours}}
         </tbody>

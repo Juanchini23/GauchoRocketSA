@@ -1,0 +1,71 @@
+{{> header}}
+
+<div class="d-flex justify-content-center flex-wrap m-3">
+    <a href="/tour">
+        <button type="button" class="btn btn-warning">Volver</button>
+    </a>
+</div>
+
+
+{{#planificacion}}
+{{#datosModelo}}
+
+<form action="tour/generarPDFyQR" method="post">
+    <div class="d-flex justify-content-center flex-wrap">
+        <h1>Completa los datos</h1>
+        <img src="/public/pencil.svg" class="m-2" width="36px">
+    </div>
+
+    <section>
+        <div class="row d-flex justify-content-center m-5">
+
+            <div class="col-sm-10 col-12 col-md-6 col-lg bg-secondary bg-opacity-50 m-3">
+
+                <h3>Datos de la Nave</h3>
+                <h5>Nombre de la nave: <span class="text-white">{{nombreNave}}</span></h5>
+                <h5>Tipo de cliente: <span class="text-white">{{tipoCliente}}</span></h5>
+                <h5>Disponibilidad clase turista: <span class="text-white">{{turista}}</span></h5>
+                <h5>Disponibilidad clase ejecutivo: <span class="text-white">{{ejecutivo}}</span></h5>
+                <h5>Disponibilidad clase primera: <span class="text-white">{{primera}}</span></h5>
+            </div>
+
+            <div class="col-sm-10 col-12 col-md-6 col-lg bg-primary m-3 bg-opacity-50 ">
+
+                <h3>Datos del vuelo</h3>
+                <h5>Origen: <span class="text-white">{{origen}}</span></h5>
+                <h5>Dia de salida: <span class="text-white" id="diaSalida">{{dia}}</span></h5>
+                <h5>Hora de salida: <span class="text-white" id="horaSalida">{{hora}}</span>hs</h5>
+
+            </div>
+
+            <div class="col-sm-10 col-12 col-md-6 col-lg bg-info m-3 bg-opacity-50 ">
+
+                <h3>Datos de reserva</h3>
+                <h5>Nombre titular: <span class="text-white">{{nombre}}</span></h5>
+                <h5>Apellido titular: <span class="text-white">{{apellido}}</span></h5>
+                <h5 class="d-inline">Butacas: <span class="text-white"></span></h5>
+                <select class="form-select ms-5 me-2 w-25 d-inline" aria-label="Default select example"
+                        name="butaca">
+                    <option value="default" disabled selected>Tipo...</option>
+                    <option value="primera">Primera</option>
+                </select>
+                <input type="number" class="form-control w-25 d-inline" name="cantidadAsientos">
+                <div class="form-group mb-4">
+                    <p>¡Selecciona un método de pago!</p>
+                    <label><input type="radio" name="metodoPago" value="MP" class="me-1" required>Mercado
+                        Pago</label>
+                    <label class="ms-2 me-2"><input type="radio" name="metodoPago" value="EF" class="me-1" required>Efectivo</label>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="d-flex justify-content-center flex-wrap m-5">
+        <button type="submit" class="btn btn-success"><h1 class="text-white">Confirmar</h1></button>
+    </div>
+</form>
+
+{{/datosModelo}}
+{{/planificacion}}
+
+{{> footer}}
