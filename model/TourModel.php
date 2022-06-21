@@ -26,8 +26,7 @@ class TourModel
                         JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
                     WHERE l.descripcion = '{$origenSeguro}' AND p.dia = '{$diaSeguro}' AND tv.descripcion = 'Tour'");
 
-        }
-        if ($dia == null && $origen) {
+        } else {
             return $this->dataBase->query("SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', l.descripcion as 'origen', n.modelo as 'modelo'
                     FROM planificacion p
                         JOIN lugar l ON p.idOrigen = l.id
@@ -36,16 +35,6 @@ class TourModel
                         JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
                     WHERE (l.descripcion = '{$origenSeguro}' OR p.dia = '{$diaSeguro}') AND tv.descripcion = 'Tour'");
         }
-        if ($dia && $origen == null) {
-            return $this->dataBase->query("SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', l.descripcion as 'origen', n.modelo as 'modelo'
-                    FROM planificacion p
-                        JOIN lugar l ON p.idOrigen = l.id
-                        JOIN modelo m ON p.idModelo = m.id
-                        JOIN nave n ON m.idNave = n.id
-                        JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
-                    WHERE (l.descripcion = '{$origenSeguro}' OR p.dia = '{$diaSeguro}') AND tv.descripcion = 'Tour'");
-        }
-
     }
 
     public function getTodosLosTours(){
