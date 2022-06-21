@@ -38,6 +38,14 @@
         </div>
     </form>
 
+    <!--si le dan click a buscar sin datos salta esto-->
+    {{#sinDatosOrbitales}}
+    <div class="d-flex justify-content-center flex-wrap bg-warning">
+        <img src="/public/error.svg" class="m-2 bg-white rounded-circle" width="50px">
+        <h3 class="m-3">{{sinDatosOrbitales}}</h3>
+    </div>
+    {{/sinDatosOrbitales}}
+
     <!--form para el boton que buscar todos los vuelos-->
     <form action="orbital/busquedaTodosLosOrbitales">
         <div class="d-flex justify-content-center">
@@ -47,13 +55,6 @@
             </button>
         </div>
     </form>
-
-    {{#sinDatosOrbitales}}
-    <div class="d-flex justify-content-center flex-wrap bg-warning">
-        <img src="/public/error.svg" class="m-2 bg-white rounded-circle" width="50px">
-        <h3 class="m-3">{{sinDatosOrbitales}}</h3>
-    </div>
-    {{/sinDatosOrbitales}}
 
 
     <table class="table table-hover bg-primary bg-opacity-75 rounded">

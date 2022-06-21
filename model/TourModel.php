@@ -13,10 +13,6 @@ class TourModel
     public function getTours($dia, $origen)
     {
 
-        //proteccion para el SQL  :-)
-        $diaSeguro = htmlentities($dia, ENT_QUOTES, 'utf-8');
-        $origenSeguro = htmlentities($origen, ENT_QUOTES, 'utf-8');
-
         if ($dia && $origen) {
             return $this->dataBase->query("SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', l.descripcion as 'origen', n.modelo as 'modelo'
                     FROM planificacion p
@@ -24,7 +20,7 @@ class TourModel
                         JOIN modelo m ON p.idModelo = m.id
                         JOIN nave n ON m.idNave = n.id
                         JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
-                    WHERE l.descripcion = '{$origenSeguro}' AND p.dia = '{$diaSeguro}' AND tv.descripcion = 'Tour'");
+                    WHERE l.descripcion = '{$origen}' AND p.dia = '{$dia}' AND tv.descripcion = 'Tour'");
 
         } else {
             return $this->dataBase->query("SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', l.descripcion as 'origen', n.modelo as 'modelo'
@@ -33,7 +29,7 @@ class TourModel
                         JOIN modelo m ON p.idModelo = m.id
                         JOIN nave n ON m.idNave = n.id
                         JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
-                    WHERE (l.descripcion = '{$origenSeguro}' OR p.dia = '{$diaSeguro}') AND tv.descripcion = 'Tour'");
+                    WHERE (l.descripcion = '{$origen}' OR p.dia = '{$dia}') AND tv.descripcion = 'Tour'");
         }
     }
 
