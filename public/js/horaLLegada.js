@@ -1,27 +1,7 @@
 let circuitoUnoBA = {"Tierra": 0, "EEI": 4, "HotelOrbital": 8, "Luna": 16, "Marte": 26};
 let circuitoUnoAA = {"Tierra": 0, "EEI": 3, "HotelOrbital": 6, "Luna": 9, "Marte": 22};
-let circuitoDosBA = {
-    "Tierra": 0,
-    "EEI": 4,
-    "Luna": 14,
-    "Marte": 26,
-    "Ganimedes": 48,
-    "Europa": 50,
-    "Io": 51,
-    "Encedalo": 70,
-    "Titan": 77
-};
-let circuitoDosAA = {
-    "Tierra": 0,
-    "EEI": 3,
-    "Luna": 10,
-    "Marte": 22,
-    "Ganimedes": 32,
-    "Europa": 33,
-    "Io": 35,
-    "Encedalo": 50,
-    "Titan": 52
-};
+let circuitoDosBA = {"Tierra": 0, "Luna": 14, "Marte": 26, "Ganimedes": 48, "Europa": 50, "Io": 51, "Encedalo": 70, "Titan": 77};
+let circuitoDosAA = {"Tierra": 0, "EEI": 3, "Luna": 10, "Marte": 22, "Ganimedes": 32, "Europa": 33, "Io": 35, "Encedalo": 50, "Titan": 52};
 
 function getHora(tipoCircuito, tipoAceleracion, destino) {
     let calculo = 0;
@@ -30,36 +10,32 @@ function getHora(tipoCircuito, tipoAceleracion, destino) {
             for (let value in circuitoUnoBA) {
                 if (value == destino) {
                     return calculo = circuitoUnoBA[value]
-                } else {
-                    return undefined;
                 }
             }
+            return undefined;
         } else if (tipoAceleracion == 'AA') {
             for (let value in circuitoUnoAA) {
                 if (value == destino) {
                     return calculo = circuitoUnoAA[value]
-                } else {
-                    return undefined;
                 }
             }
+            return undefined;
         }
     } else if (tipoCircuito == 'EntreDestinosDos') {
         if (tipoAceleracion == 'BA') {
             for (let value in circuitoDosBA) {
                 if (value == destino) {
                     return calculo = circuitoDosBA[value]
-                } else {
-                    return undefined;
                 }
             }
+            return undefined;
         } else if (tipoAceleracion == 'BA') {
             for (let value in circuitoDosAA) {
                 if (value == destino) {
                     return calculo = circuitoDosAA[value]
-                } else {
-                    return undefined;
                 }
             }
+            return undefined;
         }
     }
 }

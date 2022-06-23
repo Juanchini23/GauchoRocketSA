@@ -53,13 +53,12 @@
                             <option value="Titan">Titan</option>
                         </select>
                     </div>
-                    {{#datosLlegada}}
+
                     <h5>Dia de salida: <span class="text-white" id="diaSalida">{{dia}}</span></h5>
                     <h5>Hora de salida: <span class="text-white" id="horaSalida">{{hora}}</span>hs</h5>
                     <h5>Dia de llegada: <span class="text-white" id="diaLlegada"> </span></h5>
                     <h5>Hora de llegada: <span class="text-white" id="horaLlegada">-.-</span>hs</h5>
 
-                    {{/datosLlegada}}
                 </div>
                 <div class="text-start col-6">
                     <h4 class="text-center mb-5">Datos de reserva</h4>
@@ -81,7 +80,9 @@
                         <label class="ms-2 me-2"><input type="radio" name="metodoPago" value="EF" class="me-1" required>Efectivo</label>
                     </div>
 
-                    <input type="hidden" name="dia" value="{{dia}}" class="d-none">
+                    <input type="hidden" name="origen" value="{{origen}}" class="d-none">
+                    <input type="hidden" name="horaSalida" value="{{hora}}" class="d-none">
+                    <input type="hidden" name="diaSalida" value="{{dia}}" class="d-none">
                     <input type="hidden" name="nombre" value="{{nombre}}" class="d-none">
                     <input type="hidden" name="apellido" value="{{apellido}}" class="d-none">
                     <input type="hidden" name="idPlanificacion" value="{{idPlanificacion}}" class="d-none">
