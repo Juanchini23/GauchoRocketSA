@@ -73,7 +73,18 @@
             <td class="text-white">{{hora}}Hs</td>
             <td class="text-white">{{origen}}</td>
             <td class="text-white">{{modelo}}</td>
-            <td><a class="text-dark bg-warning p-1" href="orbital/reservar?id={{id}}">Reservar</a></td>
+            {{^loggeado}}
+            <td class="text-dark fw-bold">Inicie sesion</td>
+            {{/loggeado}}
+            {{#loggeado}}
+            <td>
+                <a href="#">
+                    <button class="btn btn-warning" type="submit">
+                        Confirmar
+                    </button>
+                </a>
+            </td>
+            {{/loggeado}}
         </tr>
         {{/orbitales}}
         </tbody>
