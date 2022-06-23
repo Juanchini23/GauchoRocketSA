@@ -42,11 +42,6 @@ class ReservaController
         $destino = $_POST["destino"] ?? "";
         $diaSalida = $_POST["diaSalida"] ?? "";
         $horaSalida = $_POST["horaSalida"] ?? "";
-
-//        Calcularlo
-//        $diaLlegada = $_POST["diaLlegada"] ?? "";
-//        $horaLlegada = $_POST["horaLlegada"] ?? "";
-
         $butaca = $_POST["butaca"] ?? "";
         $cantidadAsientos = $_POST["cantidadAsientos"] ?? "";
         $metodoPago = $_POST["metodoPago"] ?? "";

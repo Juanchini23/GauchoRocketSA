@@ -34,6 +34,11 @@ class ReservaModel
 
     public function generarReserva($origen, $destino, $diaSalida, $horaSalida, $butaca, $cantidadAsientos, $metodoPago, $idUser, $idPlanificacion)
     {
-        
+        // verificar la cantidad de asientos y la clase
+        // y el tipo de usuario con lo de AA BA
+        //        Calcularlo
+        //$diaLlegada = $_POST["diaLlegada"] ?? "";
+        //$horaLlegada = $_POST["horaLlegada"] ?? "";
+
     }
 }
