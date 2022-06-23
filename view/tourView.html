@@ -25,6 +25,10 @@
                     </select>
                 </div>
                 <div class="d-flex">
+                    <img src="public/salida.svg" width="20px">
+                    <input type="date" name="fecha" id="fecha" class="form-control ms-1 me-2">
+                </div>
+                <div class="d-flex">
                     <button type="submit" class="btn btn-danger d-flex align-items-center"><img
                             src="public/buscar.svg"
                             width="15px" class="me-2">Buscar
@@ -50,6 +54,8 @@
         <h3 class="m-3">{{errorSinSeleccion}}</h3>
     </div>
     {{/errorSinSeleccion}}
+
+
 
     <!--form para el boton que buscar todos los vuelos-->
     <form action="tour/busquedaTodosLosTours">
@@ -82,7 +88,7 @@
             {{/loggeado}}
             {{#loggeado}}
             <td>
-                <a href="#">
+                <a href=tour/confirmarVueloTour?id={{id}}&fecha={{fecha}}>
                     <button class="btn btn-warning" type="submit">
                         Confirmar
                     </button>

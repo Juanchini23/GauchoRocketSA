@@ -31,6 +31,9 @@ class TourController
 
         $dia = $_POST["dia"] ?? "";
         $origen = $_POST["origen"] ?? "";
+        $fecha = $_POST["fecha"] ?? "";
+
+        $data["fecha"] = $fecha;
 
         if ($dia || $origen) {
             $respuesta = $this->tourModel->getTours($dia, $origen);
@@ -77,11 +80,22 @@ class TourController
         }
 
         $id = $_GET["id"] ?? "";
+        $fecha = $_GET["fecha"] ?? "";
 
         $planificacion = $this->tourModel->getPlanificacion($id);
         $datosModelo = $this->tourModel->getDatosModelo($id);
 
+
+        //aca agarro la fecha que selecciono en el calendario y le sumo los 35 dias que dura el tour
+        $llegada = date_create($fecha);
+        date_add($llegada, date_interval_create_from_date_string("35 days"));
+        $llegada = date_format($llegada, "Y-m-d");
+
+
+        //cargo los datos para la vista
         $data["id"] = $id;
+        $data["fecha"] = $fecha;
+        $data["llegada"] = $llegada;
         $data["planificacion"] = $planificacion;
         $data["datosModelo"] = $datosModelo;
 
@@ -97,11 +111,18 @@ class TourController
         }
 
         $id = $_GET["id"] ?? "";
+        $cantidadAsientos = $_POST["cantidadAsientos"] ?? "";
+        $metodoPago = $_POST["metodoPago"] ?? "";
+        $butaca = $_POST["butaca"] ?? "";
+        $dia = $_GET["dia"] ?? "";
+        $fecha = $_GET["fecha"] ?? "";
+        $hora = $_GET["hora"] ?? "";
+        $llegada = $_GET["llegada"] ?? "";
+        //$claseDeViaje = $_POST["claseDeViaje"] ?? "";   esto me llega vacio
+
 
         $planificacion = $this->tourModel->getPlanificacion($id);
         $datosModelo = $this->tourModel->getDatosModelo($id);
-
-
 
 
 // instantiate and use the dompdf class
@@ -119,46 +140,46 @@ class TourController
 
         <body>
 
-        <h1>Felicitaciones <span><?php echo $_SESSION["apellido"] . ", " .$_SESSION["usuario"] ;?></span>!!!</h1>
+        <h1>Felicitaciones <span><?php echo $_SESSION["apellido"] . ", " . $_SESSION["usuario"]; ?></span>!!!</h1>
         <h3>Datos:</h3>
-        <h5><?php echo $_SESSION["apellido"] . ", " .$_SESSION["usuario"] ;?></h5>
-        <h5>Te vas el dia:<?php echo " " . $_SESSION["apellido"] . ", " .$_SESSION["usuario"] ;?></h5>
-        <h5>Volves el dia:<?php echo " " . $_SESSION["apellido"] . ", " .$_SESSION["usuario"] ;?></h5>
+        <h5>Viajero:<?php echo $_SESSION["apellido"] . ", " . $_SESSION["usuario"]; ?></h5>
+        <h5>Te vas el dia:<?php echo " " . $dia . " " . $fecha . " "; ?> a las: <?php echo " " . $hora . " "; ?> hs </h5>
+        <h5>Volves el dia:<?php echo " " . $llegada; ?></h5>
+
+
+        <h5>Reservaste:<?php echo " " . $cantidadAsientos . " "; ?> butacas </h5>
+        <h5>Pagas con/en:<?php echo " " . $metodoPago; ?></h5>
+
 
         <p>A preparar las valijas!</p>
         <p>Buen viaje te desea tu compania amiga <strong>GAUCHO ROCKET!</strong></p>
 
+
         <?php
-        echo $id;
 
-        foreach ($planificacion as $row) {
-            echo $row['modelo'];
-        }
-        echo "<br>";
-
-        echo strtotime("now"), "\n";
-        echo strtotime("10 September 2000"), "\n";
-        echo strtotime("+1 day"), "\n";
-        echo "<br>";
-        echo date("jS F, Y", strtotime("now"));
-
-        echo "<br>";
-        echo date("jS F, Y", strtotime("+35 day"));
+        //esto por si necesito un dato de planificacion o modelo lo tengo que iterar
+        //        foreach ($planificacion as $row) {
+        //            echo $row['modelo'];
+        //        }
+        //        echo "<br>";
 
 
         echo "<br>";
-        $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
-        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-        echo $dias[date('w', strtotime("10 September 2000",1))]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y') ;
-
         echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+
         //dia que se genera el PDF
         date_default_timezone_set("America/Argentina/Buenos_Aires");
-        echo "Archivo generado el: " . date("d-m-Y h:i:sa");
+        echo "PDF generado el: " . date("d-m-Y h:i:sa");
 
         ?>
 
-</body>
+        </body>
         </html>
         <?php
         $html = ob_get_clean();
@@ -178,6 +199,7 @@ class TourController
 
     }
 }
+
 ?>
 
 

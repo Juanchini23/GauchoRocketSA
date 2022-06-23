@@ -10,7 +10,7 @@
 {{#planificacion}}
 {{#datosModelo}}
 
-<form action="tour/generarPDFyQR?id={{id}}" method="post">
+<form action="tour/generarPDFyQR?id={{id}}&dia={{dia}}&fecha={{fecha}}&hora={{hora}}&llegada={{llegada}}" method="post">
     <div class="d-flex justify-content-center flex-wrap">
         <h1>Completa los datos</h1>
         <img src="/public/pencil.svg" class="m-2" width="36px">
@@ -33,19 +33,19 @@
 
                 <h3>Datos del vuelo</h3>
                 <h5>Origen: <span class="text-white">{{origen}}</span></h5>
-                <h5>Dia de salida: <span class="text-white" id="diaSalida">{{dia}}</span></h5>
-                <h5>Hora de salida: <span class="text-white" id="horaSalida">{{hora}}</span>hs</h5>
+                <h5>Dia de salida: <span class="text-white" id="diaSalida" name="diaSalida">{{dia}} - {{fecha}}</span></h5>
+                <h5>Hora de salida: <span class="text-white" id="horaSalida" name="horaSalida">{{hora}}</span>hs</h5>
+                <h5>Dia de llegada: <span class="text-white" id="diallegada" name="diallegada">{{llegada}}</span></h5>
 
             </div>
 
             <div class="col-sm-10 col-12 col-md-6 col-lg bg-info m-3 bg-opacity-50 ">
 
                 <h3>Datos de reserva</h3>
-                <h5>Nombre titular: <span class="text-white">{{nombre}}</span></h5>
-                <h5>Apellido titular: <span class="text-white">{{apellido}}</span></h5>
+                <h5>Nombre titular: <span class="text-primary">{{nombre}}</span></h5>
+                <h5>Apellido titular: <span class="text-primary">{{apellido}}</span></h5>
                 <h5 class="d-inline">Butacas: <span class="text-white"></span></h5>
-                <select class="form-select ms-5 me-2 w-25 d-inline" aria-label="Default select example"
-                        name="butaca">
+                <select class="form-select ms-5 me-2 w-25 d-inline" aria-label="Default select example" name="claseQueViaja[]">
                     <option value="default" disabled selected>Tipo...</option>
                     <option value="primera">Primera</option>
                 </select>
