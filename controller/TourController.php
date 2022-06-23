@@ -101,17 +101,68 @@ class TourController
         $planificacion = $this->tourModel->getPlanificacion($id);
         $datosModelo = $this->tourModel->getDatosModelo($id);
 
-        $data["id"] = $id;
-        $data["planificacion"] = $planificacion;
-        $data["datosModelo"] = $datosModelo;
 
-        //$this->printer->generateView('confirmarVueloTour.html', $data);
 
 
 // instantiate and use the dompdf class
         $dompdf = new Dompdf();
+        ob_start()
+        ?>
+        <!doctype html>
+        <html lang="es">
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        $html = 'hola.html';
+        </head>
+
+        <body>
+
+        <h1>Felicitaciones <span><?php echo $_SESSION["apellido"] . ", " .$_SESSION["usuario"] ;?></span>!!!</h1>
+        <h3>Datos:</h3>
+        <h5><?php echo $_SESSION["apellido"] . ", " .$_SESSION["usuario"] ;?></h5>
+        <h5>Te vas el dia:<?php echo " " . $_SESSION["apellido"] . ", " .$_SESSION["usuario"] ;?></h5>
+        <h5>Volves el dia:<?php echo " " . $_SESSION["apellido"] . ", " .$_SESSION["usuario"] ;?></h5>
+
+        <p>A preparar las valijas!</p>
+        <p>Buen viaje te desea tu compania amiga <strong>GAUCHO ROCKET!</strong></p>
+
+        <?php
+        echo $id;
+
+        foreach ($planificacion as $row) {
+            echo $row['modelo'];
+        }
+        echo "<br>";
+
+        echo strtotime("now"), "\n";
+        echo strtotime("10 September 2000"), "\n";
+        echo strtotime("+1 day"), "\n";
+        echo "<br>";
+        echo date("jS F, Y", strtotime("now"));
+
+        echo "<br>";
+        echo date("jS F, Y", strtotime("+35 day"));
+
+
+        echo "<br>";
+        $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
+        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        echo $dias[date('w', strtotime("10 September 2000",1))]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y') ;
+
+        echo "<br>";
+        //dia que se genera el PDF
+        date_default_timezone_set("America/Argentina/Buenos_Aires");
+        echo "Archivo generado el: " . date("d-m-Y h:i:sa");
+
+        ?>
+
+</body>
+        </html>
+        <?php
+        $html = ob_get_clean();
+
 
         $dompdf->loadHtml($html);
 
@@ -126,6 +177,11 @@ class TourController
 
 
     }
-
-
 }
+?>
+
+
+
+
+
+
