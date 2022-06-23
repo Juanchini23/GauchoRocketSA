@@ -32,12 +32,8 @@ class ReservaModel
         return $this->dataBase->getDatosModelo($id);
     }
 
-    public function getDatosLlegada($id, $fehaViaje)
+    public function generarReserva($origen, $destino, $diaSalida, $horaSalida, $butaca, $cantidadAsientos, $metodoPago, $idUser, $idPlanificacion)
     {
-        //$horaSalida = $this->dataBase->getHorarioSalida($id);
-        $miFecha = date('Y-m-d H:i:s');
-        $diaLlegada = 1;
-        $horaLlegada = strtotime('+5 hour', strtotime($miFecha));
-        return array(["diaLlegada" => $diaLlegada, "horaLLegada" => $horaLlegada]);
+        
     }
 }

@@ -1,56 +1,46 @@
 let circuitoUnoBA = {"Tierra": 0, "EEI": 4, "HotelOrbital": 8, "Luna": 16, "Marte": 26};
-let cuitoUnoAA = {"Tierra": 0, "EEI": 3, "HotelOrbital": 6, "Luna": 9, "Marte": 22};
-let CircuitoDosBA = {
-    "Tierra": 0,
-    "EEI": 4,
-    "Luna": 14,
-    "Marte": 26,
-    "Ganimedes": 48,
-    "Europa": 50,
-    "Io": 51,
-    "Encedalo": 70,
-    "Titan": 77
-};
-let CircuitoDosAA = {
-    "Tierra": 0,
-    "EEI": 3,
-    "Luna": 10,
-    "Marte": 22,
-    "Ganimedes": 32,
-    "Europa": 33,
-    "Io": 35,
-    "Encedalo": 50,
-    "Titan": 52
-};
+let circuitoUnoAA = {"Tierra": 0, "EEI": 3, "HotelOrbital": 6, "Luna": 9, "Marte": 22};
+let circuitoDosBA = {"Tierra": 0, "Luna": 14, "Marte": 26, "Ganimedes": 48, "Europa": 50, "Io": 51, "Encedalo": 70, "Titan": 77};
+let circuitoDosAA = {"Tierra": 0, "EEI": 3, "Luna": 10, "Marte": 22, "Ganimedes": 32, "Europa": 33, "Io": 35, "Encedalo": 50, "Titan": 52};
 
-function getHoraLlegada(destino) {
+function getHora(tipoCircuito, tipoAceleracion, destino) {
     let calculo = 0;
-    switch (destino) {
-        case "Tierra":
-            calculo = 0;
-            calculo = circuitoUnoBA.Tierra;
-            break
-        case "EEI":
-            calculo = 0;
-            calculo = circuitoUnoBA.EEI;
-            break
-        case "HotelOrbital":
-            calculo = 0;
-            calculo = circuitoUnoBA.HotelOrbital;
-            break
-        case "Luna":
-            calculo = 0;
-            calculo = circuitoUnoBA.Luna;
-            break
-        case "Marte":
-            calculo = 0;
-            calculo = circuitoUnoBA.Marte;
-            break
+    if (tipoCircuito == 'EntreDestinosUno') {
+        if (tipoAceleracion == 'BA') {
+            for (let value in circuitoUnoBA) {
+                if (value == destino) {
+                    return calculo = circuitoUnoBA[value]
+                }
+            }
+            return undefined;
+        } else if (tipoAceleracion == 'AA') {
+            for (let value in circuitoUnoAA) {
+                if (value == destino) {
+                    return calculo = circuitoUnoAA[value]
+                }
+            }
+            return undefined;
+        }
+    } else if (tipoCircuito == 'EntreDestinosDos') {
+        if (tipoAceleracion == 'BA') {
+            for (let value in circuitoDosBA) {
+                if (value == destino) {
+                    return calculo = circuitoDosBA[value]
+                }
+            }
+            return undefined;
+        } else if (tipoAceleracion == 'BA') {
+            for (let value in circuitoDosAA) {
+                if (value == destino) {
+                    return calculo = circuitoDosAA[value]
+                }
+            }
+            return undefined;
+        }
     }
-    return calculo
 }
 
-function getHoraFinal(cuenta, diaSalida, diaLlegada) {
+function getHoraLlegada(cuenta) {
     if (cuenta < 24) {
         return cuenta;
     } else if (cuenta >= 23 && cuenta < 48) {
@@ -110,8 +100,13 @@ function setHoraLlegada(calculoHoraLLegada) {
 function setDiaLLegada(diaLlegada, diaSalida) {
     $("#diaLlegada").empty();
     $("#diaLlegada").text(diaLlegada);
-    console.log(diaLlegada);
-    console.log(diaSalida);
+}
+
+function setMensajeError() {
+    $("#diaLlegada").empty();
+    $("#diaLlegada").text('Destino incorrecto');
+    $("#horaLlegada").empty();
+    $("#horaLlegada").text('-');
 }
 
 $(document).ready(function () {
@@ -121,17 +116,13 @@ $(document).ready(function () {
         let diaSalida = $("#diaSalida").html();
         let destino = $("#destino").val();
         let horaSalida = $("#horaSalida").html();
-        let horaDestino = getHoraLlegada(destino);
-        let cuenta = parseInt(horaSalida) + parseInt(horaDestino);
-        let calculoHoraLLegada = getHoraFinal(cuenta);
-        let diaLlegada = getDiaLLegada(cuenta, diaSalida);
-
-
-        setHoraLlegada(calculoHoraLLegada);
-        setDiaLLegada(diaLlegada, diaSalida);
+        let horaDestino = getHora(tipoCircuito, tipoAceleracion, destino);
+        if(horaDestino != undefined){
+            let cuenta = parseInt(horaSalida) + parseInt(horaDestino);
+            let calculoHoraLLegada = getHoraLlegada(cuenta);
+            let diaLlegada = getDiaLLegada(cuenta, diaSalida);
+            setHoraLlegada(calculoHoraLLegada);
+            setDiaLLegada(diaLlegada, diaSalida);
+        } else setMensajeError();
     })
-
-
 });
-
-
