@@ -1,5 +1,27 @@
 let circuitoUnoBA = {"Tierra": 0, "EEI": 4, "HotelOrbital": 8, "Luna": 16, "Marte": 26};
 let cuitoUnoAA = {"Tierra": 0, "EEI": 3, "HotelOrbital": 6, "Luna": 9, "Marte": 22};
+let CircuitoDosBA = {
+    "Tierra": 0,
+    "EEI": 4,
+    "Luna": 14,
+    "Marte": 26,
+    "Ganimedes": 48,
+    "Europa": 50,
+    "Io": 51,
+    "Encedalo": 70,
+    "Titan": 77
+};
+let CircuitoDosAA = {
+    "Tierra": 0,
+    "EEI": 3,
+    "Luna": 10,
+    "Marte": 22,
+    "Ganimedes": 32,
+    "Europa": 33,
+    "Io": 35,
+    "Encedalo": 50,
+    "Titan": 52
+};
 
 function getHoraLlegada(destino) {
     let calculo = 0;
@@ -78,7 +100,23 @@ function getDiaLLegada(cuenta, diaSalida) {
     }
 }
 
+function setHoraLlegada(calculoHoraLLegada) {
+    $("#horaLlegada").empty();
+    $("#horaLlegada").text(calculoHoraLLegada);
+    $("#llegadaHora").empty();
+    $("#llegadaHora").append(`<input type="number" name="llegadaHora" value="${calculoHoraLLegada}">`);
+}
+
+function setDiaLLegada(diaLlegada, diaSalida) {
+    $("#diaLlegada").empty();
+    $("#diaLlegada").text(diaLlegada);
+    console.log(diaLlegada);
+    console.log(diaSalida);
+}
+
 $(document).ready(function () {
+    let tipoCircuito = $("#tipoVuelo").html();
+    let tipoAceleracion = $("#tipoAceleracion").html();
     $("#destino").change(function (e) {
         let diaSalida = $("#diaSalida").html();
         let destino = $("#destino").val();
@@ -88,15 +126,9 @@ $(document).ready(function () {
         let calculoHoraLLegada = getHoraFinal(cuenta);
         let diaLlegada = getDiaLLegada(cuenta, diaSalida);
 
-        $("#horaLlegada").empty();
-        $("#horaLlegada").text(calculoHoraLLegada);
-        $("#llegadaHora").empty();
-        $("#llegadaHora").append(`<input type="number" name="llegadaHora" value="${calculoHoraLLegada}">`);
 
-        $("#diaLlegada").empty();
-        $("#diaLlegada").text(diaLlegada);
-        console.log(diaLlegada);
-        console.log(diaSalida);
+        setHoraLlegada(calculoHoraLLegada);
+        setDiaLLegada(diaLlegada, diaSalida);
     })
 
 
