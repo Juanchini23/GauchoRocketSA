@@ -147,7 +147,7 @@ class TourController
         <h5>Volves el dia:<?php echo " " . $llegada; ?></h5>
 
 
-        <h5>Reservaste:<?php echo " " . $cantidadAsientos . " "; ?> butacas </h5>
+        <h5>Reservaste:<?php echo " " . $cantidadAsientos . " "; ?> butaca/s </h5>
         <h5>Pagas con/en:<?php echo " " . $metodoPago; ?></h5>
 
 

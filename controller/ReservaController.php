@@ -17,7 +17,7 @@ class ReservaController
         $data = Validator::validarSesion();
 
         $id = $_GET["id"] ?? "";
-        $fechaViaje = $_GET["fechaviaje"] ?? "";
+        $fechaViaje = $_GET["fechavuelo"] ?? "";
         $idUser = $_SESSION["idUserLog"] ?? "";
         $hora = $_GET["hora"] ?? "";
 
@@ -47,8 +47,9 @@ class ReservaController
         $metodoPago = $_POST["metodoPago"] ?? "";
         $idUser = $_SESSION["idUserLog"] ?? "";
         $idPlanificacion = $_POST["idPlanificacion"] ?? "";
-
+        $fechaSalida = $_POST["fechaSalida"] ?? "";
+        var_dump($fechaSalida);
         // Generar una reserva
-        $reservaExitosa = $this->reservaModel->generarReserva($origen, $destino, $diaSalida, $horaSalida, $butaca, $cantidadAsientos, $metodoPago, $idUser, $idPlanificacion);
+//        $reservaExitosa = $this->reservaModel->generarReserva($origen, $destino, $diaSalida, $horaSalida, $butaca, $cantidadAsientos, $metodoPago, $idUser, $idPlanificacion);
     }
 }
