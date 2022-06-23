@@ -311,9 +311,14 @@ WHERE (l.descripcion = 'BA'
   AND tv.descripcion = 'Tour';
 
 
+drop table reserva;
+
 CREATE TABLE reserva
 (
     id               int not null auto_increment primary key,
+    turista     int,
+    ejecutivo   int,
+    primera     int,
     idUsuario        int,
     foreign key (idUsuario) references usuario (id),
     idPlanificacion  int,
@@ -324,3 +329,4 @@ CREATE TABLE reserva
     idDestinoReserva int,
     foreign key (idDestinoReserva) references lugar (id)
 );
+
