@@ -109,18 +109,26 @@ class TourController
         }
 
         $id = $_GET["id"] ?? "";
-        $cantidadAsientos = $_POST["cantidadAsientos"] ?? "";
+        $asientosReservados = $_POST["cantidadAsientos"] ?? "";
         $metodoPago = $_POST["metodoPago"] ?? "";
         $butaca = $_POST["butaca"] ?? "";
         $dia = $_GET["dia"] ?? "";
         $fecha = $_GET["fecha"] ?? "";
         $hora = $_GET["hora"] ?? "";
         $llegada = $_GET["llegada"] ?? "";
+
+        $asientosDisponibles = $_GET["primera"] ?? "";
         //$claseDeViaje = $_POST["claseDeViaje"] ?? "";   esto me llega vacio
 
-        $totalApagar= $cantidadAsientos * 5000;
+        $totalApagar= $asientosReservados * 5000;
 
-        $this->tourModel->updateCantidaDeAsientos($cantidadAsientos);
+        if($asientosDisponibles >= $asientosReservados ){
+
+            $cuenta = $asientosDisponibles - $asientosReservados;
+            $this->tourModel->updateCantidaDeAsientos($cuenta);
+
+
+
 
         $planificacion = $this->tourModel->getPlanificacion($id);
         $datosModelo = $this->tourModel->getDatosModelo($id);
@@ -149,7 +157,7 @@ class TourController
         <p>Volves el dia:<strong><?php echo " " . $llegada; ?></strong></p>
 
 
-        <p>Reservaste:<strong><?php echo " " . $cantidadAsientos . " "; ?></strong> butaca/s </p>
+        <p>Reservaste:<strong><?php echo " " . $asientosReservados . " "; ?></strong> butaca/s </p>
         <p>Pagas con/en:<strong><?php echo " " . $metodoPago; ?></strong></p>
 
         <p>Total a pagar:<strong><?php echo "USD " . $totalApagar; ?></strong></p>
@@ -200,7 +208,9 @@ class TourController
 // Output the generated PDF to Browser
         $dompdf->stream("ReservaVueloTour.pdf", ['Attachment' => 0]);
 
-
+        } else{
+            echo "ERROR!";
+        }
     }
 }
 

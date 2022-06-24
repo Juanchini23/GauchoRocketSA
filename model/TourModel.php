@@ -61,9 +61,8 @@ class TourModel
                                         WHERE p.id = '{$id}'");
     }
 
-    public function updateCantidaDeAsientos($cantidadAsientos)
+    public function updateCantidaDeAsientos($cuenta)
     {
-        $cuenta = 100 - $cantidadAsientos; // harcodeo pero aca tendria que llegar de modelo la cantidad de primera
 
         return $this->dataBase->actualizarDisponibilidadAsientosTour($cuenta);
     }
