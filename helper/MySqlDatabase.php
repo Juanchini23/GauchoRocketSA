@@ -114,6 +114,16 @@ WHERE p.id = ?;";
         $this->conn = $conn;
     }
 
+
+    public function actualizarDisponibilidadAsientosTour($cuenta)
+    {
+        $sql = "UPDATE modelo SET primera=? WHERE id = 8;";
+        $comando = $this->conn->prepare($sql);
+        $comando->bind_param("s", $cuenta);
+        $comando->execute();
+    }
+    
+
     private function disconnect()
     {
         mysqli_close($this->conn);

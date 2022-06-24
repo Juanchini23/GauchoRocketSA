@@ -10,27 +10,19 @@ class TourModel
         $this->dataBase = $dataBase;
     }
 
-    public function getTours($dia, $origen)
+    public function getTours($dia)
     {
 
-        if ($dia && $origen) {
-            return $this->dataBase->query("SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', l.descripcion as 'origen', n.modelo as 'modelo'
-                    FROM planificacion p
-                        JOIN lugar l ON p.idOrigen = l.id
-                        JOIN modelo m ON p.idModelo = m.id
-                        JOIN nave n ON m.idNave = n.id
-                        JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
-                    WHERE l.descripcion = '{$origen}' AND p.dia = '{$dia}' AND tv.descripcion = 'Tour'");
 
-        } else {
             return $this->dataBase->query("SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', l.descripcion as 'origen', n.modelo as 'modelo'
                     FROM planificacion p
                         JOIN lugar l ON p.idOrigen = l.id
                         JOIN modelo m ON p.idModelo = m.id
                         JOIN nave n ON m.idNave = n.id
                         JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
-                    WHERE (l.descripcion = '{$origen}' OR p.dia = '{$dia}') AND tv.descripcion = 'Tour'");
-        }
+                    WHERE p.dia = '{$dia}' AND tv.descripcion = 'Tour'");
+
+
     }
 
     public function getTodosLosTours(){
@@ -69,6 +61,12 @@ class TourModel
                                         WHERE p.id = '{$id}'");
     }
 
+    public function updateCantidaDeAsientos($cantidadAsientos)
+    {
+        $cuenta = 100 - $cantidadAsientos; // harcodeo pero aca tendria que llegar de modelo la cantidad de primera
+
+        return $this->dataBase->actualizarDisponibilidadAsientosTour($cuenta);
+    }
 
 
 

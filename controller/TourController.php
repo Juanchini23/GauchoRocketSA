@@ -29,46 +29,44 @@ class TourController
             $data["nombre"] = $_SESSION["usuario"];
         }
 
-        $dia = $_POST["dia"] ?? "";
-        $origen = $_POST["origen"] ?? "";
         $fecha = $_POST["fecha"] ?? "";
 
         $data["fecha"] = $fecha;
+        $timestamp = strtotime($fecha);
+        $timestamp = idate('w', $timestamp); // aca si es domingo devuelve 0
 
-        if ($dia || $origen) {
-            $respuesta = $this->tourModel->getTours($dia, $origen);
-
-            if ($respuesta) {
-                $data["tours"] = $respuesta;
-            } else {
-                $data["sinDatosTours"] = "Ups! No hay vuelos para el dia y origen seleccionado!";
-            }
-
-        } else {
-            $data["errorSinSeleccion"] = "Error! Debe seleccionar al menos un dia o un origen";
-        }
-
-        $this->printer->generateView('tourView.html', $data);
-    }
-
-    public function busquedaTodosLosTours()
-    {
-        if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
-            $data["loggeado"] = 1;
-            $data["nombre"] = $_SESSION["usuario"];
-        }
-
-        $respuesta = $this->tourModel->getTodosLosTours();
-
-        if ($respuesta) {
+        if ($timestamp == 0) {
+            $dia = "Domingo";
+            $respuesta = $this->tourModel->getTours($dia);
             $data["tours"] = $respuesta;
-        } else {
-            $data["sinDatosTours"] = "Ups! No hay vuelos!";
+
+            $this->printer->generateView('tourView.html', $data);
+        } else{
+            $data["sinDatosTours"] = "Ups! No hay vuelos para el dia seleccionado!";
+            $this->printer->generateView('tourView.html', $data);
         }
 
-
-        $this->printer->generateView('tourView.html', $data);
     }
+
+    //NO LO USO MAS
+//    public function busquedaTodosLosTours()
+//    {
+//        if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
+//            $data["loggeado"] = 1;
+//            $data["nombre"] = $_SESSION["usuario"];
+//        }
+//
+//        $respuesta = $this->tourModel->getTodosLosTours();
+//
+//        if ($respuesta) {
+//            $data["tours"] = $respuesta;
+//        } else {
+//            $data["sinDatosTours"] = "Ups! No hay vuelos!";
+//        }
+//
+//
+//        $this->printer->generateView('tourView.html', $data);
+//    }
 
 
     public function confirmarVueloTour()
@@ -102,7 +100,7 @@ class TourController
         $this->printer->generateView('confirmarVueloTour.html', $data);
     }
 
-    public function generarPDFyQR()
+    public function generarPDF()
     {
         if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
             $data["loggeado"] = 1;
@@ -120,6 +118,9 @@ class TourController
         $llegada = $_GET["llegada"] ?? "";
         //$claseDeViaje = $_POST["claseDeViaje"] ?? "";   esto me llega vacio
 
+        $totalApagar= $cantidadAsientos * 5000;
+
+        $this->tourModel->updateCantidaDeAsientos($cantidadAsientos);
 
         $planificacion = $this->tourModel->getPlanificacion($id);
         $datosModelo = $this->tourModel->getDatosModelo($id);
@@ -142,13 +143,16 @@ class TourController
 
         <h1>Felicitaciones <span><?php echo $_SESSION["apellido"] . ", " . $_SESSION["usuario"]; ?></span>!!!</h1>
         <h3>Datos:</h3>
-        <h5>Viajero:<?php echo $_SESSION["apellido"] . ", " . $_SESSION["usuario"]; ?></h5>
-        <h5>Te vas el dia:<?php echo " " . $dia . " " . $fecha . " "; ?> a las: <?php echo " " . $hora . " "; ?> hs </h5>
-        <h5>Volves el dia:<?php echo " " . $llegada; ?></h5>
+        <p>Viajero:<strong><?php echo $_SESSION["apellido"] . ", " . $_SESSION["usuario"]; ?></strong></p>
+        <p>Te vas el dia:<strong><?php echo " " . $dia . " " . $fecha . " "; ?> a las: <?php echo " " . $hora . " "; ?></strong>
+            hs </p>
+        <p>Volves el dia:<strong><?php echo " " . $llegada; ?></strong></p>
 
 
-        <h5>Reservaste:<?php echo " " . $cantidadAsientos . " "; ?> butaca/s </h5>
-        <h5>Pagas con/en:<?php echo " " . $metodoPago; ?></h5>
+        <p>Reservaste:<strong><?php echo " " . $cantidadAsientos . " "; ?></strong> butaca/s </p>
+        <p>Pagas con/en:<strong><?php echo " " . $metodoPago; ?></strong></p>
+
+        <p>Total a pagar:<strong><?php echo "USD " . $totalApagar; ?></strong></p>
 
 
         <p>A preparar las valijas!</p>

@@ -13,18 +13,6 @@
         <div class="container mb-5 p-3 rounded">
             <div class="d-flex justify-content-around mb-3 flex-wrap">
                 <div class="d-flex">
-                    <select class="form-select ms-1 me-2" aria-label="Default select example" name="dia">
-                        <option value="default" disabled selected>Dia...</option>
-                        <option value="Domingo">Domingo</option>
-                    </select>
-                </div>
-                <div class="d-flex">
-                    <select class="form-select ms-1 me-2" aria-label="Default select example" name="origen">
-                        <option value="default" disabled selected>Origen...</option>
-                        <option value="BA">BA</option>
-                    </select>
-                </div>
-                <div class="d-flex">
                     <img src="public/salida.svg" width="20px">
                     <input type="date" name="fecha" id="fecha" class="form-control ms-1 me-2">
                 </div>
@@ -48,24 +36,24 @@
 
 
     <!--si le dan click a buscar sin datos salta esto-->
-    {{#errorSinSeleccion}}
-    <div class="d-flex justify-content-center flex-wrap bg-warning">
-        <img src="/public/error.svg" class="m-2 bg-white rounded-circle" width="50px">
-        <h3 class="m-3">{{errorSinSeleccion}}</h3>
-    </div>
-    {{/errorSinSeleccion}}
+<!--    {{#errorSinSeleccion}}-->
+<!--    <div class="d-flex justify-content-center flex-wrap bg-warning">-->
+<!--        <img src="/public/error.svg" class="m-2 bg-white rounded-circle" width="50px">-->
+<!--        <h3 class="m-3">{{errorSinSeleccion}}</h3>-->
+<!--    </div>-->
+<!--    {{/errorSinSeleccion}}-->
 
 
 
     <!--form para el boton que buscar todos los vuelos-->
-    <form action="tour/busquedaTodosLosTours">
-        <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-info d-flex align-items-center m-3">
-                <p class="m-3 h5">Mostrar todos los vuelos</p>
-                <img src="/public/tierraNave.svg" width="48px">
-            </button>
-        </div>
-    </form>
+<!--    <form action="tour/busquedaTodosLosTours">-->
+<!--        <div class="d-flex justify-content-center">-->
+<!--            <button type="submit" class="btn btn-info d-flex align-items-center m-3">-->
+<!--                <p class="m-3 h5">Mostrar todos los vuelos</p>-->
+<!--                <img src="/public/tierraNave.svg" width="48px">-->
+<!--            </button>-->
+<!--        </div>-->
+<!--    </form>-->
     
     <table class="table table-hover bg-primary bg-opacity-75 rounded">
         <thead>
