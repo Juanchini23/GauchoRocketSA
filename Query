@@ -329,4 +329,3 @@ CREATE TABLE reserva
     idDestinoReserva int,
     foreign key (idDestinoReserva) references lugar (id)
 );
-

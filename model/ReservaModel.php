@@ -49,22 +49,22 @@ class ReservaModel
         $planificacion = $this->dataBase->getPlani($idPlanificacion);
 
         // 1- ver si existe una reserva con el id de la planificacion
-        $existe = $this->dataBase->query("select *
-                                            from reserva r join planificacion p on r.idPlanificacion = p.id
-                                            where p.id = '$idPlanificacion'
-                                            and r.origen = '$origen'
-                                            and r.destino = '$destino';");
+        $existe = $this->dataBase->query("SELECT *
+                                            FROM reserva r JOIN planificacion p ON r.idPlanificacion = p.id
+                                            WHERE p.id = '$idPlanificacion'
+                                            AND r.origen = '$origen'
+                                            AND r.destino = '$destino';");
         $idReserva = $existe['id'];
         $contadorErrores = 0;
 
-        //normalizar en mysqldatabase
-        $cantidadMaximaTurista = $this->dataBase->query($idPlanificacion);
-        $cantidadMaximaEjecutivo = $this->dataBase->query($idPlanificacion);
-        $cantidadMaximaPrimera = $this->dataBase->query($idPlanificacion);
+        // Para saber la cantidad maxima de butacas que tiene el modelo de nave.
+        $cantidadMaximaButacaSeleccionada = $this->dataBase->query("SELECT '$butaca' FROM planificacion p JOIN modelo m ON p.idModelo = m.id
+WHERE p.id = '$idPlanificacion';");
 
-        $cantidadActualTurista = $this->dataBase->query();
-        $cantidadActualTurista = $this->dataBase->query();
-        $cantidadActualTurista = $this->dataBase->query();
+        // Para saber la cantidad actual de butacas que tiene la reserva.
+        $cantidadActualButacaSeleccionada = $this->dataBase->query("SELECT SUM('$butaca') FROM reserva r JOIN planificacion p on r.idPlanificacion = p.id
+WHERE p.id = '$idPlanificacion';");
+
 
         if ($existe != null) {
             // verificar la cantidad de asientos y la clase
@@ -83,7 +83,6 @@ class ReservaModel
                     $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsiario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva) 
                                                 values(0,0,'$cantidadAsientos','$idUser','$idPlanificacion','','$origen','$destino')");
                 }
-
             }
             //        Calcularlo
             //$diaLlegada = $_POST["diaLlegada"] ?? "";
