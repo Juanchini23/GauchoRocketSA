@@ -311,8 +311,6 @@ WHERE (l.descripcion = 'BA'
   AND tv.descripcion = 'Tour';
 
 
-drop table reserva;
-
 CREATE TABLE reserva
 (
     id               int not null auto_increment primary key,
@@ -329,3 +327,9 @@ CREATE TABLE reserva
     idDestinoReserva int,
     foreign key (idDestinoReserva) references lugar (id)
 );
+
+SELECT primera FROM planificacion p JOIN modelo m ON p.idModelo = m.id
+where p.id=2;
+
+SELECT SUM(turista) FROM reserva r JOIN planificacion p on r.idPlanificacion = p.id
+WHERE p.id = 5;

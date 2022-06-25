@@ -44,50 +44,103 @@ class ReservaModel
         return $this->dataBase->getDatosModelo($id);
     }
 
-    public function generarReserva($origen, $destino, $diaSalida, $horaSalida, $butaca, $cantidadAsientos, $metodoPago, $idUser, $idPlanificacion)
+    public function generarReserva($origen, $destino, $diaSalida, $horaSalida, $butaca, $cantidadAsientos, $metodoPago, $idUser, $idPlanificacion, $fecha)
     {
         $planificacion = $this->dataBase->getPlani($idPlanificacion);
+        $origenID='';
+        $destinoID = '';
+        switch ($origen){
+            case 'BA': $origenID = 1;
+            break;
+            case 'AK': $origenID = 2;
+                break;
+            case 'EEI': $origenID = 11;
+                break;
+            case 'HotelOrbital': $origenID = 10;
+                break;
+            case 'Luna': $origenID = 9;
+                break;
+            case 'Marte': $origenID = 8;
+                break;
+            case 'Ganimedes': $origenID = 7;
+                break;
+            case 'Europa': $origenID = 6;
+                break;
+            case 'Io': $origenID = 5;
+                break;
+            case 'Encedalo': $origenID = 4;
+                break;
+            case 'Titan': $origenID = 3;
+                break;
+            default: $origenID =0;
+        }
 
-        // 1- ver si existe una reserva con el id de la planificacion
+        switch ($destino){
+            case 'BA': $destinoID = 1;
+                break;
+            case 'AK': $destinoID = 2;
+                break;
+            case 'EEI': $destinoID = 11;
+                break;
+            case 'HotelOrbital': $destinoID = 10;
+                break;
+            case 'Luna': $destinoID = 9;
+                break;
+            case 'Marte': $destinoID = 8;
+                break;
+            case 'Ganimedes': $destinoID = 7;
+                break;
+            case 'Europa': $destinoID = 6;
+                break;
+            case 'Io': $destinoID = 5;
+                break;
+            case 'Encedalo': $destinoID = 4;
+                break;
+            case 'Titan': $destinoID = 3;
+                break;
+            default: $destinoID =0;
+        }
+
+        /*// 1- ver si existe una reserva con el id de la planificacion
         $existe = $this->dataBase->query("SELECT *
                                             FROM reserva r JOIN planificacion p ON r.idPlanificacion = p.id
                                             WHERE p.id = '$idPlanificacion'
                                             AND r.origen = '$origen'
                                             AND r.destino = '$destino';");
-        $idReserva = $existe['id'];
+        $idReserva = $existe['id'];*/
         $contadorErrores = 0;
 
         // Para saber la cantidad maxima de butacas que tiene el modelo de nave.
         $cantidadMaximaButacaSeleccionada = $this->dataBase->query("SELECT '$butaca' FROM planificacion p JOIN modelo m ON p.idModelo = m.id
-WHERE p.id = '$idPlanificacion';");
+                                                                    WHERE p.id = '$idPlanificacion';");
 
         // Para saber la cantidad actual de butacas que tiene la reserva.
         $cantidadActualButacaSeleccionada = $this->dataBase->query("SELECT SUM('$butaca') FROM reserva r JOIN planificacion p on r.idPlanificacion = p.id
-WHERE p.id = '$idPlanificacion';");
+                                                                    WHERE p.id = '$idPlanificacion';");
 
 
-        if ($existe != null) {
             // verificar la cantidad de asientos y la clase
-            if ($this->dataBase->getCantidadAsientos($idReserva, $butaca) < $cantidadAsientos) {
+            if ($cantidadActualButacaSeleccionada>$cantidadMaximaButacaSeleccionada) {
                 $contadorErrores++;
                 $_SESSION['errorNoHayAciento'];
+                header("refresh: 1");
+                exit();
             }
             if ($contadorErrores == 0) {
                 if ($butaca == 'turista') {
-                    $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsiario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva) 
-                                                values('$cantidadAsientos',0,0,'$idUser','$idPlanificacion','','$origen','$destino')");
+                    $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva) 
+                                                values('$cantidadAsientos',0,0,'$idUser','$idPlanificacion','$fecha','$origenID','$destinoID');");
                 } elseif ($butaca == 'ejecutiva') {
-                    $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsiario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva) 
-                                                values(0,'$cantidadAsientos',0,'$idUser','$idPlanificacion','','$origen','$destino')");
+                    $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva) 
+                                                values(0,'$cantidadAsientos',0,'$idUser','$idPlanificacion','$fecha','$origenID','$destinoID');");
                 } elseif ($butaca == 'primera') {
-                    $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsiario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva) 
-                                                values(0,0,'$cantidadAsientos','$idUser','$idPlanificacion','','$origen','$destino')");
+                    $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva) 
+                                                values(0,0,'$cantidadAsientos','$idUser','$idPlanificacion','$fecha','$origenID','$destinoID');");
                 }
             }
             //        Calcularlo
             //$diaLlegada = $_POST["diaLlegada"] ?? "";
             //$horaLlegada = $_POST["horaLlegada"] ?? "";
 
-        }
     }
 }

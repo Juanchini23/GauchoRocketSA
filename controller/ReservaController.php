@@ -49,6 +49,6 @@ class ReservaController
         $idPlanificacion = $_POST["idPlanificacion"] ?? "";
         $fechaSalida = $_POST["fechaSalida"] ?? "";
         // Generar una reserva
-        $reservaExitosa = $this->reservaModel->generarReserva($origen, $destino, $diaSalida, $horaSalida, $butaca, $cantidadAsientos, $metodoPago, $idUser, $idPlanificacion);
+        $reservaExitosa = $this->reservaModel->generarReserva($origen, $destino, $diaSalida, $horaSalida, $butaca, $cantidadAsientos, $metodoPago, $idUser, $idPlanificacion, $fechaSalida);
     }
 }

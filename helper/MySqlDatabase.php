@@ -99,11 +99,9 @@ WHERE p.id = ?;";
         return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
     }
 
-    public function getUsu($id)
-    {
-
+    public function reservar($sql){
+        mysqli_query($this->conn, $sql);
     }
-
 
     private function connect()
     {
