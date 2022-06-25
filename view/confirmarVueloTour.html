@@ -10,7 +10,7 @@
 {{#planificacion}}
 {{#datosModelo}}
 
-<form action="tour/generarPDF?id={{id}}&dia={{dia}}&fecha={{fecha}}&hora={{hora}}&llegada={{llegada}}&primera={{primera}}" method="post">
+<form action="tour/generarPDF?id={{id}}&dia={{dia}}&fecha={{fecha}}&hora={{hora}}&llegada={{llegada}}&primera={{primera}}&origen={{origen}}" method="post">
     <div class="d-flex justify-content-center flex-wrap">
         <h1>Completa los datos</h1>
         <img src="/public/pencil.svg" class="m-2" width="36px">
@@ -45,11 +45,11 @@
                 <h5>Nombre titular: <span class="text-primary">{{nombre}}</span></h5>
                 <h5>Apellido titular: <span class="text-primary">{{apellido}}</span></h5>
                 <h5 class="d-inline">Butacas: <span class="text-white"></span></h5>
-                <select class="form-select ms-5 me-2 w-25 d-inline" aria-label="Default select example" name="claseQueViaja[]">
-                    <option value="default" disabled selected>Tipo...</option>
+                <select class="form-select ms-5 me-2 w-25 d-inline" aria-label="Default select example" name="butaca" required>
+                    <option value="" disabled selected>Tipo...</option>
                     <option value="primera">Primera</option>
                 </select>
-                <input type="number" class="form-control w-25 d-inline" name="cantidadAsientos">
+                <input type="number" class="form-control w-25 d-inline" name="cantidadAsientos" required>
                 <div class="form-group mb-4">
                     <p>¡Selecciona un método de pago!</p>
                     <label><input type="radio" name="metodoPago" value="MP" class="me-1" required>Mercado

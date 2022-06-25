@@ -108,30 +108,27 @@ class TourController
             $data["apellido"] = $_SESSION["apellido"];
         }
 
-        $id = $_GET["id"] ?? "";
-        $asientosReservados = $_POST["cantidadAsientos"] ?? "";
+        $idPlanificacion = $_GET["id"] ?? "";
+        $cantidadAsientos = $_POST["cantidadAsientos"] ?? "";
         $metodoPago = $_POST["metodoPago"] ?? "";
         $butaca = $_POST["butaca"] ?? "";
         $dia = $_GET["dia"] ?? "";
-        $fecha = $_GET["fecha"] ?? "";
+        $fechaSalida = $_GET["fecha"] ?? "";
         $hora = $_GET["hora"] ?? "";
         $llegada = $_GET["llegada"] ?? "";
+        $idUser = $_SESSION["idUserLog"] ?? "";
+        $origen = $_GET["origen"] ?? "";
 
         $asientosDisponibles = $_GET["primera"] ?? "";
         //$claseDeViaje = $_POST["claseDeViaje"] ?? "";   esto me llega vacio
 
-        $totalApagar= $asientosReservados * 5000;
+        $totalApagar= $cantidadAsientos * 5000;
 
-        if($asientosDisponibles >= $asientosReservados ){
 
-            $cuenta = $asientosDisponibles - $asientosReservados;
-            $this->tourModel->updateCantidaDeAsientos($cuenta);
+        $this->tourModel->reservaTour($origen, $butaca, $cantidadAsientos, $idUser, $idPlanificacion, $fechaSalida);
 
 
 
-
-        $planificacion = $this->tourModel->getPlanificacion($id);
-        $datosModelo = $this->tourModel->getDatosModelo($id);
 
 
 // instantiate and use the dompdf class
@@ -152,12 +149,12 @@ class TourController
         <h1>Felicitaciones <span><?php echo $_SESSION["apellido"] . ", " . $_SESSION["usuario"]; ?></span>!!!</h1>
         <h3>Datos:</h3>
         <p>Viajero:<strong><?php echo $_SESSION["apellido"] . ", " . $_SESSION["usuario"]; ?></strong></p>
-        <p>Te vas el dia:<strong><?php echo " " . $dia . " " . $fecha . " "; ?> a las: <?php echo " " . $hora . " "; ?></strong>
+        <p>Te vas el dia:<strong><?php echo " " . $dia . " " . $fechaSalida . " "; ?> a las: <?php echo " " . $hora . " "; ?></strong>
             hs </p>
         <p>Volves el dia:<strong><?php echo " " . $llegada; ?></strong></p>
 
 
-        <p>Reservaste:<strong><?php echo " " . $asientosReservados . " "; ?></strong> butaca/s </p>
+        <p>Reservaste:<strong><?php echo " " . $cantidadAsientos . " "; ?></strong> butaca/s </p>
         <p>Pagas con/en:<strong><?php echo " " . $metodoPago; ?></strong></p>
 
         <p>Total a pagar:<strong><?php echo "USD " . $totalApagar; ?></strong></p>
@@ -208,9 +205,6 @@ class TourController
 // Output the generated PDF to Browser
         $dompdf->stream("ReservaVueloTour.pdf", ['Attachment' => 0]);
 
-        } else{
-            echo "ERROR!";
-        }
     }
 }
 
