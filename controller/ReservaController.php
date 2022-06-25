@@ -17,7 +17,8 @@ class ReservaController
         $data = Validator::validarSesion();
 
         $id = $_GET["id"] ?? "";
-        $fechaViaje = $_GET["fechavuelo"] ?? "";
+        $fechaViaje = $_SESSION["fecha"] ?? "";
+        var_dump($fechaViaje);
         $idUser = $_SESSION["idUserLog"] ?? "";
         $hora = $_GET["hora"] ?? "";
 

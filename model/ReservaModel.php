@@ -108,25 +108,29 @@ class ReservaModel
                                             AND r.origen = '$origen'
                                             AND r.destino = '$destino';");
         $idReserva = $existe['id'];*/
-        $contadorErrores = 0;
+        /*$contadorErrores = 0;*/
 
         // Para saber la cantidad maxima de butacas que tiene el modelo de nave.
-        $cantidadMaximaButacaSeleccionada = $this->dataBase->query("SELECT '$butaca' FROM planificacion p JOIN modelo m ON p.idModelo = m.id
+        $cantidadMaximaButacaSeleccionada = $this->dataBase->query("SELECT $butaca as 'butaca' FROM planificacion p JOIN modelo m ON p.idModelo = m.id
                                                                     WHERE p.id = '$idPlanificacion';");
 
         // Para saber la cantidad actual de butacas que tiene la reserva.
-        $cantidadActualButacaSeleccionada = $this->dataBase->query("SELECT SUM('$butaca') FROM reserva r JOIN planificacion p on r.idPlanificacion = p.id
-                                                                    WHERE p.id = '$idPlanificacion';");
+        $cantidadActualButacaReservadas = $this->dataBase->query("SELECT SUM($butaca) as 'cantidad' FROM reserva r JOIN planificacion p on r.idPlanificacion = p.id
+                                                                    WHERE p.id = '$idPlanificacion'
+                                                                    AND r.fecha = '$fecha';");
 
+        $cantidadM = $cantidadMaximaButacaSeleccionada[0]['butaca'];
+
+        $cantidadA = $cantidadActualButacaReservadas[0]['cantidad'];
+
+        $sumaAsientos = $cantidadA+$cantidadAsientos;
 
             // verificar la cantidad de asientos y la clase
-            if ($cantidadActualButacaSeleccionada>$cantidadMaximaButacaSeleccionada) {
-                $contadorErrores++;
-                $_SESSION['errorNoHayAciento'];
-                header("refresh: 1");
+            if ($sumaAsientos >= $cantidadM) {
+                $_SESSION['errorNoHayAciento']=1;
+                header("location:/");
                 exit();
-            }
-            if ($contadorErrores == 0) {
+            } else{
                 if ($butaca == 'turista') {
                     $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva) 
                                                 values('$cantidadAsientos',0,0,'$idUser','$idPlanificacion','$fecha','$origenID','$destinoID');");
@@ -138,6 +142,9 @@ class ReservaModel
                                                 values(0,0,'$cantidadAsientos','$idUser','$idPlanificacion','$fecha','$origenID','$destinoID');");
                 }
             }
+
+
+
             //        Calcularlo
             //$diaLlegada = $_POST["diaLlegada"] ?? "";
             //$horaLlegada = $_POST["horaLlegada"] ?? "";
