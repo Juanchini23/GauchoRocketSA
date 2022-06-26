@@ -5,10 +5,10 @@ class ReservaModel
 
     private $dataBase;
     private $cero = 0;
-    private $circuitoUnoBA = array(["Tierra"=> 0, "EEI" => 4, "HotelOrbital" => 8, "Luna" => 16, "Marte" => 26]);
-    private $circuitoUnoAA = array(["Tierra"=> 0, "EEI" => 3, "HotelOrbital" => 6, "Luna" => 9, "Marte" => 22]);
-    private $circuitoDosBA = array(["Tierra"=> 0, "EEI" => 4, "Luna" => 14, "Marte" => 26, "Ganimedes" => 48, "Europa" => 50, "Io" => 51, "Encedalo" => 70, "Titan" => 77]);
-    private $circuitoDosAA = array(["Tierra"=> 0, "EEI" => 3, "Luna" => 10, "Marte" => 22, "Ganimedes" => 32, "Europa" => 33, "Io" => 35, "Encedalo" => 50, "Titan" => 52]);
+    private $circuitoUnoBA = array(["Tierra" => 0, "EEI" => 4, "HotelOrbital" => 8, "Luna" => 16, "Marte" => 26]);
+    private $circuitoUnoAA = array(["Tierra" => 0, "EEI" => 3, "HotelOrbital" => 6, "Luna" => 9, "Marte" => 22]);
+    private $circuitoDosBA = array(["Tierra" => 0, "EEI" => 4, "Luna" => 14, "Marte" => 26, "Ganimedes" => 48, "Europa" => 50, "Io" => 51, "Encedalo" => 70, "Titan" => 77]);
+    private $circuitoDosAA = array(["Tierra" => 0, "EEI" => 3, "Luna" => 10, "Marte" => 22, "Ganimedes" => 32, "Europa" => 33, "Io" => 35, "Encedalo" => 50, "Titan" => 52]);
 
 
     /*let circuitoUnoBA = {"Tierra": 0, "EEI": 4, "HotelOrbital": 8, "Luna": 16, "Marte": 26};
@@ -47,83 +47,7 @@ class ReservaModel
     public function generarReserva($origen, $destino, $diaSalida, $horaSalida, $butaca, $cantidadAsientos, $metodoPago, $idUser, $idPlanificacion, $fecha)
     {
         $planificacion = $this->dataBase->getPlani($idPlanificacion);
-        $origenID = '';
-        $destinoID = '';
-        switch ($origen) {
-            case 'BA':
-                $origenID = 1;
-                break;
-            case 'AK':
-                $origenID = 2;
-                break;
-            case 'EEI':
-                $origenID = 11;
-                break;
-            case 'HotelOrbital':
-                $origenID = 10;
-                break;
-            case 'Luna':
-                $origenID = 9;
-                break;
-            case 'Marte':
-                $origenID = 8;
-                break;
-            case 'Ganimedes':
-                $origenID = 7;
-                break;
-            case 'Europa':
-                $origenID = 6;
-                break;
-            case 'Io':
-                $origenID = 5;
-                break;
-            case 'Encedalo':
-                $origenID = 4;
-                break;
-            case 'Titan':
-                $origenID = 3;
-                break;
-            default:
-                $origenID = 0;
-        }
 
-        switch ($destino) {
-            case 'BA':
-                $destinoID = 1;
-                break;
-            case 'AK':
-                $destinoID = 2;
-                break;
-            case 'EEI':
-                $destinoID = 11;
-                break;
-            case 'HotelOrbital':
-                $destinoID = 10;
-                break;
-            case 'Luna':
-                $destinoID = 9;
-                break;
-            case 'Marte':
-                $destinoID = 8;
-                break;
-            case 'Ganimedes':
-                $destinoID = 7;
-                break;
-            case 'Europa':
-                $destinoID = 6;
-                break;
-            case 'Io':
-                $destinoID = 5;
-                break;
-            case 'Encedalo':
-                $destinoID = 4;
-                break;
-            case 'Titan':
-                $destinoID = 3;
-                break;
-            default:
-                $destinoID = 0;
-        }
 
         /*// 1- ver si existe una reserva con el id de la planificacion
         $existe = $this->dataBase->query("SELECT *
@@ -134,29 +58,6 @@ class ReservaModel
         $idReserva = $existe['id'];*/
         /*$contadorErrores = 0;*/
 
-        //////////////////// Logica para reservar  ////////////////////////
-        // para obtener la key del array o el array de keys
-        $keyCircuitoUnoBA = array_keys($this->circuitoUnoBA[0]);
-
-        $entro = false;
-        if($origen=='AK' || $origen=='BA'){
-            $keyCircuitoUnoBA[0]='Tierra';
-        }
-        $i=-1;
-        do{
-            $i++;
-            if ($keyCircuitoUnoBA[$i] == $origen) {
-                $entro = true;
-            }
-            if ($entro == true) {
-                echo($keyCircuitoUnoBA[$i]);
-                echo '+';
-                echo($keyCircuitoUnoBA[$i+1]);
-                echo '<br>';
-            }
-        }while($keyCircuitoUnoBA[$i+1]!=$destino);
-        /////////////////////////////////////////////////////////////////////
-
         // Para saber la cantidad maxima de butacas que tiene el modelo de nave.
         $cantidadMaximaButacaSeleccionada = $this->dataBase->query("SELECT $butaca as 'butaca' FROM planificacion p JOIN modelo m ON p.idModelo = m.id
                                                                     WHERE p.id = '$idPlanificacion';");
@@ -166,34 +67,82 @@ class ReservaModel
                                                                     WHERE p.id = '$idPlanificacion'
                                                                     AND r.fecha = '$fecha';");
 
+        //////////////////// Logica para reservar  ////////////////////////
         $cantidadM = $cantidadMaximaButacaSeleccionada[0]['butaca'];
 
         $cantidadA = $cantidadActualButacaReservadas[0]['cantidad'];
 
         $sumaAsientos = $cantidadA + $cantidadAsientos;
+        // para obtener la key del array o el array de keys
+        $keyCircuitoUnoBA = array_keys($this->circuitoUnoBA[0]);
 
-        // verificar la cantidad de asientos y la clase
-        /*if ($sumaAsientos >= $cantidadM) {
-            $_SESSION['errorNoHayAciento']=1;
-            header("location:/");
-            exit();
-        } else{
-            if ($butaca == 'turista') {
-                $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
-                                            values('$cantidadAsientos',0,0,'$idUser','$idPlanificacion','$fecha','$origenID','$destinoID');");
-            } elseif ($butaca == 'ejecutiva') {
-                $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
-                                            values(0,'$cantidadAsientos',0,'$idUser','$idPlanificacion','$fecha','$origenID','$destinoID');");
-            } elseif ($butaca == 'primera') {
-                $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
-                                            values(0,0,'$cantidadAsientos','$idUser','$idPlanificacion','$fecha','$origenID','$destinoID');");
+        $entro = false;
+        if ($origen == 'AK' || $origen == 'BA') {
+            $origen='Tierra';
+        }
+        $i = -1;
+        do {
+            $i++;
+            if ($keyCircuitoUnoBA[$i] == $origen) {
+                $entro = true;
             }
-        }*/
-
+            if ($entro == true) {
+                // verificar la cantidad de asientos y la clase
+                if ($sumaAsientos >= $cantidadM) {
+                    $_SESSION['errorNoHayAciento'] = 1;
+                    header("location:/");
+                    exit();
+                } else {
+                    $o = $this->getIdLugar($keyCircuitoUnoBA[$i]);
+                    $d = $this->getIdLugar($keyCircuitoUnoBA[$i+1]);
+                    if ($butaca == 'turista') {
+                        $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
+                                            values('$cantidadAsientos',0,0,'$idUser','$idPlanificacion','$fecha',0,11);");
+                    } elseif ($butaca == 'ejecutiva') {
+                        $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
+                                            values(0,'$cantidadAsientos',0,'$idUser','$idPlanificacion','$fecha',0,11);");
+                    } elseif ($butaca == 'primera') {
+                        $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
+                                            values(0,0,'$cantidadAsientos','$idUser','$idPlanificacion','$fecha',0,11);");
+                    }
+                }
+            }
+        } while ($keyCircuitoUnoBA[$i + 1] != $destino);
+        /////////////////////////////////////////////////////////////////////
 
         //        Calcularlo
         //$diaLlegada = $_POST["diaLlegada"] ?? "";
         //$horaLlegada = $_POST["horaLlegada"] ?? "";
 
+    }
+
+    private function getIdLugar($lugar)
+    {
+        switch ($lugar) {
+            case 'BA':
+                return 1;
+            case 'AK':
+                return 2;
+            case 'EEI':
+                return 11;
+            case 'HotelOrbital':
+                return 10;
+            case 'Luna':
+                return 9;
+            case 'Marte':
+                return 8;
+            case 'Ganimedes':
+                return 7;
+            case 'Europa':
+                return 6;
+            case 'Io':
+                return 5;
+            case 'Encedalo':
+                return 4;
+            case 'Titan':
+                return 3;
+            default:
+                return 0;
+        }
     }
 }
