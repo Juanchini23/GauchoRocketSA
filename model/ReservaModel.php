@@ -97,13 +97,13 @@ class ReservaModel
                     $d = $this->getIdLugar($keyCircuitoUnoBA[$i+1]);
                     if ($butaca == 'turista') {
                         $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
-                                            values('$cantidadAsientos',0,0,'$idUser','$idPlanificacion','$fecha',0,11);");
+                                            values('$cantidadAsientos',0,0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
                     } elseif ($butaca == 'ejecutiva') {
                         $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
-                                            values(0,'$cantidadAsientos',0,'$idUser','$idPlanificacion','$fecha',0,11);");
+                                            values(0,'$cantidadAsientos',0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
                     } elseif ($butaca == 'primera') {
                         $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
-                                            values(0,0,'$cantidadAsientos','$idUser','$idPlanificacion','$fecha',0,11);");
+                                            values(0,0,'$cantidadAsientos','$idUser','$idPlanificacion','$fecha','$o','$d');");
                     }
                 }
             }
@@ -119,10 +119,8 @@ class ReservaModel
     private function getIdLugar($lugar)
     {
         switch ($lugar) {
-            case 'BA':
+            case 'Tierra':
                 return 1;
-            case 'AK':
-                return 2;
             case 'EEI':
                 return 11;
             case 'HotelOrbital':
