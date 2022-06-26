@@ -142,8 +142,6 @@ class ReservaModel
         if($origen=='AK' || $origen=='BA'){
             $keyCircuitoUnoBA[0]='Tierra';
         }
-        $origen = 'EEI';
-        $destino = 'Luna';
         $i=-1;
         do{
             $i++;

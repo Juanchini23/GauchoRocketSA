@@ -18,7 +18,6 @@ class ReservaController
 
         $id = $_GET["id"] ?? "";
         $fechaViaje = $_SESSION["fecha"] ?? "";
-        var_dump($fechaViaje);
         $idUser = $_SESSION["idUserLog"] ?? "";
         $hora = $_GET["hora"] ?? "";
 
