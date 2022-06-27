@@ -225,6 +225,29 @@ class ReservaModel
                 }
                 break;
 
+            case 'Orbitales':
+                if ($origen == 'AK' || $origen == 'BA') {
+                    $origen = 'Tierra';
+                }
+                if ($sumaAsientos >= $cantidadM) {
+                    $_SESSION['errorNoHayAciento'] = 1;
+                    header("location:/");
+                    exit();
+                } else {
+                    $o = $this->getIdLugar($origen);
+                    $d = $this->getIdLugar($origen);
+                    if ($butaca == 'turista') {
+                        $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
+                                            values('$cantidadAsientos',0,0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
+                    } elseif ($butaca == 'ejecutivo') {
+                        $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
+                                            values(0,'$cantidadAsientos',0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
+                    } elseif ($butaca == 'primera') {
+                        $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
+                                            values(0,0,'$cantidadAsientos','$idUser','$idPlanificacion','$fecha','$o','$d');");
+                    }
+                }
+                break;
             default:
         }
 
