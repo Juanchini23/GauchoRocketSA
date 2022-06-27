@@ -90,10 +90,11 @@ AND (tv.descripcion = 'EntreDestinosUno' || tv.descripcion = 'EntreDestinosDos' 
 
     public function getReservas($id)
     {
-        return $this->dataBase->query("SELECT r.fecha AS 'fecha', l.descripcion AS 'origen', j.descripcion AS 'destino'
-                                       FROM reserva r JOIN lugar l ON r.idOrigenReserva = l.id
-                                       JOIN lugar j ON r.idDestinoReserva = j.id
-                                       WHERE r.idUsuario = '$id';");
+        return $this->dataBase->query("SELECT r.fecha AS 'fecha', l.descripcion AS 'origen', j.descripcion AS 'destino', eR.descripcion AS 'estado'
+FROM reserva r JOIN lugar l ON r.idOrigenReserva = l.id
+               JOIN lugar j ON r.idDestinoReserva = j.id
+               JOIN estadoReserva eR on r.idEstadoReserva = eR.id
+WHERE r.idUsuario = '$id';");
     }
 }
 
