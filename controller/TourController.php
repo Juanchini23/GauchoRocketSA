@@ -78,21 +78,24 @@ class TourController
         }
 
         $id = $_GET["id"] ?? "";
-        $fecha = $_GET["fecha"] ?? "";
+        $fechaViaje = $_GET["fecha"] ?? "";
 
         $planificacion = $this->tourModel->getPlanificacion($id);
         $datosModelo = $this->tourModel->getDatosModelo($id);
 
 
         //aca agarro la fecha que selecciono en el calendario y le sumo los 35 dias que dura el tour
-        $llegada = date_create($fecha);
+        $llegada = date_create($fechaViaje);
         date_add($llegada, date_interval_create_from_date_string("35 days"));
         $llegada = date_format($llegada, "Y-m-d");
 
+        $datosAsientos = $this->tourModel->getCantidadAsientosReservados($id, $fechaViaje);
+
+        $data["asientoPrimera"] = $datosModelo[0]["primera"] - $datosAsientos[0]["primera"];
 
         //cargo los datos para la vista
         $data["id"] = $id;
-        $data["fecha"] = $fecha;
+        $data["fecha"] = $fechaViaje;
         $data["llegada"] = $llegada;
         $data["planificacion"] = $planificacion;
         $data["datosModelo"] = $datosModelo;

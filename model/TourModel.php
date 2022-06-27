@@ -14,7 +14,7 @@ class TourModel
     {
 
 
-            return $this->dataBase->query("SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', l.descripcion as 'origen', n.modelo as 'modelo'
+        return $this->dataBase->query("SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', l.descripcion as 'origen', n.modelo as 'modelo'
                     FROM planificacion p
                         JOIN lugar l ON p.idOrigen = l.id
                         JOIN modelo m ON p.idModelo = m.id
@@ -25,7 +25,8 @@ class TourModel
 
     }
 
-    public function getTodosLosTours(){
+    public function getTodosLosTours()
+    {
 
         return $this->dataBase->query("SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', l.descripcion as 'origen', n.modelo as 'modelo'
                                         FROM planificacion p
@@ -62,12 +63,11 @@ class TourModel
     }
 
 
+    public function reservaTour($origen, $butaca, $cantidadAsientos, $idUser, $idPlanificacion, $fecha)
+    {
+        $origenID = '';
 
-
-    public function reservaTour($origen, $butaca, $cantidadAsientos, $idUser, $idPlanificacion, $fecha){
-        $origenID='';
-
-        if($origen == 'BA') {
+        if ($origen == 'BA') {
             $origenID = 1;
         }
 
@@ -84,14 +84,14 @@ class TourModel
 
         $cantidadA = $cantidadActualButacaReservadas[0]['cantidad'];
 
-        $sumaAsientos = $cantidadA+$cantidadAsientos;
+        $sumaAsientos = $cantidadA + $cantidadAsientos;
 
         // verificar la cantidad de asientos y la clase
         if ($sumaAsientos >= $cantidadM) {
-            $_SESSION['errorNoHayAciento']=1;
-            header("location:/");
+            $_SESSION['errorNoHayAciento'] = 1;
+            header("location:/tour");
             exit();
-        } else{
+        } else {
             if ($butaca == 'turista') {
                 $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva) 
                                                 values('$cantidadAsientos',0,0,'$idUser','$idPlanificacion','$fecha','$origenID','$origenID');");
@@ -105,6 +105,13 @@ class TourModel
         }
 
 
+    }
+
+    public function getCantidadAsientosReservados($id, $fechaViaje)
+    {
+        return $this->dataBase->query("SELECT SUM(turista) AS 'turista', SUM(ejecutivo) AS 'ejecutivo', SUM(primera) AS 'primera' 
+                                FROM reserva r 
+                               WHERE r.idPlanificacion = '$id' AND r.fecha = '$fechaViaje';");
     }
 
 
