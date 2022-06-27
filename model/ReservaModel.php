@@ -77,7 +77,7 @@ class ReservaModel
 
         switch ($cosas[0]["vuelo"]) {
             case 'EntreDestinosUno':
-                if($cosas[0]["equipo"] == 'BA'){
+                if ($cosas[0]["equipo"] == 'BA') {
                     $keyCircuitoUnoBA = array_keys($this->circuitoUnoBA[0]);
 
                     $entro = false;
@@ -112,7 +112,7 @@ class ReservaModel
                             }
                         }
                     } while ($keyCircuitoUnoBA[$i + 1] != $destino);
-                } else if($cosas[0]["equipo"] == 'AA'){
+                } else if ($cosas[0]["equipo"] == 'AA') {
                     $keyCircuitoUnoAA = array_keys($this->circuitoUnoAA[0]);
 
                     $entro = false;
@@ -152,7 +152,7 @@ class ReservaModel
 
             case 'EntreDestinosDos':
 
-                if($cosas[0]["equipo"] == 'BA'){
+                if ($cosas[0]["equipo"] == 'BA') {
                     $keyCircuitoDosBA = array_keys($this->circuitoDosBA[0]);
 
                     $entro = false;
@@ -187,7 +187,7 @@ class ReservaModel
                             }
                         }
                     } while ($keyCircuitoDosBA[$i + 1] != $destino);
-                } else if($cosas[0]["equipo"] == 'AA'){
+                } else if ($cosas[0]["equipo"] == 'AA') {
                     $keyCircuitoDosAA = array_keys($this->circuitoDosAA[0]);
 
                     $entro = false;
@@ -258,11 +258,12 @@ class ReservaModel
 
     }
 
-    public function isOrbital($idPlanificacion){
+    public function isOrbital($idPlanificacion)
+    {
         $resultado = $this->dataBase->query("SELECT * FROM planificacion p 
                                             WHERE p.idTipoVuelo = 1 AND p.id = '$idPlanificacion'");
 
-        return $resultado!=null;
+        return $resultado != null;
     }
 
     private function getIdLugar($lugar)
@@ -291,5 +292,12 @@ class ReservaModel
             default:
                 return 0;
         }
+    }
+
+    public function getCantidadAsientosReservados($id, $fecha)
+    {
+       return $this->dataBase->query("SELECT SUM(turista) AS 'turista', SUM(ejecutivo) AS 'ejecutivo', SUM(primera) AS 'primera' 
+                                FROM reserva r 
+                               WHERE r.idPlanificacion = '$id' AND r.fecha = '$fecha';");
     }
 }

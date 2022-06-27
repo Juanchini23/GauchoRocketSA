@@ -30,7 +30,11 @@ class ReservaController
 
         $planificacion = $this->reservaModel->getPlanificacion($id);
         $datosModelo = $this->reservaModel->getDatosModelo($id);
+        $datosAsientos = $this->reservaModel->getCantidadAsientosReservados($id, $fechaViaje);
 
+        $data["asientoTurista"] = $datosModelo[0]["turista"] - $datosAsientos[0]["turista"];
+        $data["asientoEjecutivo"] = $datosModelo[0]["ejecutivo"] - $datosAsientos[0]["ejecutivo"];
+        $data["asientoPrimera"] = $datosModelo[0]["primera"] - $datosAsientos[0]["primera"];
         $data["idPlanificacion"] = $id;
         $data["datosModelo"] = $datosModelo;
         $data["planificacion"] = $planificacion;
