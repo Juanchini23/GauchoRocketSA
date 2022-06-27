@@ -68,42 +68,166 @@ class ReservaModel
 
         $sumaAsientos = $cantidadA + $cantidadAsientos;
         // para obtener la key del array o el array de keys
-        $keyCircuitoUnoBA = array_keys($this->circuitoUnoBA[0]);
 
-        $entro = false;
-        if ($origen == 'AK' || $origen == 'BA') {
-            $origen = 'Tierra';
-        }
-        $i = -1;
-        do {
-            $i++;
-            if ($keyCircuitoUnoBA[$i] == $origen) {
-                $entro = true;
-            }
-            if ($entro == true) {
-                // verificar la cantidad de asientos y la clase
-                if ($sumaAsientos >= $cantidadM) {
-                    $_SESSION['errorNoHayAciento'] = 1;
-                    header("location:/");
-                    exit();
-                } else {
-                    $o = $this->getIdLugar($keyCircuitoUnoBA[$i]);
-                    $d = $this->getIdLugar($keyCircuitoUnoBA[$i + 1]);
-                    if ($butaca == 'turista') {
-                        $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
-                                            values('$cantidadAsientos',0,0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
-                    } elseif ($butaca == 'ejecutivo') {
-                        $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
-                                            values(0,'$cantidadAsientos',0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
-                    } elseif ($butaca == 'primera') {
-                        var_dump($o);
-                        $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
-                                            values(0,0,'$cantidadAsientos','$idUser','$idPlanificacion','$fecha','$o','$d');");
+        $cosas = $this->dataBase->query("SELECT tv.descripcion as 'vuelo', te.descripcion as 'equipo'
+                                        FROM planificacion p JOIN tipoVuelo tv ON p.idTipoVuelo = tv.id
+                                        JOIN modelo m ON p.idModelo = m.id
+                                        JOIN tipoEquipo te ON m.tipoEquipo = te.id
+                                        WHERE p.id = '$idPlanificacion'");
+
+        switch ($cosas[0]["vuelo"]) {
+            case 'EntreDestinosUno':
+                if($cosas[0]["equipo"] == 'BA'){
+                    $keyCircuitoUnoBA = array_keys($this->circuitoUnoBA[0]);
+
+                    $entro = false;
+                    if ($origen == 'AK' || $origen == 'BA') {
+                        $origen = 'Tierra';
                     }
+                    $i = -1;
+                    do {
+                        $i++;
+                        if ($keyCircuitoUnoBA[$i] == $origen) {
+                            $entro = true;
+                        }
+                        if ($entro == true) {
+                            // verificar la cantidad de asientos y la clase
+                            if ($sumaAsientos >= $cantidadM) {
+                                $_SESSION['errorNoHayAciento'] = 1;
+                                header("location:/");
+                                exit();
+                            } else {
+                                $o = $this->getIdLugar($keyCircuitoUnoBA[$i]);
+                                $d = $this->getIdLugar($keyCircuitoUnoBA[$i + 1]);
+                                if ($butaca == 'turista') {
+                                    $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
+                                            values('$cantidadAsientos',0,0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
+                                } elseif ($butaca == 'ejecutivo') {
+                                    $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
+                                            values(0,'$cantidadAsientos',0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
+                                } elseif ($butaca == 'primera') {
+                                    $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
+                                            values(0,0,'$cantidadAsientos','$idUser','$idPlanificacion','$fecha','$o','$d');");
+                                }
+                            }
+                        }
+                    } while ($keyCircuitoUnoBA[$i + 1] != $destino);
+                } else if($cosas[0]["equipo"] == 'AA'){
+                    $keyCircuitoUnoAA = array_keys($this->circuitoUnoAA[0]);
+
+                    $entro = false;
+                    if ($origen == 'AK' || $origen == 'BA') {
+                        $origen = 'Tierra';
+                    }
+                    $i = -1;
+                    do {
+                        $i++;
+                        if ($keyCircuitoUnoAA[$i] == $origen) {
+                            $entro = true;
+                        }
+                        if ($entro == true) {
+                            // verificar la cantidad de asientos y la clase
+                            if ($sumaAsientos >= $cantidadM) {
+                                $_SESSION['errorNoHayAciento'] = 1;
+                                header("location:/");
+                                exit();
+                            } else {
+                                $o = $this->getIdLugar($keyCircuitoUnoAA[$i]);
+                                $d = $this->getIdLugar($keyCircuitoUnoAA[$i + 1]);
+                                if ($butaca == 'turista') {
+                                    $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
+                                            values('$cantidadAsientos',0,0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
+                                } elseif ($butaca == 'ejecutivo') {
+                                    $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
+                                            values(0,'$cantidadAsientos',0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
+                                } elseif ($butaca == 'primera') {
+                                    $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
+                                            values(0,0,'$cantidadAsientos','$idUser','$idPlanificacion','$fecha','$o','$d');");
+                                }
+                            }
+                        }
+                    } while ($keyCircuitoUnoAA[$i + 1] != $destino);
                 }
-            }
-        } while ($keyCircuitoUnoBA[$i + 1] != $destino);
-        /////////////////////////////////////////////////////////////////////
+                break;
+
+            case 'EntreDestinosDos':
+
+                if($cosas[0]["equipo"] == 'BA'){
+                    $keyCircuitoDosBA = array_keys($this->circuitoDosBA[0]);
+
+                    $entro = false;
+                    if ($origen == 'AK' || $origen == 'BA') {
+                        $origen = 'Tierra';
+                    }
+                    $i = -1;
+                    do {
+                        $i++;
+                        if ($keyCircuitoDosBA[$i] == $origen) {
+                            $entro = true;
+                        }
+                        if ($entro == true) {
+                            // verificar la cantidad de asientos y la clase
+                            if ($sumaAsientos >= $cantidadM) {
+                                $_SESSION['errorNoHayAciento'] = 1;
+                                header("location:/");
+                                exit();
+                            } else {
+                                $o = $this->getIdLugar($keyCircuitoDosBA[$i]);
+                                $d = $this->getIdLugar($keyCircuitoDosBA[$i + 1]);
+                                if ($butaca == 'turista') {
+                                    $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
+                                            values('$cantidadAsientos',0,0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
+                                } elseif ($butaca == 'ejecutivo') {
+                                    $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
+                                            values(0,'$cantidadAsientos',0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
+                                } elseif ($butaca == 'primera') {
+                                    $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
+                                            values(0,0,'$cantidadAsientos','$idUser','$idPlanificacion','$fecha','$o','$d');");
+                                }
+                            }
+                        }
+                    } while ($keyCircuitoDosBA[$i + 1] != $destino);
+                } else if($cosas[0]["equipo"] == 'AA'){
+                    $keyCircuitoDosAA = array_keys($this->circuitoDosAA[0]);
+
+                    $entro = false;
+                    if ($origen == 'AK' || $origen == 'BA') {
+                        $origen = 'Tierra';
+                    }
+                    $i = -1;
+                    do {
+                        $i++;
+                        if ($keyCircuitoDosAA[$i] == $origen) {
+                            $entro = true;
+                        }
+                        if ($entro == true) {
+                            // verificar la cantidad de asientos y la clase
+                            if ($sumaAsientos >= $cantidadM) {
+                                $_SESSION['errorNoHayAciento'] = 1;
+                                header("location:/");
+                                exit();
+                            } else {
+                                $o = $this->getIdLugar($keyCircuitoDosAA[$i]);
+                                $d = $this->getIdLugar($keyCircuitoDosAA[$i + 1]);
+                                if ($butaca == 'turista') {
+                                    $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
+                                            values('$cantidadAsientos',0,0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
+                                } elseif ($butaca == 'ejecutivo') {
+                                    $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
+                                            values(0,'$cantidadAsientos',0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
+                                } elseif ($butaca == 'primera') {
+                                    $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
+                                            values(0,0,'$cantidadAsientos','$idUser','$idPlanificacion','$fecha','$o','$d');");
+                                }
+                            }
+                        }
+                    } while ($keyCircuitoDosAA[$i + 1] != $destino);
+                }
+                break;
+
+            default:
+        }
+
 
         //        Calcularlo
         //$diaLlegada = $_POST["diaLlegada"] ?? "";
