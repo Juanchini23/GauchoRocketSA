@@ -1,22 +1,3 @@
-DROP DATABASE GauchoRocketSA;
-CREATE DATABASE IF NOT EXISTS GauchoRocketSA;
-USE GauchoRocketSA;
-
-select *
-from usuario;
-select *
-from rol;
-select *
-from usuario;
-select *
-from rol;
-select *
-from tipoEquipo;
-select *
-from tipoCliente;
-select *
-from centroMedico;
-
 CREATE TABLE nave
 (
     id        int primary key not null auto_increment,
@@ -271,7 +252,7 @@ VALUES ('Lunes', 8, 1, 10, 3),
        ('Domingo', 20, 2, 2, 3),
        ('Domingo', 20, 2, 8, 3)
 
-       ;
+;
 
 
 
@@ -310,6 +291,16 @@ WHERE (l.descripcion = 'BA'
     OR p.dia = 'D')
   AND tv.descripcion = 'Tour';
 
+CREATE TABLE estadoReserva
+(
+    id int not null auto_increment primary key,
+    descripcion varchar(50)
+);
+
+INSERT INTO  estadoReserva(descripcion)
+VALUES ('Pendiente'),
+       ('Pagado'),
+       ('Chequeado');
 
 CREATE TABLE reserva
 (
@@ -325,7 +316,9 @@ CREATE TABLE reserva
     idOrigenReserva  int,
     foreign key (idOrigenReserva) references lugar (id),
     idDestinoReserva int,
-    foreign key (idDestinoReserva) references lugar (id)
+    foreign key (idDestinoReserva) references lugar (id),
+    idEstadoReserva int,
+    foreign key (idEstadoReserva) references estadoReserva (id)
 );
 
 SELECT primera FROM planificacion p JOIN modelo m ON p.idModelo = m.id
@@ -333,3 +326,8 @@ where p.id=2;
 
 SELECT SUM(turista) FROM reserva r JOIN planificacion p on r.idPlanificacion = p.id
 WHERE p.id = 5;
+
+SELECT r.fecha AS 'fecha', l.descripcion AS 'origen', j.descripcion AS 'destino'
+FROM reserva r JOIN lugar l ON r.idOrigenReserva = l.id
+               JOIN lugar j ON r.idDestinoReserva = j.id
+WHERE r.idUsuario = 1;
