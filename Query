@@ -110,6 +110,8 @@ CREATE TABLE usuario
     foreign key (codigoViajero) references tipoCliente (id)
 );
 
+INSERT INTO usuario (idRol, nombre, apellido, mail, clave, codigoViajero) VALUES(1, 'Admin', 'Pro', 'admin@gmail.com', 123, 1);
+
 CREATE TABLE modelo
 (
     id          int primary key not null auto_increment,
