@@ -10,13 +10,6 @@ class ReservaModel
     private $circuitoDosBA = array(["Tierra" => 0, "EEI" => 4, "Luna" => 14, "Marte" => 26, "Ganimedes" => 48, "Europa" => 50, "Io" => 51, "Encedalo" => 70, "Titan" => 77]);
     private $circuitoDosAA = array(["Tierra" => 0, "EEI" => 3, "Luna" => 10, "Marte" => 22, "Ganimedes" => 32, "Europa" => 33, "Io" => 35, "Encedalo" => 50, "Titan" => 52]);
 
-
-    /*let circuitoUnoBA = {"Tierra": 0, "EEI": 4, "HotelOrbital": 8, "Luna": 16, "Marte": 26};
-     *   $circuitoUnoAA = {"Tierra": 0, "EEI": 3, "HotelOrbital": 6, "Luna": 9, "Marte": 22};
-      $circuitoDosBA = {"Tierra": 0, "Luna": 14, "Marte": 26, "Ganimedes": 48, "Europa": 50, "Io": 51, "Encedalo": 70, "Titan": 77};
-      $circuitoDosAA = {"Tierra": 0, "EEI": 3, "Luna": 10, "Marte": 22, "Ganimedes": 32, "Europa": 33, "Io": 35, "Encedalo": 50, "Titan": 52};*/
-
-
     public function __construct($getDataBase)
     {
         $this->dataBase = $getDataBase;
@@ -78,7 +71,7 @@ class ReservaModel
 
         $entro = false;
         if ($origen == 'AK' || $origen == 'BA') {
-            $origen='Tierra';
+            $origen = 'Tierra';
         }
         $i = -1;
         do {
@@ -94,7 +87,7 @@ class ReservaModel
                     exit();
                 } else {
                     $o = $this->getIdLugar($keyCircuitoUnoBA[$i]);
-                    $d = $this->getIdLugar($keyCircuitoUnoBA[$i+1]);
+                    $d = $this->getIdLugar($keyCircuitoUnoBA[$i + 1]);
                     if ($butaca == 'turista') {
                         $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
                                             values('$cantidadAsientos',0,0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
