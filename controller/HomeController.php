@@ -23,7 +23,7 @@ class HomeController
             $localStorage = $this->homeModel->busquedaVuelos($_SESSION["origen"], $dia);
             $data["planificacion"] = $localStorage;
         }
-
+        $_SESSION['errorNoHayAciento'] = 0;
         $this->printer->generateView('homeView.html', $data);
     }
 

@@ -19,6 +19,10 @@ class TourController
     {
         $data = Validator::validarSesion();
 
+        if($_SESSION['errorNoHayAciento']==1){
+            $data["errorSobrecargado"] = "No hay disponibilidad de la cantidad de asientos solicitados ";
+        }
+
         $this->printer->generateView('tourView.html', $data);
     }
 
@@ -28,7 +32,7 @@ class TourController
             $data["loggeado"] = 1;
             $data["nombre"] = $_SESSION["usuario"];
         }
-
+        $_SESSION['errorNoHayAciento'] = 0;
         $fecha = $_POST["fecha"] ?? "";
 
         $data["fecha"] = $fecha;
@@ -79,7 +83,7 @@ class TourController
 
         $id = $_GET["id"] ?? "";
         $fechaViaje = $_GET["fecha"] ?? "";
-
+        $_SESSION['errorNoHayAciento'] = 0;
         $planificacion = $this->tourModel->getPlanificacion($id);
         $datosModelo = $this->tourModel->getDatosModelo($id);
 
@@ -110,7 +114,7 @@ class TourController
             $data["nombre"] = $_SESSION["usuario"];
             $data["apellido"] = $_SESSION["apellido"];
         }
-
+        $_SESSION['errorNoHayAciento'] = 0;
         $idPlanificacion = $_GET["id"] ?? "";
         $cantidadAsientos = $_POST["cantidadAsientos"] ?? "";
         $metodoPago = $_POST["metodoPago"] ?? "";

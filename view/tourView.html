@@ -27,6 +27,14 @@
     </form>
 
     <!--Si no hay vuelos que matcheen con la BD-->
+    {{#errorSobrecargado}}
+    <div class="d-flex justify-content-center flex-wrap bg-warning">
+        <img src="/public/error.svg" class="m-2 bg-white rounded-circle" width="50px">
+        <h3 class="m-3">{{errorSobrecargado}}</h3>
+    </div>
+    {{/errorSobrecargado}}
+
+    <!--Error vuelo sobrecargado-->
     {{#sinDatosTours}}
     <div class="d-flex justify-content-center flex-wrap bg-warning">
         <img src="/public/surprised.svg" class="m-2 bg-white rounded-circle" width="50px">
