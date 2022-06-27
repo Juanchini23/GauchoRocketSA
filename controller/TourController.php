@@ -97,6 +97,10 @@ class TourController
 
         $data["asientoPrimera"] = $datosModelo[0]["primera"] - $datosAsientos[0]["primera"];
 
+        if($data["asientoPrimera"] == 0){
+            $data["VueloLLeno"] = "Vuelo lleno";
+        }
+
         //cargo los datos para la vista
         $data["id"] = $id;
         $data["fecha"] = $fechaViaje;

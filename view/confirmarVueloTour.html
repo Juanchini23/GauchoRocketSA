@@ -16,6 +16,8 @@
         <img src="/public/pencil.svg" class="m-2" width="36px">
     </div>
 
+
+
     <section>
         <div class="row d-flex justify-content-center m-5">
 
@@ -60,6 +62,19 @@
             </div>
         </div>
     </section>
+
+
+    <!--vuelo LLeno-->
+    {{#VueloLLeno}}
+    <div class="d-flex justify-content-center flex-wrap bg-warning">
+        <img src="/public/error.svg" class="m-2 bg-white rounded-circle" width="50px">
+        <h3 class="m-3">{{VueloLLeno}}</h3>
+        <img src="/public/surprised.svg" class="m-2 bg-white rounded-circle" width="50px">
+    </div>
+    {{/VueloLLeno}}
+
+
+
     <div class="d-flex justify-content-center flex-wrap m-5">
         <button type="submit" class="btn btn-success"><h1 class="text-white">Confirmar</h1></button>
     </div>
