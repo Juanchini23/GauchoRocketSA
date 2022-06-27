@@ -1,7 +1,27 @@
 let circuitoUnoBA = {"Tierra": 0, "EEI": 4, "HotelOrbital": 8, "Luna": 16, "Marte": 26};
 let circuitoUnoAA = {"Tierra": 0, "EEI": 3, "HotelOrbital": 6, "Luna": 9, "Marte": 22};
-let circuitoDosBA = {"Tierra": 0, "EEI": 4, "Luna": 14, "Marte": 26, "Ganimedes": 48, "Europa": 50, "Io": 51, "Encedalo": 70, "Titan": 77};
-let circuitoDosAA = {"Tierra": 0, "EEI": 3, "Luna": 10, "Marte": 22, "Ganimedes": 32, "Europa": 33, "Io": 35, "Encedalo": 50, "Titan": 52};
+let circuitoDosBA = {
+    "Tierra": 0,
+    "EEI": 4,
+    "Luna": 14,
+    "Marte": 26,
+    "Ganimedes": 48,
+    "Europa": 50,
+    "Io": 51,
+    "Encedalo": 70,
+    "Titan": 77
+};
+let circuitoDosAA = {
+    "Tierra": 0,
+    "EEI": 3,
+    "Luna": 10,
+    "Marte": 22,
+    "Ganimedes": 32,
+    "Europa": 33,
+    "Io": 35,
+    "Encedalo": 50,
+    "Titan": 52
+};
 
 function getHora(tipoCircuito, tipoAceleracion, destino) {
     let calculo = 0;
@@ -37,6 +57,8 @@ function getHora(tipoCircuito, tipoAceleracion, destino) {
             }
             return undefined;
         }
+    } else if (tipoCircuito == 'Orbitales') {
+        return calculo = 8;
     }
 }
 
@@ -109,20 +131,25 @@ function setMensajeError() {
     $("#horaLlegada").text('-');
 }
 
+function logicaHorarios() {
+    let diaSalida = $("#diaSalida").html();
+    let destino = $("#destino").val();
+    let horaSalida = $("#horaSalida").html();
+    let horaDestino = getHora(tipoCircuito, tipoAceleracion, destino);
+    if (horaDestino != undefined) {
+        let cuenta = parseInt(horaSalida) + parseInt(horaDestino);
+        let calculoHoraLLegada = getHoraLlegada(cuenta);
+        let diaLlegada = getDiaLLegada(cuenta, diaSalida);
+        setHoraLlegada(calculoHoraLLegada);
+        setDiaLLegada(diaLlegada, diaSalida);
+    } else setMensajeError();
+}
 
-    let tipoCircuito = $("#tipoVuelo").html();
-    console.log(tipoCircuito);
-    let tipoAceleracion = $("#tipoAceleracion").html();
-    $("#destino").change(function (e) {
-        let diaSalida = $("#diaSalida").html();
-        let destino = $("#destino").val();
-        let horaSalida = $("#horaSalida").html();
-        let horaDestino = getHora(tipoCircuito, tipoAceleracion, destino);
-        if(horaDestino != undefined){
-            let cuenta = parseInt(horaSalida) + parseInt(horaDestino);
-            let calculoHoraLLegada = getHoraLlegada(cuenta);
-            let diaLlegada = getDiaLLegada(cuenta, diaSalida);
-            setHoraLlegada(calculoHoraLLegada);
-            setDiaLLegada(diaLlegada, diaSalida);
-        } else setMensajeError();
-    })
+
+let tipoCircuito = $("#tipoVuelo").html();
+let tipoAceleracion = $("#tipoAceleracion").html();
+logicaHorarios();
+
+$("#destino").change(function (e) {
+    logicaHorarios();
+})
