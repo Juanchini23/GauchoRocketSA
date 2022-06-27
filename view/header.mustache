@@ -67,9 +67,12 @@
                                             </div>
                                             <div class="form-group mb-4">
                                                 <p>¡Selecciona el centro medico a gusto!</p>
-                                                <label><input type="radio" name="centro" value="1" class="me-1" required>Buenos Aires</label>
-                                                <label class="ms-2 me-2"><input type="radio" name="centro" value="2" class="me-1" required>Shangái</label>
-                                                <label><input type="radio" name="centro" value="3" class="me-1" required>Ankara</label>
+                                                <label><input type="radio" name="centro" value="1" class="me-1"
+                                                              required>Buenos Aires</label>
+                                                <label class="ms-2 me-2"><input type="radio" name="centro" value="2"
+                                                                                class="me-1" required>Shangái</label>
+                                                <label><input type="radio" name="centro" value="3" class="me-1"
+                                                              required>Ankara</label>
                                             </div>
                                             <button type="submit" class="btn btn-success">Registrarse</button>
                                         </form>
@@ -99,13 +102,15 @@
 
                     <!-- mustache-->
                     {{#loggeado}}
+                        <li class="me-5">
+                            <a href="home/misReservas" class="text-decoration-none"><p class="me-3 h4 text-white">Mis reservas</p></a>
+                        </li>
                         <div class="nav-item m-1 d-flex justify-content-around align-middle">
                             <p class="me-3 h3 text-white">Hola {{nombre}}</p>
                             <a href='/logout'>
                                 <button class='btn btn-warning'>Salir</button>
                             </a>
                         </div>
-
                     {{/loggeado}}
 
                 </ul>
