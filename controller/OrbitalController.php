@@ -26,10 +26,12 @@ class OrbitalController
             $data["nombre"] = $_SESSION["usuario"];
         }
 
-        $dia = $_POST["dia"] ?? "";
-        $origen = $_POST["origen"] ?? "";
+        $_SESSION["origen"] = $_POST["origen"] ?? "";
+        $_SESSION["fecha"] = $_POST["fecha"] ?? "";
 
-        $respuesta = $this->orbitalModel->getOrbitales($dia, $origen);
+        $dia = date('l', strtotime($_SESSION["fecha"]));
+
+        $respuesta = $this->orbitalModel->getOrbitales($dia, $_SESSION["origen"]);
 
         if($respuesta){
             $data["orbitales"] = $respuesta;
@@ -40,17 +42,9 @@ class OrbitalController
         $this->printer->generateView('orbitalView.html', $data);
     }
 
-    public function busquedaTodosLosOrbitales()
-    {
-        if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
-            $data["loggeado"] = 1;
-            $data["nombre"] = $_SESSION["usuario"];
-        }
 
-        $respuesta = $this->orbitalModel->getTodosLosOrbitales();
-        $data["orbitales"] = $respuesta;
+    public function confirmarVueloOrbital(){
 
-        $this->printer->generateView('orbitalView.html', $data);
     }
 
 }

@@ -235,6 +235,13 @@ class ReservaModel
 
     }
 
+    public function isOrbital($idPlanificacion){
+        $resultado = $this->dataBase->query("SELECT * FROM planificacion p 
+                                            WHERE p.idTipoVuelo = 1 AND p.id = '$idPlanificacion'");
+
+        return $resultado!=null;
+    }
+
     private function getIdLugar($lugar)
     {
         switch ($lugar) {

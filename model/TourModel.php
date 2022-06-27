@@ -94,13 +94,13 @@ class TourModel
         } else{
             if ($butaca == 'turista') {
                 $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva) 
-                                                values('$cantidadAsientos',0,0,'$idUser','$idPlanificacion','$fecha','$origenID',1);");
+                                                values('$cantidadAsientos',0,0,'$idUser','$idPlanificacion','$fecha','$origenID','$origenID');");
             } elseif ($butaca == 'ejecutiva') {
                 $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva) 
-                                                values(0,'$cantidadAsientos',0,'$idUser','$idPlanificacion','$fecha','$origenID',1);");
+                                                values(0,'$cantidadAsientos',0,'$idUser','$idPlanificacion','$fecha','$origenID','$origenID');");
             } elseif ($butaca == 'primera') {
                 $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva) 
-                                                values(0,0,'$cantidadAsientos','$idUser','$idPlanificacion','$fecha','$origenID',1);");
+                                                values(0,0,'$cantidadAsientos','$idUser','$idPlanificacion','$fecha','$origenID','$origenID');");
             }
         }
 

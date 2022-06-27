@@ -109,8 +109,9 @@ function setMensajeError() {
     $("#horaLlegada").text('-');
 }
 
-$(document).ready(function () {
+
     let tipoCircuito = $("#tipoVuelo").html();
+    console.log(tipoCircuito);
     let tipoAceleracion = $("#tipoAceleracion").html();
     $("#destino").change(function (e) {
         let diaSalida = $("#diaSalida").html();
@@ -125,4 +126,3 @@ $(document).ready(function () {
             setDiaLLegada(diaLlegada, diaSalida);
         } else setMensajeError();
     })
-});
