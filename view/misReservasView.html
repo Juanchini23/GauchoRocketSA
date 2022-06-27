@@ -1,20 +1,24 @@
 {{> header}}
-<table class="table table-hover bg-opacity-7 rounded mt-5 mb-5">
-    <thead>
-    <tr>
-        <th scope="col">Fecha</th>
-        <th scope="col">Origen</th>
-        <th scope="col">Destino</th>
-        <th scope="col">Estado</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>{{fecha}}</td>
-        <td>{{hora}}Hs</td>
-        <td>{{origen}}</td>
-        <td>{{destino}}</td>
-    </tr>
-    </tbody>
-</table>
+<div class="container">
+    <table class="table table-hover bg-opacity-7 rounded mt-5 mb-5">
+        <thead>
+        <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">Origen</th>
+            <th scope="col">Destino</th>
+            <th scope="col">Estado</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            {{#reservas}}
+            <td>{{fecha}}</td>
+            <td>{{origen}}Hs</td>
+            <td>{{destino}}</td>
+            <td>{{estado}}</td>
+            {{/reservas}}
+        </tr>
+        </tbody>
+    </table>
+</div>
 {{> footer}}
