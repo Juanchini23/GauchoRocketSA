@@ -39,6 +39,7 @@ class ReservaModel
 
     public function generarReserva($origen, $destino, $diaSalida, $horaSalida, $butaca, $cantidadAsientos, $metodoPago, $idUser, $idPlanificacion, $fecha)
     {
+
         $planificacion = $this->dataBase->getPlani($idPlanificacion);
 
 
@@ -91,10 +92,11 @@ class ReservaModel
                     if ($butaca == 'turista') {
                         $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
                                             values('$cantidadAsientos',0,0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
-                    } elseif ($butaca == 'ejecutiva') {
+                    } elseif ($butaca == 'ejecutivo') {
                         $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
                                             values(0,'$cantidadAsientos',0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
                     } elseif ($butaca == 'primera') {
+                        var_dump($o);
                         $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
                                             values(0,0,'$cantidadAsientos','$idUser','$idPlanificacion','$fecha','$o','$d');");
                     }
