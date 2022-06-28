@@ -14,6 +14,6 @@ class AdminController
     public function execute(){
         $data = Validator::validarSesion();
 
-        $this->printer->generateView('adminView.html', $data);
+        $this->printer->generateView('datosView.html', $data);
     }
 }
