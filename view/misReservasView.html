@@ -4,20 +4,27 @@
         <thead>
         <tr>
             <th scope="col">Fecha</th>
+            <th scope="col">Hora</th>
             <th scope="col">Origen</th>
             <th scope="col">Destino</th>
             <th scope="col">Estado</th>
         </tr>
         </thead>
         <tbody>
+        {{#reservas}}
         <tr>
-            {{#reservas}}
             <td>{{fecha}}</td>
-            <td>{{origen}}Hs</td>
+            <td>{{hora}}Hs</td>
+            <td>{{origen}}</td>
             <td>{{destino}}</td>
             <td>{{estado}}</td>
-            {{/reservas}}
+            <td><a href="reserva/verReserva?id={{id}}">
+                <button class="btn btn-success" type="submit">
+                    Confirmar
+                </button>
+            </a></td>
         </tr>
+        {{/reservas}}
         </tbody>
     </table>
 </div>

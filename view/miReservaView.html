@@ -1,0 +1,123 @@
+{{> header}}
+<div class="bg-secondary bg-opacity-75 text-center pt-4 pb-4    ">
+
+    <div class="rounded container bg-primary bg-opacity-25 pt-5">
+        <h2>Datos de mi reserva</h2>
+        <div class="row">
+            <div class="text-start d-flex justify-content-center col-12">
+                <div class="text-start mb-5 mt-5">
+                    <h5>Fecha: <span class="text-white ms-3">{{fecha}}</span></h5>
+                    <h5>Hora: <span class="text-white ms-3" id="tipoVuelo">{{hora}}</span></h5>
+                    <h5>Origen: <span class="text-white ms-3" id="tipoAceleracion">{{origen}}</span></h5>
+                    <h5>Destino: <span class="text-white ms-3">{{destino}}</span></h5>
+                    <h5>Servicio: <span class="text-white ms-3">{{servicio}}</span></h5>
+                    <h5>Estado de reserva: <span class="text-white ms-3">{{estado}}</span></h5>
+                    <h5>Precio: <span class="text-white ms-3">{{precio}}</span></h5>
+                    <div class="mt-5">
+                        <button class="btn btn-success" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            Pagar
+                        </button>
+                        <a href="#" class="text-decoration-none ms-5">
+                            <button class="btn btn-warning" type="submit">
+                                Ver
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="collapse container" id="collapseExample">
+        <div class="card card-body bg-primary bg-opacity-25 border-0 m-2">
+            <div class="contenedor">
+                <!-- Tarjeta -->
+                <section class="tarjeta" id="tarjeta">
+                    <div class="delantera">
+                        <div class="logo-marca" id="logo-marca">
+                            <img src="/public/img/logos/visa.png" alt="">
+                        </div>
+                        <img src="/public/img/chip-tarjeta.png" class="chip" alt="">
+                        <div class="datos">
+                            <div class="grupo" id="numero">
+                                <p class="label">Número Tarjeta</p>
+                                <p class="numero">#### #### #### ####</p>
+                            </div>
+                            <div class="flexbox">
+                                <div class="grupo" id="nombre">
+                                    <p class="label">Nombre Tarjeta</p>
+                                    <p class="nombre">Jhon Doe</p>
+                                </div>
+
+                                <div class="grupo" id="expiracion">
+                                    <p class="label">Expiracion</p>
+                                    <p class="expiracion"><span class="mes">MM</span> / <span class="year">AA</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="trasera">
+                        <div class="barra-magnetica"></div>
+                        <div class="datos">
+                            <div class="grupo" id="firma">
+                                <p class="label">Firma</p>
+                                <div class="firma"><p></p></div>
+                            </div>
+                            <div class="grupo" id="ccv">
+                                <p class="label">CCV</p>
+                                <p class="ccv"></p>
+                            </div>
+                        </div>
+                        <p class="leyenda">Certificado por GAUCHO ROCKET SA. Los pibardos 2022. Gracias por su
+                            compra.</p>
+                        <a href="#" class="link-banco">GauchoRocketSA</a>
+                    </div>
+                </section>
+                <!-- Contenedor Boton Abrir Formulario -->
+                <div class="contenedor-btn">
+                    <button class="btn-abrir-formulario" id="btn-abrir-formulario">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <!-- Formulario -->
+                <form action="" id="formulario-tarjeta" class="formulario-tarjeta">
+                    <div class="grupo">
+                        <label for="inputNumero">Número Tarjeta</label>
+                        <input type="text" id="inputNumero" maxlength="19" autocomplete="off">
+                    </div>
+                    <div class="grupo">
+                        <label for="inputNombre">Nombre</label>
+                        <input type="text" id="inputNombre" maxlength="19" autocomplete="off">
+                    </div>
+                    <div class="flexbox">
+                        <div class="grupo expira">
+                            <label for="selectMes">Expiracion</label>
+                            <div class="flexbox">
+                                <div class="grupo-select">
+                                    <select name="mes" id="selectMes">
+                                        <option disabled selected>Mes</option>
+                                    </select>
+                                    <i class="fas fa-angle-down"></i>
+                                </div>
+                                <div class="grupo-select">
+                                    <select name="year" id="selectYear">
+                                        <option disabled selected>Año</option>
+                                    </select>
+                                    <i class="fas fa-angle-down"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grupo ccv">
+                            <label for="inputCCV">CCV</label>
+                            <input type="text" id="inputCCV" maxlength="3">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-enviar">Enviar</button>
+                </form>
+            </div>
+            <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+            <script src="/public/js/tarjetaCredito.js"></script>
+        </div>
+    </div>
+</div>
+{{> footer}}

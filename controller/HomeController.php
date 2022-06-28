@@ -59,6 +59,7 @@ class HomeController
         $misReservas = $this->homeModel->getReservas($_SESSION["idUserLog"]);
 
         $data["reservas"] = $misReservas;
+
         $this->printer->generateView('misReservasView.html', $data);
     }
 

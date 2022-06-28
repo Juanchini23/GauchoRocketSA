@@ -313,4 +313,8 @@ class ReservaModel
                                 FROM reserva r 
                                WHERE r.idPlanificacion = '$id' AND r.fecha = '$fecha';");
     }
+
+    public function getMiReserva($id){
+        return "";
+    }
 }
