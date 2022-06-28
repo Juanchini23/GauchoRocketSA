@@ -121,7 +121,7 @@ class TourController
         $_SESSION['errorNoHayAciento'] = 0;
         $idPlanificacion = $_GET["id"] ?? "";
         $cantidadAsientos = $_POST["cantidadAsientos"] ?? "";
-        $metodoPago = $_POST["metodoPago"] ?? "";
+
         $butaca = $_POST["butaca"] ?? "";
         $dia = $_GET["dia"] ?? "";
         $fechaSalida = $_GET["fecha"] ?? "";
@@ -129,17 +129,18 @@ class TourController
         $llegada = $_GET["llegada"] ?? "";
         $idUser = $_SESSION["idUserLog"] ?? "";
         $origen = $_GET["origen"] ?? "";
+        $idServicio = $_POST["servicio"] ?? "";
 
         $asientosDisponibles = $_GET["primera"] ?? "";
         //$claseDeViaje = $_POST["claseDeViaje"] ?? "";   esto me llega vacio
 
+
+
+
+        $this->tourModel->reservaTour($origen, $butaca, $cantidadAsientos, $idUser, $idPlanificacion, $fechaSalida, $idServicio);
+
+        
         $totalApagar= $cantidadAsientos * 5000;
-
-
-        $this->tourModel->reservaTour($origen, $butaca, $cantidadAsientos, $idUser, $idPlanificacion, $fechaSalida);
-
-
-
 
 
 // instantiate and use the dompdf class
@@ -166,7 +167,7 @@ class TourController
 
 
         <p>Reservaste:<strong><?php echo " " . $cantidadAsientos . " "; ?></strong> butaca/s </p>
-        <p>Pagas con/en:<strong><?php echo " " . $metodoPago; ?></strong></p>
+
 
         <p>Total a pagar:<strong><?php echo "USD " . $totalApagar; ?></strong></p>
 

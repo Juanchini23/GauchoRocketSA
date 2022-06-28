@@ -52,12 +52,15 @@
                     <option value="primera">Primera</option>
                 </select>
                 <input type="number" class="form-control w-25 d-inline" name="cantidadAsientos" required>
-                <div class="form-group mb-4">
-                    <p>¡Selecciona un método de pago!</p>
-                    <label><input type="radio" name="metodoPago" value="MP" class="me-1" required>Mercado
-                        Pago</label>
-                    <label class="ms-2 me-2"><input type="radio" name="metodoPago" value="EF" class="me-1" required>Efectivo</label>
-
+                <div class="mt-3">
+                    <h5 class="d-inline">Servicio: <span class="text-white"></span></h5>
+                    <select class="form-select ms-5 me-2 w-25 d-inline" aria-label="Default select example"
+                            name="servicio" required>
+                        <option value="" disabled selected>Servicio...</option>
+                        <option value="1">Standard</option>
+                        <option value="2">Gourmet</option>
+                        <option value="3">Spa</option>
+                    </select>
                 </div>
             </div>
         </div>

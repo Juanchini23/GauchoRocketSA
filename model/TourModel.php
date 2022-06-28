@@ -63,7 +63,7 @@ class TourModel
     }
 
 
-    public function reservaTour($origen, $butaca, $cantidadAsientos, $idUser, $idPlanificacion, $fecha)
+    public function reservaTour($origen, $butaca, $cantidadAsientos, $idUser, $idPlanificacion, $fecha, $idServicio)
     {
         $origenID = '';
 
@@ -101,6 +101,12 @@ class TourModel
             } elseif ($butaca == 'primera') {
                 $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva) 
                                                 values(0,0,'$cantidadAsientos','$idUser','$idPlanificacion','$fecha','$origenID','$origenID');");
+                $precio = 2500;
+                $precioServicio = $this->dataBase->query("SELECT precio as 'precio' FROM servicio WHERE id = '$idServicio'");
+                $precio += $precioServicio[0]["precio"];
+                $this->dataBase->guardarEntera("INSERT INTO reservaCompleta (idUsuario, idPlanificacion, fecha, idOrigen, idDestino, idEstadoReserva, precio, idServicio)
+                                        VALUES ('$idUser', '$idPlanificacion', '$fecha', '$origenID', '$origenID', 1, '$precio', '$idServicio')");
+
             }
         }
 
