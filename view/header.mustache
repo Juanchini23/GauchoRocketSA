@@ -110,6 +110,12 @@
                             <a href="home/misReservas" class="text-decoration-none"><p class="me-3 h4 text-white">Mis
                                 reservas</p></a>
                         </li>
+                        {{#AdminIn}}
+                            <li class="me-5">
+                                <a href="home/datos" class="text-decoration-none"><p class="me-3 h4 text-white">
+                                    Datos</p></a>
+                            </li>
+                        {{/AdminIn}}
                         <div class="nav-item m-1 d-flex justify-content-around align-middle">
                             <p class="me-3 h3 text-white">Hola {{nombre}}</p>
                             <a href='/logout'>

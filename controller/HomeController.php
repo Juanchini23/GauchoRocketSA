@@ -63,4 +63,10 @@ class HomeController
         $this->printer->generateView('misReservasView.html', $data);
     }
 
+    public function datos(){
+        $data = Validator::validarSesion();
+
+        $this->printer->generateView('datosView.html', $data);
+    }
+
 }
