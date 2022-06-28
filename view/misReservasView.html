@@ -22,11 +22,22 @@
             <td>{{origen}}</td>
             <td>{{destino}}</td>
             <td>{{estado}}</td>
+            {{#estadoBool}}
             <td><a href="reserva/verReserva?id={{id}}">
                 <button class="btn btn-success" type="submit">
-                    Confirmar
+                    Pagar
                 </button>
-            </a></td>
+            </a>
+            </td>
+            {{/estadoBool}}
+            {{^estadoBool}}
+            <td><a href="reserva/verReserva?id={{id}}">
+                <button class="btn btn-warning" type="submit">
+                    Ver
+                </button>
+            </a>
+            </td>
+            {{/estadoBool}}
         </tr>
         {{/reservas}}
         </tbody>
