@@ -1,3 +1,7 @@
+DROP DATABASE GauchoRocketSA;
+CREATE DATABASE IF NOT EXISTS GauchoRocketSA;
+USE GauchoRocketSA;
+
 CREATE TABLE nave
 (
     id        int primary key not null auto_increment,
