@@ -267,8 +267,15 @@ class ReservaModel
         $pr = $precioServicio[0]["precio"];
         $precioFinal = ($precio*$cantidadAsientos) + $pr;
 
-        $this->dataBase->guardarEntera("INSERT INTO reservaCompleta (idUsuario, idPlanificacion, fecha, idOrigen, idDestino, idEstadoReserva, precio, idServicio)
+        if($cosas[0]["vuelo"]=='EntreDestinosUno' || $cosas[0]["vuelo"]=='EntreDestinosDos'){
+            $this->dataBase->guardarEntera("INSERT INTO reservaCompleta (idUsuario, idPlanificacion, fecha, idOrigen, idDestino, idEstadoReserva, precio, idServicio)
                                         VALUES ('$idUser', '$idPlanificacion', '$fecha', '$or', '$de', 1, '$precioFinal', '$idServicio')");
+        } else if($cosas[0]["vuelo"]=='Orbitales'){
+            $this->dataBase->guardarEntera("INSERT INTO reservaCompleta (idUsuario, idPlanificacion, fecha, idOrigen, idDestino, idEstadoReserva, precio, idServicio)
+                                        VALUES ('$idUser', '$idPlanificacion', '$fecha', '$or', '$or', 1, '$precioFinal', '$idServicio')");
+        }
+
+
     }
 
     public function isOrbital($idPlanificacion)
