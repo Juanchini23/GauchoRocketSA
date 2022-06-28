@@ -333,3 +333,10 @@ SELECT r.fecha AS 'fecha', l.descripcion AS 'origen', j.descripcion AS 'destino'
 FROM reserva r JOIN lugar l ON r.idOrigenReserva = l.id
                JOIN lugar j ON r.idDestinoReserva = j.id
 WHERE r.idUsuario = 1;
+
+# query contar cantidades de pasajeros por tipo cabina
+SELECT SUM(SUM(DISTINCT primera)) OVER (ORDER BY r.idPlanificacion) AS 'primera',
+       SUM(SUM(DISTINCT turista)) OVER (ORDER BY r.idPlanificacion) AS 'turista',
+       SUM(SUM(DISTINCT ejecutivo)) OVER (ORDER BY r.idPlanificacion) AS 'ejecutivo'
+FROM reserva r;
+
