@@ -78,6 +78,18 @@
                     </select>
                     <input type="number" class="form-control w-25 d-inline" name="cantidadAsientos">
 
+                    <div class="mt-3">
+                        <h5 class="d-inline">Servicio: <span class="text-white"></span></h5>
+                        <select class="form-select ms-5 me-2 w-25 d-inline" aria-label="Default select example"
+                                name="servicio">
+                            <option value="0" disabled selected>Servicio...</option>
+                            <option value="1">Standard</option>
+                            <option value="2">Gourmet</option>
+                            <option value="3">Spa</option>
+                        </select>
+                    </div>
+
+
                     <input type="hidden" name="origen" value="{{origen}}" class="d-none">
                     <input type="hidden" name="horaSalida" value="{{hora}}" class="d-none">
                     <input type="hidden" name="diaSalida" value="{{dia}}" class="d-none">
@@ -89,9 +101,9 @@
                     <!--     agregar inputs de datos calculados               -->
 
                     <div class="text-center mt-5">
-                    <button class="btn btn-success" type="submit">
-                        Confirmar
-                    </button>
+                        <button class="btn btn-success" type="submit">
+                            Confirmar
+                        </button>
                     </div>
                 </div>
             </div>

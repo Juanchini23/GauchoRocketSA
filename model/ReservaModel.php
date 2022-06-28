@@ -37,20 +37,11 @@ class ReservaModel
         return $this->dataBase->getDatosModelo($id);
     }
 
-    public function generarReserva($origen, $destino, $diaSalida, $horaSalida, $butaca, $cantidadAsientos, $metodoPago, $idUser, $idPlanificacion, $fecha)
+    public function generarReserva($origen, $destino, $diaSalida, $horaSalida, $butaca, $cantidadAsientos, $metodoPago, $idUser, $idPlanificacion, $fecha, $idServicio)
     {
 
         $planificacion = $this->dataBase->getPlani($idPlanificacion);
 
-
-        /*// 1- ver si existe una reserva con el id de la planificacion
-        $existe = $this->dataBase->query("SELECT *
-                                            FROM reserva r JOIN planificacion p ON r.idPlanificacion = p.id
-                                            WHERE p.id = '$idPlanificacion'
-                                            AND r.origen = '$origen'
-                                            AND r.destino = '$destino';");
-        $idReserva = $existe['id'];*/
-        /*$contadorErrores = 0;*/
 
         // Para saber la cantidad maxima de butacas que tiene el modelo de nave.
         $cantidadMaximaButacaSeleccionada = $this->dataBase->query("SELECT $butaca as 'butaca' FROM planificacion p JOIN modelo m ON p.idModelo = m.id
@@ -74,7 +65,7 @@ class ReservaModel
                                         JOIN modelo m ON p.idModelo = m.id
                                         JOIN tipoEquipo te ON m.tipoEquipo = te.id
                                         WHERE p.id = '$idPlanificacion'");
-
+        $precio = 0;
         switch ($cosas[0]["vuelo"]) {
             case 'EntreDestinosUno':
                 if ($cosas[0]["equipo"] == 'BA') {
@@ -102,12 +93,15 @@ class ReservaModel
                                 if ($butaca == 'turista') {
                                     $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
                                             values('$cantidadAsientos',0,0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
+                                    $precio+=100;
                                 } elseif ($butaca == 'ejecutivo') {
                                     $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
                                             values(0,'$cantidadAsientos',0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
+                                    $precio+=300;
                                 } elseif ($butaca == 'primera') {
                                     $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
                                             values(0,0,'$cantidadAsientos','$idUser','$idPlanificacion','$fecha','$o','$d');");
+                                    $precio+=800;
                                 }
                             }
                         }
@@ -137,12 +131,15 @@ class ReservaModel
                                 if ($butaca == 'turista') {
                                     $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
                                             values('$cantidadAsientos',0,0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
+                                    $precio+=150;
                                 } elseif ($butaca == 'ejecutivo') {
                                     $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
                                             values(0,'$cantidadAsientos',0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
+                                    $precio+=350;
                                 } elseif ($butaca == 'primera') {
                                     $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
                                             values(0,0,'$cantidadAsientos','$idUser','$idPlanificacion','$fecha','$o','$d');");
+                                    $precio+=850;
                                 }
                             }
                         }
@@ -177,12 +174,15 @@ class ReservaModel
                                 if ($butaca == 'turista') {
                                     $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
                                             values('$cantidadAsientos',0,0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
+                                    $precio+=200;
                                 } elseif ($butaca == 'ejecutivo') {
                                     $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
                                             values(0,'$cantidadAsientos',0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
+                                    $precio+=600;
                                 } elseif ($butaca == 'primera') {
                                     $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
                                             values(0,0,'$cantidadAsientos','$idUser','$idPlanificacion','$fecha','$o','$d');");
+                                    $precio+=900;
                                 }
                             }
                         }
@@ -212,12 +212,15 @@ class ReservaModel
                                 if ($butaca == 'turista') {
                                     $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
                                             values('$cantidadAsientos',0,0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
+                                    $precio+=250;
                                 } elseif ($butaca == 'ejecutivo') {
                                     $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
                                             values(0,'$cantidadAsientos',0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
+                                    $precio+=650;
                                 } elseif ($butaca == 'primera') {
                                     $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
                                             values(0,0,'$cantidadAsientos','$idUser','$idPlanificacion','$fecha','$o','$d');");
+                                    $precio+=1000;
                                 }
                             }
                         }
@@ -239,23 +242,33 @@ class ReservaModel
                     if ($butaca == 'turista') {
                         $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
                                             values('$cantidadAsientos',0,0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
+                        $precio=1800;
                     } elseif ($butaca == 'ejecutivo') {
                         $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
                                             values(0,'$cantidadAsientos',0,'$idUser','$idPlanificacion','$fecha','$o','$d');");
+                        $precio=2300;
                     } elseif ($butaca == 'primera') {
                         $this->dataBase->reservar("insert into reserva(turista, ejecutivo, primera , idUsuario, idPlanificacion, fecha, idOrigenReserva, idDestinoReserva)
                                             values(0,0,'$cantidadAsientos','$idUser','$idPlanificacion','$fecha','$o','$d');");
+                        $precio=2900;
                     }
                 }
                 break;
             default:
         }
 
+        if ($origen == 'AK' || $origen == 'BA') {
+            $origen = 'Tierra';
+        }
 
-        //        Calcularlo
-        //$diaLlegada = $_POST["diaLlegada"] ?? "";
-        //$horaLlegada = $_POST["horaLlegada"] ?? "";
+        $or = $this->getIdLugar($origen);
+        $de = $this->getIdLugar($destino);
+        $precioServicio = $this->dataBase->query("SELECT precio as 'precio' FROM servicio WHERE id = '$idServicio'");
+        $pr = $precioServicio[0]["precio"];
+        $precioFinal = ($precio*$cantidadAsientos) + $pr;
 
+        $this->dataBase->guardarEntera("INSERT INTO reservaCompleta (idUsuario, idPlanificacion, fecha, idOrigen, idDestino, idEstadoReserva, precio, idServicio)
+                                        VALUES ('$idUser', '$idPlanificacion', '$fecha', '$or', '$de', 1, '$precioFinal', '$idServicio')");
     }
 
     public function isOrbital($idPlanificacion)

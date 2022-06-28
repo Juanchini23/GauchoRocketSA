@@ -103,6 +103,10 @@ WHERE p.id = ?;";
         mysqli_query($this->conn, $sql);
     }
 
+    public function guardarEntera($sql){
+        mysqli_query($this->conn, $sql);
+    }
+
     private function connect()
     {
         $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->database);

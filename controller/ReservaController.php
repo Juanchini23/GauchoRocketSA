@@ -55,8 +55,9 @@ class ReservaController
         $idUser = $_SESSION["idUserLog"] ?? "";
         $idPlanificacion = $_POST["idPlanificacion"] ?? "";
         $fechaSalida = $_POST["fechaSalida"] ?? "";
+        $idServicio = $_POST["servicio"] ?? "";
         // Generar una reserva
-        $reservaExitosa = $this->reservaModel->generarReserva($origen, $destino, $diaSalida, $horaSalida, $butaca, $cantidadAsientos, $metodoPago, $idUser, $idPlanificacion, $fechaSalida);
+        $reservaExitosa = $this->reservaModel->generarReserva($origen, $destino, $diaSalida, $horaSalida, $butaca, $cantidadAsientos, $metodoPago, $idUser, $idPlanificacion, $fechaSalida, $idServicio);
     }
 
     public function reservarOrbital(){
