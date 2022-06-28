@@ -316,10 +316,11 @@ class ReservaModel
 
     public function getMiReserva($id)
     {
-        return $this->dataBase->query("SELECT rC.fecha AS 'fecha', p.horaPartida AS 'hora', lO.idOrigen AS 'origen', lD.idDestino AS 'destino'
-                                       FROM reservacompleta rC 
-                                       JOIN planificacion p ON rC.idPlanificacion = p.id
-                                       JOIN lugar lO ON rC.idOrigen = lO.id
-                                       JOIN lugar lD ON rC.idDestino = lD.id;");
+//        return $this->dataBase->query("SELECT rC.fecha AS 'fecha', p.horaPartida AS 'hora', lO.idOrigen AS 'origen', lD.idDestino AS 'destino'
+//                                       FROM reservacompleta rC
+//                                       JOIN planificacion p ON rC.idPlanificacion = p.id
+//                                       JOIN lugar lO ON rC.idOrigen = lO.id
+//                                       JOIN lugar lD ON rC.idDestino = lD.id;");
+        return "";
     }
 }
