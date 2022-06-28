@@ -10,13 +10,15 @@
         <div class="row">
             <div class="text-start d-flex justify-content-center col-12">
                 <div class="text-start mb-5 mt-5">
+                    {{#miReserva}}
                     <h5>Fecha: <span class="text-white ms-3">{{fecha}}</span></h5>
-                    <h5>Hora: <span class="text-white ms-3" id="tipoVuelo">{{hora}}</span></h5>
+                    <h5>Hora: <span class="text-white ms-3" id="tipoVuelo">{{hora}}Hs</span></h5>
                     <h5>Origen: <span class="text-white ms-3" id="tipoAceleracion">{{origen}}</span></h5>
                     <h5>Destino: <span class="text-white ms-3">{{destino}}</span></h5>
                     <h5>Servicio: <span class="text-white ms-3">{{servicio}}</span></h5>
                     <h5>Estado de reserva: <span class="text-white ms-3">{{estado}}</span></h5>
-                    <h5>Precio: <span class="text-white ms-3">{{precio}}</span></h5>
+                    <h5>Precio: <span class="text-white ms-3">${{precio}}</span></h5>
+                    {{/miReserva}}
                     <div class="mt-5">
                         <button class="btn btn-success" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">

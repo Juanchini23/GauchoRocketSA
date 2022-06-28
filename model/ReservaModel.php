@@ -267,10 +267,10 @@ class ReservaModel
         $pr = $precioServicio[0]["precio"];
         $precioFinal = ($precio * $cantidadAsientos) + $pr;
 
-        if($cosas[0]["vuelo"]=='EntreDestinosUno' || $cosas[0]["vuelo"]=='EntreDestinosDos'){
+        if ($cosas[0]["vuelo"] == 'EntreDestinosUno' || $cosas[0]["vuelo"] == 'EntreDestinosDos') {
             $this->dataBase->guardarEntera("INSERT INTO reservaCompleta (idUsuario, idPlanificacion, fecha, idOrigen, idDestino, idEstadoReserva, precio, idServicio)
                                         VALUES ('$idUser', '$idPlanificacion', '$fecha', '$or', '$de', 1, '$precioFinal', '$idServicio')");
-        } else if($cosas[0]["vuelo"]=='Orbitales'){
+        } else if ($cosas[0]["vuelo"] == 'Orbitales') {
             $this->dataBase->guardarEntera("INSERT INTO reservaCompleta (idUsuario, idPlanificacion, fecha, idOrigen, idDestino, idEstadoReserva, precio, idServicio)
                                         VALUES ('$idUser', '$idPlanificacion', '$fecha', '$or', '$or', 1, '$precioFinal', '$idServicio')");
         }
@@ -323,11 +323,14 @@ class ReservaModel
 
     public function getMiReserva($id)
     {
-//        return $this->dataBase->query("SELECT rC.fecha AS 'fecha', p.horaPartida AS 'hora', lO.idOrigen AS 'origen', lD.idDestino AS 'destino'
-//                                       FROM reservacompleta rC
-//                                       JOIN planificacion p ON rC.idPlanificacion = p.id
-//                                       JOIN lugar lO ON rC.idOrigen = lO.id
-//                                       JOIN lugar lD ON rC.idDestino = lD.id;");
-        return "";
+        return $this->dataBase->query("SELECT rC.fecha AS 'fecha', p.horaPartida AS 'hora', lO.descripcion AS 'origen', lD.descripcion AS 'destino',
+                                       rC.id AS 'id', s.descripcion AS 'servicio', rC.precio AS 'precio'
+                                       FROM reservacompleta rC 
+                                       JOIN planificacion p ON rC.idPlanificacion = p.id
+                                       JOIN lugar lO ON rC.idOrigen = lO.id
+                                       JOIN lugar lD ON rC.idDestino = lD.id    
+                                       JOIN servicio s ON s.id = rC.idServicio
+                                       WHERE rC.id = '$id';");
+
     }
 }
