@@ -322,9 +322,7 @@ CREATE TABLE reserva
     idOrigenReserva  int,
     foreign key (idOrigenReserva) references lugar (id),
     idDestinoReserva int,
-    foreign key (idDestinoReserva) references lugar (id),
-    idEstadoReserva int,
-    foreign key (idEstadoReserva) references estadoReserva (id)
+    foreign key (idDestinoReserva) references lugar (id)
 );
 
 SELECT primera FROM planificacion p JOIN modelo m ON p.idModelo = m.id
