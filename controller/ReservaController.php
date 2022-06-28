@@ -72,7 +72,17 @@ class ReservaController
         $miReserva = $this->reservaModel->getMiReserva($id);
 
         $data["miReserva"] = $miReserva;
+        $data["id"] = $id;
+        var_dump($data["id"]);
 
         $this->printer->generateView('miReservaView.html', $data);
+    }
+
+    public function pagar(){
+        $id = $_POST["id"];
+        $this->reservaModel->setPago($id);
+
+        header("location: /home/misReservas");
+        exit();
     }
 }

@@ -58,6 +58,14 @@ class MySqlDatabase
         $comando->execute();
     }
 
+    public function pagarReserva($id)
+    {
+        $sql = "UPDATE reservacompleta rC SET rC.idEstadoReserva = 2 WHERE rC.id = ?;";
+        $comando = $this->conn->prepare($sql);
+        $comando->bind_param("i", $id);
+        $comando->execute();
+    }
+
     public function guardarVueloFecha($idUser, $id, $date)
     {
         $sql = "INSERT INTO reserva(idUsuario, idPlanificacion, fecha) values (?, ?, ?);";
@@ -99,11 +107,13 @@ WHERE p.id = ?;";
         return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
     }
 
-    public function reservar($sql){
+    public function reservar($sql)
+    {
         mysqli_query($this->conn, $sql);
     }
 
-    public function guardarEntera($sql){
+    public function guardarEntera($sql)
+    {
         mysqli_query($this->conn, $sql);
     }
 
@@ -124,7 +134,7 @@ WHERE p.id = ?;";
         $comando->bind_param("s", $cuenta);
         $comando->execute();
     }
-    
+
 
     private function disconnect()
     {
