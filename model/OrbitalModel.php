@@ -12,7 +12,7 @@ class OrbitalModel
 
 
 
-    public function getOrbitales($dia, $origen)
+    public function getOrbitales($dia, $origen,$codigoViajero)
     {
         $diaLetra = "";
 
@@ -56,9 +56,11 @@ class OrbitalModel
                                             JOIN modelo m ON p.idModelo = m.id
                                             JOIN nave n ON m.idNave = n.id
                                             JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
+                                            JOIN tipoCliente tc ON m.tipoCliente = tc.id
                                         WHERE (l.descripcion = '{$origen}' 
                                         OR p.dia = '{$diaLetra}')
-                                        AND (tv.descripcion = 'Orbitales')");
+                                        AND (tv.descripcion = 'Orbitales')
+                                        AND tc.descripcion like '%$codigoViajero%'");
 
     } else{
             return $this->dataBase->query("SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', l.descripcion as 'origen', n.modelo as 'modelo'
@@ -67,9 +69,11 @@ class OrbitalModel
                                             JOIN modelo m ON p.idModelo = m.id
                                             JOIN nave n ON m.idNave = n.id
                                             JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
+                                            JOIN tipoCliente tc ON m.tipoCliente = tc.id
                                         WHERE (l.descripcion = '{$origen}' 
                                         AND p.dia = '{$diaLetra}')
-                                        AND tv.descripcion = 'Orbitales'");
+                                        AND tv.descripcion = 'Orbitales'
+                                        AND tc.descripcion like '%$codigoViajero%'");
         }
     }
 

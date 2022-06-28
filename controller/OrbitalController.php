@@ -30,8 +30,8 @@ class OrbitalController
         $_SESSION["fecha"] = $_POST["fecha"] ?? "";
 
         $dia = date('l', strtotime($_SESSION["fecha"]));
-
-        $respuesta = $this->orbitalModel->getOrbitales($dia, $_SESSION["origen"]);
+        $codigoviajero = $_SESSION["codigoViajero"] ?? "";
+        $respuesta = $this->orbitalModel->getOrbitales($dia, $_SESSION["origen"], $codigoviajero);
 
         if($respuesta){
             $data["orbitales"] = $respuesta;

@@ -10,7 +10,7 @@ class TourModel
         $this->dataBase = $dataBase;
     }
 
-    public function getTours($dia)
+    public function getTours($dia, $codigoviajero)
     {
 
 
@@ -20,7 +20,9 @@ class TourModel
                         JOIN modelo m ON p.idModelo = m.id
                         JOIN nave n ON m.idNave = n.id
                         JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
-                    WHERE p.dia = '{$dia}' AND tv.descripcion = 'Tour'");
+                        JOIN tipoCliente tc ON m.tipoCliente = tc.id
+                    WHERE p.dia = '{$dia}' AND tv.descripcion = 'Tour'
+                    AND tc.descripcion like '%$codigoviajero%'");
 
 
     }

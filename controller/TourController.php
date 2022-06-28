@@ -35,14 +35,20 @@ class TourController
         $_SESSION['errorNoHayAciento'] = 0;
         $fecha = $_POST["fecha"] ?? "";
 
+        $codigoviajero = $_SESSION["codigoViajero"] ?? "";
+
         $data["fecha"] = $fecha;
         $timestamp = strtotime($fecha);
         $timestamp = idate('w', $timestamp); // aca si es domingo devuelve 0
 
         if ($timestamp == 0) {
             $dia = "Domingo";
-            $respuesta = $this->tourModel->getTours($dia);
+            $respuesta = $this->tourModel->getTours($dia, $codigoviajero);
             $data["tours"] = $respuesta;
+
+            if($respuesta == null){
+                $data["sinDatosTours"] = "No hay vuelos disponibles para vos el dia seleccionado";
+            }
 
             $this->printer->generateView('tourView.html', $data);
         } else{
