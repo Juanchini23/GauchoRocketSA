@@ -58,6 +58,9 @@ class ReservaController
         $idServicio = $_POST["servicio"] ?? "";
         // Generar una reserva
         $reservaExitosa = $this->reservaModel->generarReserva($origen, $destino, $diaSalida, $horaSalida, $butaca, $cantidadAsientos, $metodoPago, $idUser, $idPlanificacion, $fechaSalida, $idServicio);
+
+        header("location: /");
+        exit();
     }
 
     public function verReserva()
