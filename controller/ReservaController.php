@@ -73,7 +73,6 @@ class ReservaController
 
         $data["miReserva"] = $miReserva;
         $data["id"] = $id;
-        var_dump($data["id"]);
 
         $this->printer->generateView('miReservaView.html', $data);
     }
