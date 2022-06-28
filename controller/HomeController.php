@@ -17,10 +17,10 @@ class HomeController
     public function execute()
     {
         $data = Validator::validarSesion();
-
+        $codigoviajero = $_SESSION["codigoViajero"] ?? "";
         if (isset($_SESSION["origen"]) && isset($_SESSION["fecha"]) && isset($_SESSION["destino"])) {
             $dia = date('l', strtotime($_SESSION["fecha"]));
-            $localStorage = $this->homeModel->busquedaVuelos($_SESSION["origen"], $dia);
+            $localStorage = $this->homeModel->busquedaVuelos($_SESSION["origen"], $dia, $codigoviajero);
             $data["planificacion"] = $localStorage;
         }
         $_SESSION['errorNoHayAciento'] = 0;
@@ -38,9 +38,11 @@ class HomeController
         $_SESSION["fecha"] = $fecha;
         $_SESSION["destino"] = $destino;
 
+        $codigoviajero = $_SESSION["codigoViajero"];
+
         // como saber el dia de la semana que es la fecha que nos llega desde el formulario de entredestinos
         $dia = date('l', strtotime($fecha));
-        $respuesta = $this->homeModel->busquedaVuelos($origen, $dia);
+        $respuesta = $this->homeModel->busquedaVuelos($origen, $dia, $codigoviajero);
         $data["planificacion"] = $respuesta;
 
         if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {

@@ -24,6 +24,7 @@ class LoginModel
                     $_SESSION["usuario"] = $usuario["nombre"];
                     $_SESSION["idUserLog"] = $usuario["id"];
                     $_SESSION["apellido"] = $usuario["apellido"];
+                    $_SESSION["codigoViajero"] = $usuario["codigoViajero"];
                     return "Admin";
                 }
                 if ($usuario["idRol"] == 2) {
@@ -31,6 +32,7 @@ class LoginModel
                     $_SESSION["usuario"] = $usuario["nombre"];
                     $_SESSION["idUserLog"] = $usuario["id"];
                     $_SESSION["apellido"] = $usuario["apellido"];
+                    $_SESSION["codigoViajero"] = $usuario["codigoViajero"];
                     return "Clien";
                 }
             }
