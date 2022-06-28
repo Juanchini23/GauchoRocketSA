@@ -340,3 +340,29 @@ SELECT SUM(SUM(DISTINCT primera)) OVER (ORDER BY r.idPlanificacion) AS 'primera'
        SUM(SUM(DISTINCT ejecutivo)) OVER (ORDER BY r.idPlanificacion) AS 'ejecutivo'
 FROM reserva r;
 
+CREATE TABLE servicio(
+    id               int not null auto_increment primary key,
+    descripcion      varchar(20),
+    precio        int
+);
+
+INSERT INTO servicio (descripcion, precio) VALUES ('standard',200),('gourmet',300),('spa',600);
+
+CREATE TABLE reservaCompleta
+(
+    id               int not null auto_increment primary key,
+    idUsuario        int,
+    foreign key (idUsuario) references usuario (id),
+    idPlanificacion  int,
+    foreign key (idPlanificacion) references planificacion (id),
+    fecha            date,
+    idOrigen  int,
+    foreign key (idOrigen) references lugar (id),
+    idDestino int,
+    foreign key (idDestino) references lugar (id),
+    idEstadoReserva int,
+    foreign key (idEstadoReserva) references estadoReserva (id),
+    precio int,
+    idServicio int,
+    foreign key (idServicio) references servicio (id)
+);
