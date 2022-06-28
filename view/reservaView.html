@@ -77,12 +77,6 @@
                         <option value="primera">Primera</option>
                     </select>
                     <input type="number" class="form-control w-25 d-inline" name="cantidadAsientos">
-                    <div class="form-group mb-4">
-                        <p>¡Selecciona un método de pago!</p>
-                        <label><input type="radio" name="metodoPago" value="MP" class="me-1" required>Mercado
-                            Pago</label>
-                        <label class="ms-2 me-2"><input type="radio" name="metodoPago" value="EF" class="me-1" required>Efectivo</label>
-                    </div>
 
                     <input type="hidden" name="origen" value="{{origen}}" class="d-none">
                     <input type="hidden" name="horaSalida" value="{{hora}}" class="d-none">
@@ -94,10 +88,11 @@
                     <div class="invisible d-none" id="llegadaHora"></div>
                     <!--     agregar inputs de datos calculados               -->
 
+                    <div class="text-center mt-5">
                     <button class="btn btn-success" type="submit">
                         Confirmar
                     </button>
-
+                    </div>
                 </div>
             </div>
         </div>
