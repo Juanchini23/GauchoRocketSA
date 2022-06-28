@@ -24,8 +24,8 @@ class ReservaController
         // planificacion: origen reserva diasalida horasalida
         // calculado a futuro: horallegada diallegada
         // usuario: nombre apellido
-        if($this->reservaModel->isOrbital($id)){
-            $data["orbital"] =1;
+        if ($this->reservaModel->isOrbital($id)) {
+            $data["orbital"] = 1;
         }
 
         $planificacion = $this->reservaModel->getPlanificacion($id);
@@ -59,7 +59,16 @@ class ReservaController
         $reservaExitosa = $this->reservaModel->generarReserva($origen, $destino, $diaSalida, $horaSalida, $butaca, $cantidadAsientos, $metodoPago, $idUser, $idPlanificacion, $fechaSalida);
     }
 
-    public function reservarOrbital(){
-        $idPlanificacion = $_GET["idPlanificacion"];
+    public function verReserva()
+    {
+        $id = $_GET['id'] ?? "";
+
+        $data = Validator::validarSesion();
+
+        $miReserva = $this->reservaModel->getMiReserva($id);
+
+        $data["miReserva"] = $miReserva;
+
+        $this->printer->generateView('miReservaView.html', $data);
     }
 }
