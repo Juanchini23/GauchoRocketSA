@@ -57,11 +57,27 @@
                 </select>
             </div>
             <div class="d-flex">
+                <img src="public/origen.svg" width="18px">
+                <select class="form-select ms-1 me-2" aria-label="Default select example" name="destinoVuelo">
+                    <option value="default" disabled selected>Destino...</option>
+                    <option value="EEI">EEI</option>
+                    <option value="HotelOrbital">Hotel Orbital</option>
+                    <option value="Luna">Luna</option>
+                    <option value="Marte">Marte</option>
+                    <option value="Ganimedes">Ganimedes</option>
+                    <option value="Europa">Europa</option>
+                    <option value="Io">Io</option>
+                    <option value="Encedalo">Encedalo</option>
+                    <option value="Titan">Titan</option>
+                </select>
+            </div>
+            <div class="d-flex">
                 <img src="public/salida.svg" width="20px">
                 <input type="date" name="fecha" id="fecha" class="form-control ms-1 me-2" required>
             </div>
 
             <div class="d-flex">
+                <input type="hidden" name="id" value="{{id}}" class="d-none">
                 <button type="submit" class="btn btn-danger d-flex align-items-center"><img src="public/buscar.svg"
                                                                                             width="15px" class="me-2">Buscar
                 </button>
@@ -107,7 +123,4 @@
         </tbody>
     </table>
 </div>
-<!--<input type="hidden" name="destino" value="{{destino}}" class="border-0" readonly disabled>-->
-<!--<a class="text-white" href="reserva?id={{id}}&fechaviaje={{fecha}}&destino={{destino}}">Reservar</a>-->
-<!--<input type="text" name="inputname" value="{{origen}}" class="border-0 bg-success" readonly>-->
 {{> footer}}

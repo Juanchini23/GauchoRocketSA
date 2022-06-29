@@ -32,12 +32,16 @@ class ReservaController
         $datosModelo = $this->reservaModel->getDatosModelo($id);
         $datosAsientos = $this->reservaModel->getCantidadAsientosReservados($id, $fechaViaje);
 
+        $destino = $_SESSION["destino"];
+
+
         $data["asientoTurista"] = $datosModelo[0]["turista"] - $datosAsientos[0]["turista"];
         $data["asientoEjecutivo"] = $datosModelo[0]["ejecutivo"] - $datosAsientos[0]["ejecutivo"];
         $data["asientoPrimera"] = $datosModelo[0]["primera"] - $datosAsientos[0]["primera"];
         $data["idPlanificacion"] = $id;
         $data["datosModelo"] = $datosModelo;
         $data["planificacion"] = $planificacion;
+        $data["destinoVuelo"]= $destino;
         $data["fechaSalida"] = $fechaViaje;
 
         $this->printer->generateView('reservaView.html', $data);
@@ -46,7 +50,7 @@ class ReservaController
     public function reservar()
     {
         $origen = $_POST["origen"] ?? "";
-        $destino = $_POST["destino"] ?? "";
+        $destino = $_POST["destinoVuelo"] ?? "";
         $diaSalida = $_POST["diaSalida"] ?? "";
         $horaSalida = $_POST["horaSalida"] ?? "";
         $butaca = $_POST["butaca"] ?? "";
@@ -59,8 +63,8 @@ class ReservaController
         // Generar una reserva
         $reservaExitosa = $this->reservaModel->generarReserva($origen, $destino, $diaSalida, $horaSalida, $butaca, $cantidadAsientos, $metodoPago, $idUser, $idPlanificacion, $fechaSalida, $idServicio);
 
-        header("location: /");
-        exit();
+//        header("location: /");
+//        exit();
     }
 
     public function verReserva()
@@ -72,7 +76,16 @@ class ReservaController
         $miReserva = $this->reservaModel->getMiReserva($id);
 
         $data["miReserva"] = $miReserva;
+        $data["id"] = $id;
 
         $this->printer->generateView('miReservaView.html', $data);
+    }
+
+    public function pagar(){
+        $id = $_POST["id"];
+        $this->reservaModel->setPago($id);
+
+        header("location: /home/misReservas");
+        exit();
     }
 }

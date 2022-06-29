@@ -12,7 +12,7 @@ class HomeModel
         $this->dataBase = $dataBase;
     }
 
-    public function busquedaVuelos($origen, $dia, $codigoViajero)
+    public function busquedaVuelos($origen, $dia, $codigoViajero, $destino)
     {
         $diaLetra = "";
 
@@ -78,6 +78,10 @@ AND tc.descripcion like '%$codigoViajero%'");
         }
     }
 
+    public function busquedaVuelosOrigen($origen, $dia, $codigoviajero, $destino){
+        return "";
+    }
+
     public function solicitarNombreUsuario()
     {
         $usurios = $this->dataBase->query("SELECT * FROM usuarioLogeado");
@@ -94,12 +98,14 @@ AND tc.descripcion like '%$codigoViajero%'");
 
     public function getReservas($id)
     {
-        return $this->dataBase->query("SELECT rC.fecha AS 'fecha', p.horaPartida AS 'hora', lO.descripcion AS 'origen', lD.descripcion AS 'destino', rC.id AS 'id'
-                                       FROM reservacompleta rC 
-                                       JOIN planificacion p ON rC.idPlanificacion = p.id
-                                       JOIN lugar lO ON rC.idOrigen = lO.id
-                                       JOIN lugar lD ON rC.idDestino = lD.id
-                                       WHERE rC.idUsuario = '$id';");
+        return $this->dataBase->query("SELECT rC.fecha AS 'fecha', p.horaPartida AS 'hora', lO.descripcion AS 'origen', lD.descripcion AS 'destino', rC.id AS 'id', 
+                                       eR.descripcion AS 'estado' , IF(eR.descripcion = 'Pendiente', 1, 0) AS 'estadoBool'
+                                        FROM reservacompleta rC
+                                                 JOIN planificacion p ON rC.idPlanificacion = p.id
+                                                 JOIN lugar lO ON rC.idOrigen = lO.id
+                                                 JOIN lugar lD ON rC.idDestino = lD.id
+                                                 JOIN estadoreserva eR ON eR.id = rC.idEstadoReserva
+                                        WHERE rC.idUsuario = '$id'");
 
     }
 }

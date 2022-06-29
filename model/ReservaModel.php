@@ -83,7 +83,7 @@ class ReservaModel
                         }
                         if ($entro == true) {
                             // verificar la cantidad de asientos y la clase
-                            if ($sumaAsientos >= $cantidadM) {
+                            if ($sumaAsientos > $cantidadM) {
                                 $_SESSION['errorNoHayAciento'] = 1;
                                 header("location:/");
                                 exit();
@@ -121,7 +121,7 @@ class ReservaModel
                         }
                         if ($entro == true) {
                             // verificar la cantidad de asientos y la clase
-                            if ($sumaAsientos >= $cantidadM) {
+                            if ($sumaAsientos > $cantidadM) {
                                 $_SESSION['errorNoHayAciento'] = 1;
                                 header("location:/");
                                 exit();
@@ -164,7 +164,7 @@ class ReservaModel
                         }
                         if ($entro == true) {
                             // verificar la cantidad de asientos y la clase
-                            if ($sumaAsientos >= $cantidadM) {
+                            if ($sumaAsientos > $cantidadM) {
                                 $_SESSION['errorNoHayAciento'] = 1;
                                 header("location:/");
                                 exit();
@@ -202,7 +202,7 @@ class ReservaModel
                         }
                         if ($entro == true) {
                             // verificar la cantidad de asientos y la clase
-                            if ($sumaAsientos >= $cantidadM) {
+                            if ($sumaAsientos > $cantidadM) {
                                 $_SESSION['errorNoHayAciento'] = 1;
                                 header("location:/");
                                 exit();
@@ -324,13 +324,19 @@ class ReservaModel
     public function getMiReserva($id)
     {
         return $this->dataBase->query("SELECT rC.fecha AS 'fecha', p.horaPartida AS 'hora', lO.descripcion AS 'origen', lD.descripcion AS 'destino',
-                                       rC.id AS 'id', s.descripcion AS 'servicio', rC.precio AS 'precio'
+                                       rC.id AS 'id', s.descripcion AS 'servicio', rC.precio AS 'precio', eR.descripcion AS 'estado' , IF(eR.descripcion = 'Pendiente', 1, 0) AS 'estadoBool'
                                        FROM reservacompleta rC 
                                        JOIN planificacion p ON rC.idPlanificacion = p.id
                                        JOIN lugar lO ON rC.idOrigen = lO.id
                                        JOIN lugar lD ON rC.idDestino = lD.id    
                                        JOIN servicio s ON s.id = rC.idServicio
+                                       JOIN estadoreserva eR ON eR.id = rC.idEstadoReserva
                                        WHERE rC.id = '$id';");
 
+    }
+
+    public function setPago($id)
+    {
+        $this->dataBase->pagarReserva($id);
     }
 }

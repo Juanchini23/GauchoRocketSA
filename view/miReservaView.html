@@ -3,14 +3,20 @@
 <h1 class="text-center text-danger mt-5 mb-5">Por favor inicie sesion</h1>
 {{/loggeado}}
 {{#loggeado}}
-<div class="bg-secondary bg-opacity-75 text-center pt-4 pb-4    ">
+{{#miReserva}}
 
+<div class="bg-secondary bg-opacity-75 text-center pt-4 pb-4    ">
+    <div class="d-flex justify-content-center flex-wrap m-3">
+        <a href="/home/misReservas">
+            <button type="button" class="btn btn-warning">Volver</button>
+        </a>
+    </div>
     <div class="rounded container bg-primary bg-opacity-25 pt-5">
         <h2>Datos de mi reserva</h2>
         <div class="row">
             <div class="text-start d-flex justify-content-center col-12">
                 <div class="text-start mb-5 mt-5">
-                    {{#miReserva}}
+
                     <h5>Fecha: <span class="text-white ms-3">{{fecha}}</span></h5>
                     <h5>Hora: <span class="text-white ms-3" id="tipoVuelo">{{hora}}Hs</span></h5>
                     <h5>Origen: <span class="text-white ms-3" id="tipoAceleracion">{{origen}}</span></h5>
@@ -18,17 +24,21 @@
                     <h5>Servicio: <span class="text-white ms-3">{{servicio}}</span></h5>
                     <h5>Estado de reserva: <span class="text-white ms-3">{{estado}}</span></h5>
                     <h5>Precio: <span class="text-white ms-3">${{precio}}</span></h5>
-                    {{/miReserva}}
+
                     <div class="mt-5">
+                        {{#estadoBool}}
                         <button class="btn btn-success" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                             Pagar
                         </button>
+                        {{/estadoBool}}
+                        {{^estadoBool}}
                         <a href="#" class="text-decoration-none ms-5">
-                            <button class="btn btn-warning" type="submit">
-                                Ver
+                            <button class="btn btn-danger" type="submit">
+                                CheckIn
                             </button>
                         </a>
+                        {{/estadoBool}}
                     </div>
                 </div>
             </div>
@@ -86,14 +96,14 @@
                     </button>
                 </div>
                 <!-- Formulario -->
-                <form action="" id="formulario-tarjeta" class="formulario-tarjeta">
+                <form action="reserva/pagar" method="post" id="formulario-tarjeta" class="formulario-tarjeta bg-dark">
                     <div class="grupo">
                         <label for="inputNumero">Número Tarjeta</label>
-                        <input type="text" id="inputNumero" maxlength="19" autocomplete="off">
+                        <input type="text" id="inputNumero" maxlength="19" autocomplete="off" required>
                     </div>
                     <div class="grupo">
                         <label for="inputNombre">Nombre</label>
-                        <input type="text" id="inputNombre" maxlength="19" autocomplete="off">
+                        <input type="text" id="inputNombre" maxlength="19" autocomplete="off" required>
                     </div>
                     <div class="flexbox">
                         <div class="grupo expira">
@@ -115,9 +125,10 @@
                         </div>
                         <div class="grupo ccv">
                             <label for="inputCCV">CCV</label>
-                            <input type="text" id="inputCCV" maxlength="3">
+                            <input type="text" id="inputCCV" maxlength="3" required>
                         </div>
                     </div>
+                    <input type="hidden" name="id" value="{{id}}" class="d-none">
                     <button type="submit" class="btn-enviar">Enviar</button>
                 </form>
             </div>
@@ -126,5 +137,6 @@
         </div>
     </div>
 </div>
+{{/miReserva}}
 {{/loggeado}}
 {{> footer}}

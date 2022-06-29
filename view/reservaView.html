@@ -39,20 +39,7 @@
                     <h5>Origen: <span class="text-white">{{origen}}</span></h5>
                     {{^orbital}}
                     <div class="d-flex mb-2 mt-2">
-                        <h5>Destino: <span class="text-white"></span></h5>
-                        <select class="form-select ms-5 me-2 w-25" aria-label="Default select example" name="destino"
-                                id="destino">
-                            <option value="default" disabled selected>Destino...</option>
-                            <option value="EEI">EEI</option>
-                            <option value="HotelOrbital">Hotel Orbital</option>
-                            <option value="Luna">Luna</option>
-                            <option value="Marte">Marte</option>
-                            <option value="Ganimedes">Ganimedes</option>
-                            <option value="Europa">Europa</option>
-                            <option value="Io">Io</option>
-                            <option value="Encedalo">Encedalo</option>
-                            <option value="Titan">Titan</option>
-                        </select>
+                        <h5>Destino: <span class="text-white">{{destinoVuelo}}</span></h5>
                     </div>
                     {{/orbital}}
                     {{#orbital}}
@@ -97,6 +84,8 @@
                     <input type="hidden" name="apellido" value="{{apellido}}" class="d-none">
                     <input type="hidden" name="idPlanificacion" value="{{idPlanificacion}}" class="d-none">
                     <input type="hidden" name="fechaSalida" value="{{fechaSalida}}" class="d-none">
+                    <input type="hidden" name="destinoVuelo" value="{{destinoVuelo}}" class="d-none">
+
                     <div class="invisible d-none" id="llegadaHora"></div>
                     <!--     agregar inputs de datos calculados               -->
 
