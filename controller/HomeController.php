@@ -4,8 +4,10 @@ class HomeController
 {
     private $printer;
 
-    private $circuitoUnoBA = array("tierra" => 0, "eei" => 4, "orbitalHotel" => 8, "luna" => 16, "marte" => 26);
-    private $circuitoUnoAA = array("tierra" => 0, "eei" => 3, "orbitalHotel" => 6, "luna" => 9, "marte" => 22);
+    private $circuitoUnoBA = array(["Tierra" => 0, "EEI" => 4, "HotelOrbital" => 8, "Luna" => 16, "Marte" => 26]);
+    private $circuitoUnoAA = array(["Tierra" => 0, "EEI" => 3, "HotelOrbital" => 6, "Luna" => 9, "Marte" => 22]);
+    private $circuitoDosBA = array(["Tierra" => 0, "EEI" => 4, "Luna" => 14, "Marte" => 26, "Ganimedes" => 48, "Europa" => 50, "Io" => 51, "Encedalo" => 70, "Titan" => 77]);
+    private $circuitoDosAA = array(["Tierra" => 0, "EEI" => 3, "Luna" => 10, "Marte" => 22, "Ganimedes" => 32, "Europa" => 33, "Io" => 35, "Encedalo" => 50, "Titan" => 52]);
 
 
     public function __construct($homeModel, $printer)
@@ -52,8 +54,17 @@ class HomeController
         // hacer query en base a una query anterior para agarrar la query con la hora correcta
         // hacer calculos de horaa y dia en php y no js
 
-        $respuesta = $this->homeModel->busquedaVuelos($origen, $dia, $codigoviajero);
-        $data["planificacion"] = $respuesta;
+        if ($destino == 'BA' || $destino == 'AK') {
+            //ver si el destino que ponemos pasa por donde debe
+            $respuesta = $this->homeModel->busquedaVuelos($origen, $dia, $codigoviajero, $destino);
+            $data["planificacion"] = $respuesta;
+        } else {
+            //calculos de hora y dia de llegada + query de busqueda
+
+            $respuesta = $this->homeModel->busquedaVuelosOrigen($origen, $dia, $codigoviajero);
+            $data["planificacion"] = $respuesta;
+        }
+
 
         $data["fecha"] = $fecha;
         $data["destino"] = $destino;
@@ -71,7 +82,8 @@ class HomeController
         $this->printer->generateView('misReservasView.html', $data);
     }
 
-    public function datos(){
+    public function datos()
+    {
         $data = Validator::validarSesion();
 
         $this->printer->generateView('adminView.html', $data);

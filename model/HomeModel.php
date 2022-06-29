@@ -12,7 +12,7 @@ class HomeModel
         $this->dataBase = $dataBase;
     }
 
-    public function busquedaVuelos($origen, $dia, $codigoViajero)
+    public function busquedaVuelos($origen, $dia, $codigoViajero, $destino)
     {
         $diaLetra = "";
 
