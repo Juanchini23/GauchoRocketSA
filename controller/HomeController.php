@@ -31,7 +31,7 @@ class HomeController
     {
         $origen = $_POST["origen"] ?? "";
         $fecha = $_POST["fecha"] ?? "";
-        $destino = $_POST["destino"] ?? "";
+        $destino = $_POST["destinoVuelo"] ?? "";
 
         // LocalStorage
         $_SESSION["origen"] = $origen;
@@ -42,6 +42,12 @@ class HomeController
 
         // como saber el dia de la semana que es la fecha que nos llega desde el formulario de entredestinos
         $dia = date('l', strtotime($fecha));
+
+        // si viene destino diferente a BA tiene que buscar planificaciones que segun la suma de la hora de salida
+        // mas lo que tarda en llegar ahi matcheen bien con el dia de salida de la planificacion
+        // hacer query en base a una query anterior para agarrar la query con la hora correcta
+        // hacer calculos de horaa y dia en php y no js
+
         $respuesta = $this->homeModel->busquedaVuelos($origen, $dia, $codigoviajero);
         $data["planificacion"] = $respuesta;
 

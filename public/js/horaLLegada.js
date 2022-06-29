@@ -133,7 +133,7 @@ function setMensajeError() {
 
 function logicaHorarios() {
     let diaSalida = $("#diaSalida").html();
-    let destino = $("#destino").val();
+    let destino = $("#destinoVuelo").html();
     let horaSalida = $("#horaSalida").html();
     let horaDestino = getHora(tipoCircuito, tipoAceleracion, destino);
     if (horaDestino != undefined) {
@@ -150,6 +150,5 @@ let tipoCircuito = $("#tipoVuelo").html();
 let tipoAceleracion = $("#tipoAceleracion").html();
 logicaHorarios();
 
-$("#destino").change(function (e) {
-    logicaHorarios();
-})
+logicaHorarios()
+
