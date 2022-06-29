@@ -78,6 +78,10 @@ AND tc.descripcion like '%$codigoViajero%'");
         }
     }
 
+    public function busquedaVuelosOrigen($origen, $dia, $codigoviajero, $destino){
+        return "";
+    }
+
     public function solicitarNombreUsuario()
     {
         $usurios = $this->dataBase->query("SELECT * FROM usuarioLogeado");

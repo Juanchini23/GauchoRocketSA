@@ -20,10 +20,12 @@ class HomeController
     {
         $data = Validator::validarSesion();
         $codigoviajero = $_SESSION["codigoViajero"] ?? "";
-        if (isset($_SESSION["origen"]) && isset($_SESSION["fecha"]) && isset($_SESSION["destino"])) {
+        if (isset($_SESSION["origen"]) && isset($_SESSION["fecha"]) && isset($_SESSION["destino"]) && isset($_SESSION["codigoViajero"])) {
             $dia = date('l', strtotime($_SESSION["fecha"]));
-            $localStorage = $this->homeModel->busquedaVuelos($_SESSION["origen"], $dia, $codigoviajero);
+            $codigoviajero = $_SESSION["codigoViajero"];
+            $localStorage = $this->homeModel->busquedaVuelos($_SESSION["origen"], $dia, $codigoviajero, $_SESSION["destino"]);
             $data["planificacion"] = $localStorage;
+            $data["destino"] = $_SESSION["destino"];
         }
         $_SESSION['errorNoHayAciento'] = 0;
         $this->printer->generateView('homeView.html', $data);
@@ -33,6 +35,7 @@ class HomeController
     {
         $data = Validator::validarSesion();
 
+        $codigoviajero = $_SESSION["codigoViajero"] ?? 3;
         $origen = $_POST["origen"] ?? "";
         $fecha = $_POST["fecha"] ?? "";
         $destino = $_POST["destinoVuelo"] ?? "";
@@ -44,8 +47,6 @@ class HomeController
         // /LocalStorage
 
 
-        $codigoviajero = $_SESSION["codigoViajero"];
-
         // como saber el dia de la semana que es la fecha que nos llega desde el formulario de entredestinos
         $dia = date('l', strtotime($fecha));
 
@@ -53,15 +54,13 @@ class HomeController
         // mas lo que tarda en llegar ahi matcheen bien con el dia de salida de la planificacion
         // hacer query en base a una query anterior para agarrar la query con la hora correcta
         // hacer calculos de horaa y dia en php y no js
-
-        if ($destino == 'BA' || $destino == 'AK') {
+        if ($origen == 'BA' || $origen == 'AK') {
             //ver si el destino que ponemos pasa por donde debe
             $respuesta = $this->homeModel->busquedaVuelos($origen, $dia, $codigoviajero, $destino);
             $data["planificacion"] = $respuesta;
         } else {
             //calculos de hora y dia de llegada + query de busqueda
-
-            $respuesta = $this->homeModel->busquedaVuelosOrigen($origen, $dia, $codigoviajero);
+            $respuesta = $this->homeModel->busquedaVuelosOrigen($origen, $dia, $codigoviajero, $destino);
             $data["planificacion"] = $respuesta;
         }
 

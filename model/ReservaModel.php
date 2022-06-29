@@ -83,7 +83,7 @@ class ReservaModel
                         }
                         if ($entro == true) {
                             // verificar la cantidad de asientos y la clase
-                            if ($sumaAsientos >= $cantidadM) {
+                            if ($sumaAsientos > $cantidadM) {
                                 $_SESSION['errorNoHayAciento'] = 1;
                                 header("location:/");
                                 exit();
@@ -121,7 +121,7 @@ class ReservaModel
                         }
                         if ($entro == true) {
                             // verificar la cantidad de asientos y la clase
-                            if ($sumaAsientos >= $cantidadM) {
+                            if ($sumaAsientos > $cantidadM) {
                                 $_SESSION['errorNoHayAciento'] = 1;
                                 header("location:/");
                                 exit();
@@ -164,7 +164,7 @@ class ReservaModel
                         }
                         if ($entro == true) {
                             // verificar la cantidad de asientos y la clase
-                            if ($sumaAsientos >= $cantidadM) {
+                            if ($sumaAsientos > $cantidadM) {
                                 $_SESSION['errorNoHayAciento'] = 1;
                                 header("location:/");
                                 exit();
@@ -202,7 +202,7 @@ class ReservaModel
                         }
                         if ($entro == true) {
                             // verificar la cantidad de asientos y la clase
-                            if ($sumaAsientos >= $cantidadM) {
+                            if ($sumaAsientos > $cantidadM) {
                                 $_SESSION['errorNoHayAciento'] = 1;
                                 header("location:/");
                                 exit();
