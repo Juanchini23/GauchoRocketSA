@@ -29,6 +29,8 @@ class HomeController
 
     public function busqueda()
     {
+        $data = Validator::validarSesion();
+
         $origen = $_POST["origen"] ?? "";
         $fecha = $_POST["fecha"] ?? "";
         $destino = $_POST["destinoVuelo"] ?? "";
@@ -37,6 +39,8 @@ class HomeController
         $_SESSION["origen"] = $origen;
         $_SESSION["fecha"] = $fecha;
         $_SESSION["destino"] = $destino;
+        // /LocalStorage
+
 
         $codigoviajero = $_SESSION["codigoViajero"];
 
@@ -51,10 +55,6 @@ class HomeController
         $respuesta = $this->homeModel->busquedaVuelos($origen, $dia, $codigoviajero);
         $data["planificacion"] = $respuesta;
 
-        if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
-            $data["loggeado"] = 1;
-            $data["nombre"] = $_SESSION["usuario"];
-        }
         $data["fecha"] = $fecha;
         $data["destino"] = $destino;
         $this->printer->generateView('homeView.html', $data);
