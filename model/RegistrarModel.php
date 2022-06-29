@@ -13,11 +13,11 @@ class RegistrarModel
 
 
     //siempre registra un usuario del tipo cliente
-    public function registrarEnBd($nombre, $apellido, $mail, $clave, $centro)
+    public function registrarEnBd($nombre, $apellido, $mail, $clave, $centro, $estado, $codigo)
     {
         $codigoViajero = rand(1, 3);
 //        $this->database->restarCapacidadDiaria($centro);
-        $this->dataBase->queryAltaUsuario($nombre, $apellido, $mail, $clave, $codigoViajero);
+        $this->dataBase->queryAltaUsuario($nombre, $apellido, $mail, $clave, $codigoViajero, $estado, $codigo);
     }
 
 
@@ -42,6 +42,21 @@ class RegistrarModel
             }
         }
         return $duplicado;
+    }
+
+    public function existeCodigo($codigoValidar)
+    {
+      return $this->dataBase->query("SELECT codigo 
+                                            FROM usuario 
+                                            WHERE codigo = '{$codigoValidar}'");
+    }
+
+    public function activarUsuario($codigoValidar)
+    {
+        $this->dataBase->activar("UPDATE usuario 
+                                        SET estado = 1
+                                        WHERE codigo = '{$codigoValidar}'");
+
     }
 
 }

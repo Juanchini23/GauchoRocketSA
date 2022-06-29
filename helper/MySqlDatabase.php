@@ -31,18 +31,18 @@ class MySqlDatabase
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
-    public function queryAltaUsuario($nombre, $apellido, $mail, $clave, $codigoViajero)
+    public function queryAltaUsuario($nombre, $apellido, $mail, $clave, $codigoViajero, $estado, $codigo)
     {
-        $sql = "INSERT INTO usuario(idRol, nombre, apellido, mail, clave, codigoViajero) values (?, ?, ?, ?, ?, ?);";
+        $sql = "INSERT INTO usuario(idRol, nombre, apellido, mail, clave, codigoViajero, estado, codigo) values (?, ?, ?, ?, ?, ?, ?, ?);";
         $comando = $this->conn->prepare($sql);
         $dos = 2;
-        $comando->bind_param("issssi", $dos, $nombre, $apellido, $mail, $clave, $codigoViajero);
+        $comando->bind_param("issssibi", $dos, $nombre, $apellido, $mail, $clave, $codigoViajero, $estado, $codigo);
         $comando->execute();
     }
 
     public function iniciarSesion($nombre, $clave)
     {
-        $sql = "SELECT * FROM usuario WHERE nombre = ? AND clave = ?";
+        $sql = "SELECT * FROM usuario WHERE nombre = ? AND clave = ? AND estado = 1";
         $comando = $this->conn->prepare($sql);
         $comando->bind_param("ss", $nombre, $clave);
         $comando->execute();
@@ -106,6 +106,11 @@ WHERE p.id = ?;";
     public function guardarEntera($sql){
         mysqli_query($this->conn, $sql);
     }
+
+    public function activar($sql){
+        mysqli_query($this->conn, $sql);
+    }
+
 
     private function connect()
     {
