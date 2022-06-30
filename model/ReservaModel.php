@@ -339,4 +339,9 @@ class ReservaModel
     {
         $this->dataBase->pagarReserva($id);
     }
+
+    public function setCheckIn($id)
+    {
+        $this->dataBase->chequearReserva($id);
+    }
 }

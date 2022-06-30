@@ -88,4 +88,12 @@ class ReservaController
         header("location: /home/misReservas");
         exit();
     }
+
+    public function checkin(){
+        $id = $_POST["id"];
+
+        //cmbia el estado a chequeado
+        $this->reservaModel->setCheckIn($id);
+
+    }
 }

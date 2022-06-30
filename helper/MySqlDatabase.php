@@ -66,6 +66,13 @@ class MySqlDatabase
         $comando->execute();
     }
 
+    public function chequearReserva($id){
+        $sql = "UPDATE reservacompleta rC SET rC.idEstadoReserva = 3 WHERE rC.id = ?;";
+        $comando = $this->conn->prepare($sql);
+        $comando->bind_param("i", $id);
+        $comando->execute();
+    }
+
     public function guardarVueloFecha($idUser, $id, $date)
     {
         $sql = "INSERT INTO reserva(idUsuario, idPlanificacion, fecha) values (?, ?, ?);";
