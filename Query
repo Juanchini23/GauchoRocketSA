@@ -111,10 +111,12 @@ CREATE TABLE usuario
     clave         varchar(50),
     codigoViajero int     not null,
     foreign key (idRol) references rol (id),
-    foreign key (codigoViajero) references tipoCliente (id)
+    foreign key (codigoViajero) references tipoCliente (id),
+    estado        bit,
+    codigo        int
 );
 
-INSERT INTO usuario (idRol, nombre, apellido, mail, clave, codigoViajero) VALUES(1, 'Admin', 'Pro', 'admin@gmail.com', 123, 1);
+INSERT INTO usuario (idRol, nombre, apellido, mail, clave, codigoViajero, estado, codigo) VALUES(1, 'Admin', 'Pro', 'admin@gmail.com', 123, 1, false, 1234);
 
 CREATE TABLE modelo
 (
