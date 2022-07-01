@@ -66,7 +66,8 @@ class MySqlDatabase
         $comando->execute();
     }
 
-    public function chequearReserva($id){
+    public function chequearReserva($id)
+    {
         $sql = "UPDATE reservacompleta rC SET rC.idEstadoReserva = 3 WHERE rC.id = ?;";
         $comando = $this->conn->prepare($sql);
         $comando->bind_param("i", $id);
@@ -124,7 +125,8 @@ WHERE p.id = ?;";
         mysqli_query($this->conn, $sql);
     }
 
-    public function activar($sql){
+    public function activar($sql)
+    {
         mysqli_query($this->conn, $sql);
     }
 
@@ -151,5 +153,15 @@ WHERE p.id = ?;";
     private function disconnect()
     {
         mysqli_close($this->conn);
+    }
+
+    public function getExisteCodigo($codigo)
+    {
+        $sql = "SELECT COUNT(*) AS 'cantidad' FROM reservacompleta WHERE codigoReserva = ?";
+        $comando = $this->conn->prepare($sql);
+        $comando->bind_param("s", $codigo);
+        $comando->execute();
+        $resultado = $comando->get_result();
+        return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
     }
 }

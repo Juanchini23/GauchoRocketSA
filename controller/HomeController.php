@@ -67,21 +67,21 @@ class HomeController
 
             //////////
             ///anda///
-            $horaPlani = $planificacion[0]["hora"]?? "";
-            $diaPlani = $planificacion[0]["dia"]?? "";
+            $horaPlani = $planificacion[0]["hora"] ?? "";
+            $diaPlani = $planificacion[0]["dia"] ?? "";
             //////////
             ///anda///
             $horaTarda = $this->getHoraTarda($origen, $planificacion[0]["tipoVuelo"], $planificacion[0]["id"]) ?? "";
-            $horaFinal = $this->getHoraFinal($horaPlani, $horaTarda)?? "";
-            $getDiaFinal = $this->getDiaFinal($diaPlani)?? "";
+            $horaFinal = $this->getHoraFinal($horaPlani, $horaTarda) ?? "";
+            $getDiaFinal = $this->getDiaFinal($diaPlani) ?? "";
 
-            $reemplazo= array("hora" => $horaFinal);
-            $reemplazo2= array("dia" => $getDiaFinal);
-            $planificacion2 = array_replace($planificacion[0],$reemplazo, $reemplazo2);
+            $reemplazo = array("hora" => $horaFinal);
+            $reemplazo2 = array("dia" => $getDiaFinal);
+            $planificacion2 = array_replace($planificacion[0], $reemplazo, $reemplazo2);
 
 
-            $data["planificacion"]["hora"]=$horaFinal;
-            $data["planificacion"]["dia"]=$getDiaFinal;
+            $data["planificacion"]["hora"] = $horaFinal;
+            $data["planificacion"]["dia"] = $getDiaFinal;
             $data["destino"] = $destino;
             $data["planificacion"] = $planificacion2;
             $this->printer->generateView('homeView.html', $data);
@@ -114,16 +114,16 @@ class HomeController
     private function getHoraTarda($origen, $tipoVuelo, $idPlanificacion)
     {
         $equipo = $this->homeModel->getTipoEquipo($idPlanificacion)[0]["equipo"];
-        if($tipoVuelo=='EntreDestinosUno'){
-            if($equipo == 'BA'){
+        if ($tipoVuelo == 'EntreDestinosUno') {
+            if ($equipo == 'BA') {
                 return $this->circuitoUnoBA[0][$origen];
-            } else if($equipo == 'AA'){
+            } else if ($equipo == 'AA') {
                 return $this->circuitoUnoAA[0][$origen];
             }
-        } else if($tipoVuelo=='EntreDestinosDos'){
-            if($equipo == 'BA'){
+        } else if ($tipoVuelo == 'EntreDestinosDos') {
+            if ($equipo == 'BA') {
                 return $this->circuitoDosBA[0][$origen];
-            } else if($equipo == 'AA'){
+            } else if ($equipo == 'AA') {
                 return $this->circuitoDosAA[0][$origen];
             }
         }
@@ -132,32 +132,32 @@ class HomeController
     private function getHoraFinal($horaPlani, $horaTarda)
     {
         $suma = $horaPlani + $horaTarda;
-        if($suma==24){
-            $this->cantidadDia=1;
+        if ($suma == 24) {
+            $this->cantidadDia = 1;
             return 0;
         }
 
-        if($suma < 24){
+        if ($suma < 24) {
             return $suma;
         }
 
-        if($suma>24 && $suma<48){
-            $this->cantidadDia=1;
+        if ($suma > 24 && $suma < 48) {
+            $this->cantidadDia = 1;
             return $suma - 24;
         }
 
-        if($suma>48){
-            $this->cantidadDia=2;
+        if ($suma > 48) {
+            $this->cantidadDia = 2;
             return $suma - 48;
         }
     }
 
     private function getDiaFinal($diaPlani)
     {
-        if($this->cantidadDia==0){
+        if ($this->cantidadDia == 0) {
             return $diaPlani;
         }
-        if($this->cantidadDia == 1){
+        if ($this->cantidadDia == 1) {
             switch ($diaPlani) {
                 case "Lunes":
                     return "Martes";
@@ -176,7 +176,7 @@ class HomeController
             }
         }
 
-        if($this->cantidadDia == 2){
+        if ($this->cantidadDia == 2) {
             switch ($diaPlani) {
                 case "Lunes":
                     return "Miercoles";

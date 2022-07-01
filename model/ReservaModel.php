@@ -268,11 +268,13 @@ class ReservaModel
         $precioFinal = ($precio * $cantidadAsientos) + $pr;
 
         if ($cosas[0]["vuelo"] == 'EntreDestinosUno' || $cosas[0]["vuelo"] == 'EntreDestinosDos') {
-            $this->dataBase->guardarEntera("INSERT INTO reservaCompleta (idUsuario, idPlanificacion, fecha, idOrigen, idDestino, idEstadoReserva, precio, idServicio)
-                                        VALUES ('$idUser', '$idPlanificacion', '$fecha', '$or', '$de', 1, '$precioFinal', '$idServicio')");
+            $codigoReserva = $this->getCodigoReserva();
+            $this->dataBase->guardarEntera("INSERT INTO reservaCompleta (idUsuario, idPlanificacion, fecha, idOrigen, idDestino, idEstadoReserva, precio, idServicio, codigoReserva)
+                                        VALUES ('$idUser', '$idPlanificacion', '$fecha', '$or', '$de', 1, '$precioFinal', '$idServicio', '$codigoReserva')");
         } else if ($cosas[0]["vuelo"] == 'Orbitales') {
-            $this->dataBase->guardarEntera("INSERT INTO reservaCompleta (idUsuario, idPlanificacion, fecha, idOrigen, idDestino, idEstadoReserva, precio, idServicio)
-                                        VALUES ('$idUser', '$idPlanificacion', '$fecha', '$or', '$or', 1, '$precioFinal', '$idServicio')");
+            $codigoReserva = $this->getCodigoReserva();
+            $this->dataBase->guardarEntera("INSERT INTO reservaCompleta (idUsuario, idPlanificacion, fecha, idOrigen, idDestino, idEstadoReserva, precio, idServicio, codigoReserva)
+                                        VALUES ('$idUser', '$idPlanificacion', '$fecha', '$or', '$or', 1, '$precioFinal', '$idServicio','$codigoReserva' )");
         }
 
 
@@ -343,5 +345,20 @@ class ReservaModel
     public function setCheckIn($id)
     {
         $this->dataBase->chequearReserva($id);
+    }
+
+    public function getCodigoReserva()
+    {
+        do {
+            $codigo = Validator::generarCodigo();
+
+        } while ($this->codigoDisponible('lxGdAHiew0QiY446'));
+        return $codigo;
+    }
+
+    public function codigoDisponible($codigo)
+    {
+        $resultado = $this->dataBase->getExisteCodigo($codigo);
+        return $resultado[0]['cantidad'] == 0;
     }
 }
