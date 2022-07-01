@@ -78,8 +78,18 @@ AND tc.descripcion like '%$codigoViajero%'");
         }
     }
 
-    public function busquedaVuelosOrigen($origen, $dia, $codigoviajero, $destino){
-        return "";
+    public function busquedaVuelosOrigen($origen,$codigoviajero){
+
+        $origenId = $this->getIdLugar($origen);
+
+        $resultado =  $this->dataBase->query("SELECT p.id as 'id' FROM reserva r
+                                        JOIN planificacion p ON r.idPlanificacion = p.id
+                                        JOIN modelo m ON p.idModelo = m.id
+                                        JOIN tipoCliente tc ON m.tipoCliente = tc.id
+                                        WHERE tc.descripcion like '%$codigoviajero%'
+                                        AND r.idOrigenReserva = '$origenId'");
+
+        return $this->dataBase->getPlani($resultado[0]["id"]);
     }
 
     public function solicitarNombreUsuario()
@@ -107,6 +117,51 @@ AND tc.descripcion like '%$codigoViajero%'");
                                                  JOIN estadoreserva eR ON eR.id = rC.idEstadoReserva
                                         WHERE rC.idUsuario = '$id'");
 
+    }
+
+    public function getCosas($idPlanificacion){
+        //trae bien
+        return $this->dataBase->query("SELECT tv.descripcion as 'vuelo', te.descripcion as 'equipo'
+                                        FROM planificacion p JOIN tipoVuelo tv ON p.idTipoVuelo = tv.id
+                                        JOIN modelo m ON p.idModelo = m.id
+                                        JOIN tipoEquipo te ON m.tipoEquipo = te.id
+                                        WHERE p.id = '$idPlanificacion'");
+    }
+
+    public function getTipoEquipo($idPlanificacion){
+        // trae bien
+        return $this->dataBase->query("SELECT te.descripcion as 'equipo' FROM planificacion p 
+                                       JOIN modelo m ON p.idModelo = m.id
+                                       JOIN tipoEquipo te ON m.tipoEquipo = te.id
+                                       WHERE p.id ='$idPlanificacion'");
+    }
+
+    private function getIdLugar($lugar)
+    {
+        switch ($lugar) {
+            case 'Tierra':
+                return 1;
+            case 'EEI':
+                return 11;
+            case 'HotelOrbital':
+                return 10;
+            case 'Luna':
+                return 9;
+            case 'Marte':
+                return 8;
+            case 'Ganimedes':
+                return 7;
+            case 'Europa':
+                return 6;
+            case 'Io':
+                return 5;
+            case 'Encedalo':
+                return 4;
+            case 'Titan':
+                return 3;
+            default:
+                return 0;
+        }
     }
 }
 

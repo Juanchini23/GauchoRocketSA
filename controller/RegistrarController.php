@@ -33,7 +33,7 @@ class RegistrarController
         $nombre = $_POST["nombre"] ?? "";
         $apellido = $_POST["apellido"] ?? "";
         $mailUsuario = $_POST["mail"] ?? "";
-        $clave = md5(isset($_POST["clave"])) ?? "";
+        $clave = md5($_POST["clave"]) ?? "";
         $centro = $_POST["centro"] ?? "";
         $duplicado = $this->registrarModel->estaDuplicado($mailUsuario);
         $estado = 0;
