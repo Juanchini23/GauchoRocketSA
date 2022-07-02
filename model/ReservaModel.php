@@ -351,14 +351,13 @@ class ReservaModel
     {
         do {
             $codigo = Validator::generarCodigo();
-
-        } while ($this->codigoDisponible('lxGdAHiew0QiY446'));
+        } while ($this->codigoDisponible($codigo));
         return $codigo;
     }
 
     public function codigoDisponible($codigo)
     {
         $resultado = $this->dataBase->getExisteCodigo($codigo);
-        return $resultado[0]['cantidad'] == 0;
+        return $resultado[0]["cantidad"] != 0;
     }
 }

@@ -157,7 +157,7 @@ WHERE p.id = ?;";
 
     public function getExisteCodigo($codigo)
     {
-        $sql = "SELECT COUNT(*) AS 'cantidad' FROM reservacompleta WHERE codigoReserva = ?";
+        $sql = "SELECT COUNT(*) AS 'cantidad' FROM reservaCompleta WHERE codigoReserva = ?";
         $comando = $this->conn->prepare($sql);
         $comando->bind_param("s", $codigo);
         $comando->execute();
