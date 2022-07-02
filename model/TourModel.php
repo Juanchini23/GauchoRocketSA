@@ -106,8 +106,9 @@ class TourModel
                 $precio = 2500;
                 $precioServicio = $this->dataBase->query("SELECT precio as 'precio' FROM servicio WHERE id = '$idServicio'");
                 $precio += $precioServicio[0]["precio"];
-                $this->dataBase->guardarEntera("INSERT INTO reservaCompleta (idUsuario, idPlanificacion, fecha, idOrigen, idDestino, idEstadoReserva, precio, idServicio)
-                                        VALUES ('$idUser', '$idPlanificacion', '$fecha', '$origenID', '$origenID', 1, '$precio', '$idServicio')");
+                $codigoReserva = $this->getCodigoReserva();
+                $this->dataBase->guardarEntera("INSERT INTO reservaCompleta (idUsuario, idPlanificacion, fecha, idOrigen, idDestino, idEstadoReserva, precio, idServicio, codigoReserva)
+                                        VALUES ('$idUser', '$idPlanificacion', '$fecha', '$origenID', '$origenID', 1, '$precio', '$idServicio','$codigoReserva' )");
 
             }
         }
@@ -120,6 +121,21 @@ class TourModel
         return $this->dataBase->query("SELECT SUM(turista) AS 'turista', SUM(ejecutivo) AS 'ejecutivo', SUM(primera) AS 'primera' 
                                 FROM reserva r 
                                WHERE r.idPlanificacion = '$id' AND r.fecha = '$fechaViaje';");
+    }
+
+
+    public function getCodigoReserva()
+    {
+        do {
+            $codigo = Validator::generarCodigo();
+        } while ($this->codigoDisponible($codigo));
+        return $codigo;
+    }
+
+    public function codigoDisponible($codigo)
+    {
+        $resultado = $this->dataBase->getExisteCodigo($codigo);
+        return $resultado[0]["cantidad"] != 0;
     }
 
 
