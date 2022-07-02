@@ -11,7 +11,8 @@ class AdminModel
     }
 
     public function getTOcupacionPorviaje(){
-        return $this->dataBase->query();
+//        return $this->dataBase->query();
+        return "";
     }
 
 }
