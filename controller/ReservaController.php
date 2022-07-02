@@ -41,7 +41,7 @@ class ReservaController
         $data["idPlanificacion"] = $id;
         $data["datosModelo"] = $datosModelo;
         $data["planificacion"] = $planificacion;
-        $data["destinoVuelo"]= $destino;
+        $data["destinoVuelo"] = $destino;
         $data["fechaSalida"] = $fechaViaje;
 
         $this->printer->generateView('reservaView.html', $data);
@@ -61,10 +61,10 @@ class ReservaController
         $fechaSalida = $_POST["fechaSalida"] ?? "";
         $idServicio = $_POST["servicio"] ?? "";
         // Generar una reserva
-        $reservaExitosa = $this->reservaModel->generarReserva($origen, $destino, $diaSalida, $horaSalida, $butaca, $cantidadAsientos, $metodoPago, $idUser, $idPlanificacion, $fechaSalida, $idServicio);
+        $this->reservaModel->generarReserva($origen, $destino, $diaSalida, $horaSalida, $butaca, $cantidadAsientos, $metodoPago, $idUser, $idPlanificacion, $fechaSalida, $idServicio);
 
-//        header("location: /");
-//        exit();
+        header("location: /");
+        exit();
     }
 
     public function verReserva()
@@ -81,7 +81,8 @@ class ReservaController
         $this->printer->generateView('miReservaView.html', $data);
     }
 
-    public function pagar(){
+    public function pagar()
+    {
         $id = $_POST["id"];
         $this->reservaModel->setPago($id);
 
@@ -89,7 +90,8 @@ class ReservaController
         exit();
     }
 
-    public function checkin(){
+    public function checkin()
+    {
         $id = $_POST["id"];
 
         //cmbia el estado a chequeado
