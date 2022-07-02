@@ -11,9 +11,11 @@ class AdminController
         $this->adminModel = $adminModel;
     }
 
-    public function execute(){
+    public function execute()
+    {
         $data = Validator::validarSesion();
-
+        $tOcupacionPorViaje = $this->adminModel->getTOcupacionPorviaje();
+        $data["tOcupacionPorViaje"] = $tOcupacionPorViaje;
         $this->printer->generateView('adminView.html', $data);
     }
 }

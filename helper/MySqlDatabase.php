@@ -25,6 +25,20 @@ class MySqlDatabase
         $this->disconnect();
     }
 
+    private function connect()
+    {
+        $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->database);
+        if (!$conn) {
+            die('Connection failed: ' . mysqli_connect_error());
+        }
+        $this->conn = $conn;
+    }
+
+    private function disconnect()
+    {
+        mysqli_close($this->conn);
+    }
+
     public function query($sql)
     {
         $result = mysqli_query($this->conn, $sql);
@@ -120,24 +134,16 @@ WHERE p.id = ?;";
         mysqli_query($this->conn, $sql);
     }
 
+
     public function guardarEntera($sql)
     {
         mysqli_query($this->conn, $sql);
     }
 
+
     public function activar($sql)
     {
         mysqli_query($this->conn, $sql);
-    }
-
-
-    private function connect()
-    {
-        $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->database);
-        if (!$conn) {
-            die('Connection failed: ' . mysqli_connect_error());
-        }
-        $this->conn = $conn;
     }
 
 
@@ -147,12 +153,6 @@ WHERE p.id = ?;";
         $comando = $this->conn->prepare($sql);
         $comando->bind_param("s", $cuenta);
         $comando->execute();
-    }
-
-
-    private function disconnect()
-    {
-        mysqli_close($this->conn);
     }
 
     public function getExisteCodigo($codigo)

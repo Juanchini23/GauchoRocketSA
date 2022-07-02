@@ -9,6 +9,10 @@
             <div class="col-6 text-center">
                 <h3>Tasa de ocupacion por tipo viaje</h3>
                 <!-- contar cantidades de pasajeros por tipo viaje (c1,c2,tour,orbital)-->
+                <p id="" class="d-none"></p>
+                <p id="" class="d-none"></p>
+                <p id="" class="d-none"></p>
+                <p id="" class="d-none"></p>
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
                 <script type="text/javascript">
                     google.charts.load("current", {packages: ["corechart"]});
@@ -17,14 +21,14 @@
                     function drawChart() {
                         var data = google.visualization.arrayToDataTable([
                             ['Task', 'Hours per Day'],
-                            ['Orbitales', 11],
+                            ['Orbitales', 4],
                             ['Tours', 2],
                             ['Circuito Uno', 2],
                             ['Circuito Dos', 2],
                         ]);
 
                         var options = {
-                            title: 'My Daily Activities',
+                            title: 'Ocupacion por tipo de viaje',
                             is3D: true,
                         };
 
@@ -35,9 +39,15 @@
                 <div>
                     <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
                 </div>
+                <a href="#" class="text-decoration-none">
+                    <button class="btn btn-danger mt-3" type="submit">
+                        Imprimir
+                    </button>
+                </a>
             </div>
             <div class="col-6 text-center">
                 <h3>Tasa de ocupacion por equipo</h3>
+                <p id="" class="d-none"></p>
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
                 <script type="text/javascript">
                     google.charts.load('current', {'packages': ['corechart']});
@@ -65,12 +75,18 @@
                 <div>
                     <div id="donut_single" style="width: 900px; height: 500px;"></div>
                 </div>
+                <a href="#" class="text-decoration-none">
+                    <button class="btn btn-danger mt-3" type="submit">
+                        Imprimir
+                    </button>
+                </a>
             </div>
         </div>
-        <div class="row mt-5">
+        <div class="row mt-5 mb-5">
             <div class="col-6 text-center">
                 <h3>Cabina mas vendida</h3>
                 <!-- contar cantidades de pasajeros tipo cabina (primera, ejecutivo, turista)-->
+                <p id="" class="d-none"></p>
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
                 <script type="text/javascript">
                     google.charts.load('current', {'packages': ['corechart']});
@@ -99,11 +115,17 @@
                 <div>
                     <div id="piechart" style="width: 900px; height: 500px;"></div>
                 </div>
+                <a href="#" class="text-decoration-none">
+                    <button class="btn btn-danger mt-3" type="submit">
+                        Imprimir
+                    </button>
+                </a>
             </div>
             <div class="col-6 text-center">
                 <h3>Facturacion mensual</h3>
                 <!-- sumar precios de reservas en un determinado intervalo de tiempo-->
                 <!--  style="width: calc(40% - 10px)" -->
+                <p id="" class="d-none"></p>
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
                 <script type="text/javascript">
                     google.charts.load("current", {packages: ["corechart"]});
@@ -131,6 +153,11 @@
                 <div>
                     <div id="donutchart" style="width: 900px; height: 500px;"></div>
                 </div>
+                <a href="#" class="text-decoration-none">
+                    <button class="btn btn-danger mt-3" type="submit">
+                        Imprimir
+                    </button>
+                </a>
             </div>
         </div>
 
