@@ -226,62 +226,71 @@ class HomeController
     public function descargarQr()
     {
 
-        $qr = $_GET["qr"] ?? "";
-        // instantiate and use the dompdf class
-        $dompdf = new Dompdf();
-        ob_start()
-        ?>
-        <!doctype html>
-        <html lang="es">
-        <head>
-            <meta charset="utf-8">
-            <meta http-equiv="X-UA-Compatible">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
+        $fecha = $_GET["fecha"] ?? "";
 
-        </head>
+        $fechaCalculada = date_create($fecha);
+        date_add($fechaCalculada, date_interval_create_from_date_string("2 days"));
+        $fechaCalculada= date_format($fechaCalculada, "Y-m-d");
 
-        <body>
+        $fechaActual = date("Y-m-d");
+
+        if($fechaCalculada <= $fechaActual){
+
+            $qr = $_GET["qr"] ?? "";
+            // instantiate and use the dompdf class
+            $dompdf = new Dompdf();
+            ob_start()
+            ?>
+            <!doctype html>
+            <html lang="es">
+            <head>
+                <meta charset="utf-8">
+                <meta http-equiv="X-UA-Compatible">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+            </head>
+            <body>
+
+            <img src="<?php echo $qr; ?>">
+            <h1>Pasajero: <span><?php echo $_SESSION["apellido"] . ", " . $_SESSION["usuario"]; ?></span></h1>
+            <?php
+
+            echo "<br>";
+            echo "<br>";
+            echo "<br>";
+            echo "<br>";
+            echo "<br>";
+            echo "<br>";
+            echo "<br>";
+            echo "<br>";
+
+            //dia que se genera el PDF
+            date_default_timezone_set("America/Argentina/Buenos_Aires");
+            echo "PDF generado el: " . date("d-m-Y h:i:sa");
+
+            ?>
+
+            </body>
+            </html>
+            <?php
+            $html = ob_get_clean();
 
 
-
-        <img src="<?php echo $qr; ?>">
-        <h1>Pasajero: <span><?php echo $_SESSION["apellido"] . ", " . $_SESSION["usuario"]; ?></span></h1>
-        <?php
-
-        echo "<br>";
-        echo "<br>";
-        echo "<br>";
-        echo "<br>";
-        echo "<br>";
-        echo "<br>";
-        echo "<br>";
-        echo "<br>";
-
-
-
-
-        //dia que se genera el PDF
-        date_default_timezone_set("America/Argentina/Buenos_Aires");
-        echo "PDF generado el: " . date("d-m-Y h:i:sa");
-
-        ?>
-
-        </body>
-        </html>
-        <?php
-        $html = ob_get_clean();
-
-
-        $dompdf->loadHtml($html);
+            $dompdf->loadHtml($html);
 
 // (Optional) Setup the paper size and orientation
-        $dompdf->setPaper('A4', 'landscape');
+            $dompdf->setPaper('A4', 'landscape');
 
 // Render the HTML as PDF
-        $dompdf->render();
+            $dompdf->render();
 
 // Output the generated PDF to Browser
-        $dompdf->stream("descargarQr.pdf", ['Attachment' => 1]);
+            $dompdf->stream("descargarQr.pdf", ['Attachment' => 1]);
+
+        }else{
+            $data["erroCheckIN"] = "No puede realizar el Check-In con una anticipacion a 48 hs";
+            $this->printer->generateView('descargarQRView.html', $data);
+        }
+
 
     }
 
