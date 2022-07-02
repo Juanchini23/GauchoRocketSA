@@ -202,11 +202,15 @@ class HomeController
     public function qr()
     {
         $path = 'public/qr/';
-        $file = $path.uniqid().".png";
+        $ruta_qr = $path.uniqid().".png";
         $text = Validator::generarCodigo();
-      QRcode::png($text,$file,QR_ECLEVEL_H,3);
 
-      echo "<img src='/".$file."'>";
+        $tamaño = 10;
+        $framSize = 3;
+
+      QRcode::png($text,$ruta_qr,QR_ECLEVEL_H,$tamaño,$framSize);
+
+      echo "<img src='/".$ruta_qr."'>";
     }
 
 
