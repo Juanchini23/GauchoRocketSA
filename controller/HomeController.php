@@ -242,10 +242,10 @@ class HomeController
 
         <body>
 
-        <h1>Pasajero: <span><?php echo $_SESSION["apellido"] . ", " . $_SESSION["usuario"]; ?></span></h1>
+
 
         <img src="<?php echo $qr; ?>">
-
+        <h1>Pasajero: <span><?php echo $_SESSION["apellido"] . ", " . $_SESSION["usuario"]; ?></span></h1>
         <?php
 
         echo "<br>";
@@ -256,6 +256,9 @@ class HomeController
         echo "<br>";
         echo "<br>";
         echo "<br>";
+
+
+
 
         //dia que se genera el PDF
         date_default_timezone_set("America/Argentina/Buenos_Aires");
