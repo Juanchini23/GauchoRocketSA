@@ -178,5 +178,15 @@ AND tc.descripcion like '%$codigoViajero%'");
 
     }
 
+
+    public function cambiarEstadoReserva($id)
+    {
+        $this->dataBase->activar("UPDATE reservacompleta 
+                                        SET idEstadoReserva = 3
+                                        WHERE id = '{$id}'");
+
+    }
+
+
 }
 

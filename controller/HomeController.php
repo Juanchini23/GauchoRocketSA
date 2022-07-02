@@ -228,7 +228,7 @@ class HomeController
         }else{
 
             $data = Validator::validarSesion();
-
+            $id = $_GET['id'] ?? ""; // id de la reserva
             $path = 'public/qr/';
             $ruta_qr = $path.uniqid().".png";
             $text = Validator::generarCodigo();
@@ -239,6 +239,9 @@ class HomeController
             QRcode::png($text,$ruta_qr,QR_ECLEVEL_H,$tamaño,$framSize);
 
             $data["qr"] = $ruta_qr;
+
+            $this->homeModel->cambiarEstadoReserva($id);
+
 
             $this->printer->generateView('descargarQRView.html', $data);
 
