@@ -1,5 +1,6 @@
 <?php
 
+require 'third-party/phpqrcode/qrlib.php';
 class HomeController
 {
     private $printer;
@@ -196,5 +197,17 @@ class HomeController
         }
 
     }
+
+
+    public function qr()
+    {
+        $path = 'public/qr/';
+        $file = $path.uniqid().".png";
+        $text = Validator::generarCodigo();
+      QRcode::png($text,$file,QR_ECLEVEL_H,3);
+
+      echo "<img src='/".$file."'>";
+    }
+
 
 }
