@@ -67,27 +67,26 @@ class HomeController
 
             // tiene dia hora y origen
             $planificacion = $this->homeModel->busquedaVuelosOrigen($origen, $codigoviajero) ?? "";
+            $i= 0;
+            foreach ($planificacion as $plani){
+                $horaPlani = $plani[0]["hora"] ?? "";
+                $diaPlani = $plani[0]["dia"] ?? "";
 
-            $horaPlani = $planificacion[0]["hora"] ?? "";
-            $diaPlani = $planificacion[0]["dia"] ?? "";
+                $horaTarda = $this->getHoraTarda($origen, $plani[0]["tipoVuelo"], $plani[0]["id"]) ?? "";
+                $horaFinal = $this->getHoraFinal($horaPlani, $horaTarda) ?? "";
+                $diaFinal = $this->getDiaFinal($diaPlani) ?? "";
+                $reemplazo = array("hora" => $horaFinal);
+                $reemplazo2 = array("dia" => $diaFinal);
+                $planificacion[$i] = array_replace($plani[0], $reemplazo, $reemplazo2);
 
-            $horaTarda = $this->getHoraTarda($origen, $planificacion[0]["tipoVuelo"], $planificacion[0]["id"]) ?? "";
-            $horaFinal = $this->getHoraFinal($horaPlani, $horaTarda) ?? "";
-            $getDiaFinal = $this->getDiaFinal($diaPlani) ?? "";
+                $data["destino"] = $destino;
+                $i++;
+            }
 
-            $reemplazo = array("hora" => $horaFinal);
-            $reemplazo2 = array("dia" => $getDiaFinal);
-            $planificacion2 = array_replace($planificacion[0], $reemplazo, $reemplazo2);
-
-
-            $data["planificacion"]["hora"] = $horaFinal;
-            $data["planificacion"]["dia"] = $getDiaFinal;
-            $data["destino"] = $destino;
-            $data["planificacion"] = $planificacion2;
-            $this->printer->generateView('homeView.html', $data);
+            $data["planificacion"] = $planificacion;
         }
 
-
+        //ver poner la fecha que viene de las planificaciones que traigo en la busqueda
         $data["fecha"] = $fecha;
         $data["destino"] = $destino;
         $this->printer->generateView('homeView.html', $data);
@@ -179,7 +178,7 @@ class HomeController
                     return "Sabado";
                 case "Sabado":
                     return "Domingo";
-                case "Domindo":
+                case "Domingo":
                     return "Lunes";
             }
         }
@@ -198,7 +197,7 @@ class HomeController
                     return "Domingo";
                 case "Sabado":
                     return "Lunes";
-                case "Domindo":
+                case "Domingo":
                     return "Martes";
             }
         }
