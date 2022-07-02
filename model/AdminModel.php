@@ -10,4 +10,9 @@ class AdminModel
         $this->dataBase = $dataBase;
     }
 
+    public function getTOcupacionPorviaje(){
+//        return $this->dataBase->query();
+        return "";
+    }
+
 }
