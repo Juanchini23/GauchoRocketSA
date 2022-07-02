@@ -10,7 +10,7 @@
 {{#planificacion}}
 {{#datosModelo}}
 
-<form action="tour/generarPDF?id={{id}}&dia={{dia}}&fecha={{fecha}}&hora={{hora}}&llegada={{llegada}}&primera={{primera}}&origen={{origen}}" method="post">
+<form action="tour/generarPDF?id={{id}}&dia={{dia}}&fecha={{fecha}}&hora={{hora}}&llegada={{llegada}}&primera={{primera}}&origen={{origen}}" method="post" target="_blank">
     <div class="bg-secondary bg-opacity-75 text-center pt-4 pb-4    ">
 
         <div class="rounded container bg-primary bg-opacity-25 pt-5">
@@ -18,6 +18,7 @@
             <div class="row">
                 <div class="text-center d-flex justify-content-center col-12">
                     <div class="text-start mb-5 mt-5">
+                        <h4 class="text-center mb-5">Datos del vuelo</h4>
                         <h5>Nombre de la nave: <span class="text-white">{{nombreNave}}</span></h5>
                         <h5>Tipo de cliente: <span class="text-white">{{tipoCliente}}</span></h5>
                         <h5>Disponibilidad clase turista: <span class="text-white">{{turista}}</span></h5>
