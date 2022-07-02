@@ -64,18 +64,13 @@ class HomeController
             $respuesta = $this->homeModel->busquedaVuelos($origen, $dia, $codigoviajero, $destino);
             $data["planificacion"] = $respuesta;
         } else {
-            //calculos de hora y dia de llegada + query de busqueda
-            // tiene dia hora y origen
 
-            ///anda///
+            // tiene dia hora y origen
             $planificacion = $this->homeModel->busquedaVuelosOrigen($origen, $codigoviajero) ?? "";
 
-            //////////
-            ///anda///
             $horaPlani = $planificacion[0]["hora"] ?? "";
             $diaPlani = $planificacion[0]["dia"] ?? "";
-            //////////
-            ///anda///
+
             $horaTarda = $this->getHoraTarda($origen, $planificacion[0]["tipoVuelo"], $planificacion[0]["id"]) ?? "";
             $horaFinal = $this->getHoraFinal($horaPlani, $horaTarda) ?? "";
             $getDiaFinal = $this->getDiaFinal($diaPlani) ?? "";
@@ -115,6 +110,14 @@ class HomeController
 
         $this->printer->generateView('adminView.html', $data);
     }
+
+    //para despues de chequear las planificacion que el destino pertenezca al tipo de vuelo de la planificacion elegida
+    /*private function chequearDestinos($origen, $destino, $planificacion){
+         $tipoVuelo = $planificacion[0]["tipoVuelo"];
+         switch (){
+
+         }
+    }*/
 
     private function getHoraTarda($origen, $tipoVuelo, $idPlanificacion)
     {

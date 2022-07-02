@@ -89,7 +89,12 @@ AND tc.descripcion like '%$codigoViajero%'");
                                         WHERE tc.descripcion like '%$codigoviajero%'
                                         AND r.idOrigenReserva = '$origenId'");
 
-        return $this->dataBase->getPlani($resultado[0]["id"]);
+        $listaPlanificaciones = array();
+        foreach ($resultado as $item){
+            array_push($listaPlanificaciones, $this->dataBase->getPlani($item["id"]));
+        }
+
+        return $listaPlanificaciones;
     }
 
     public function solicitarNombreUsuario()
