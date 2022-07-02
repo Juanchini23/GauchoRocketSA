@@ -10,9 +10,11 @@ class AdminModel
         $this->dataBase = $dataBase;
     }
 
-    public function getTOcupacionPorviaje(){
-//        return $this->dataBase->query();
-        return "";
+    public function getTOcupacionPorviaje($id, $nombre)
+    {
+        return $this->dataBase->query("SELECT COUNT(p.idTipoVuelo) AS '$nombre'
+FROM reserva r
+JOIN planificacion p on r.idPlanificacion = p.id
+WHERE p.idTipoVuelo = '$id';");
     }
-
 }
