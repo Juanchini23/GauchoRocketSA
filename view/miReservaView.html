@@ -33,7 +33,7 @@
                         </button>
                         {{/estadoBool}}
                         {{^estadoBool}}
-                        <a href="home/qr?fecha={{fecha}}" class="text-decoration-none ms-5">
+                        <a href="home/qr?fecha={{fecha}}&id={{id}}" class="text-decoration-none ms-5">
                             <button class="btn btn-danger" type="submit">
                                 CheckIn
                             </button>
@@ -44,6 +44,17 @@
             </div>
         </div>
     </div>
+
+    <!--error Check IN-->
+    {{#erroCheckIN}}
+    <div class="d-flex justify-content-center flex-wrap bg-warning">
+        <img src="/public/error.svg" class="m-2 bg-white rounded-circle" width="50px">
+        <h3 class="m-3">{{erroCheckIN}}</h3>
+    </div>
+    {{/erroCheckIN}}
+
+
+
     <div class="collapse container" id="collapseExample">
         <div class="card card-body bg-primary bg-opacity-25 border-0 m-2">
             <div class="contenedor">

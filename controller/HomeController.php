@@ -205,36 +205,52 @@ class HomeController
 
     public function qr()
     {
-        $data = Validator::validarSesion();
+        $fecha = $_GET["fecha"] ?? "";
 
-        $path = 'public/qr/';
-        $ruta_qr = $path.uniqid().".png";
-        $text = Validator::generarCodigo();
+        $fechaCalculada = date_create($fecha);
+        date_add($fechaCalculada, date_interval_create_from_date_string("-2 days"));
+        $fechaCalculada= date_format($fechaCalculada, "Y-m-d");
 
-        $tamaño = 10;
-        $framSize = 3;
+        $fechaActual = date("Y-m-d");
 
-      QRcode::png($text,$ruta_qr,QR_ECLEVEL_H,$tamaño,$framSize);
+        if($fechaCalculada > $fechaActual){
+            $id = $_GET['id'] ?? "";
 
-        $data["qr"] = $ruta_qr;
+            $data = Validator::validarSesion();
 
-        $this->printer->generateView('descargarQRView.html', $data);
+            $miReserva = $this->homeModel->getMiReserva($id);
+
+            $data["miReserva"] = $miReserva;
+            $data["id"] = $id;
+            $data["erroCheckIN"] = "No puede realizar el Check-In con una anticipacion a 48 hs";
+            $this->printer->generateView('miReservaView.html', $data);
+
+        }else{
+
+            $data = Validator::validarSesion();
+
+            $path = 'public/qr/';
+            $ruta_qr = $path.uniqid().".png";
+            $text = Validator::generarCodigo();
+
+            $tamaño = 10;
+            $framSize = 3;
+
+            QRcode::png($text,$ruta_qr,QR_ECLEVEL_H,$tamaño,$framSize);
+
+            $data["qr"] = $ruta_qr;
+
+            $this->printer->generateView('descargarQRView.html', $data);
+
+        }
+
+
 
     }
 
 
     public function descargarQr()
     {
-
-        $fecha = $_GET["fecha"] ?? "";
-
-        $fechaCalculada = date_create($fecha);
-        date_add($fechaCalculada, date_interval_create_from_date_string("2 days"));
-        $fechaCalculada= date_format($fechaCalculada, "Y-m-d");
-
-        $fechaActual = date("Y-m-d");
-
-        if($fechaCalculada <= $fechaActual){
 
             $qr = $_GET["qr"] ?? "";
             // instantiate and use the dompdf class
@@ -286,10 +302,9 @@ class HomeController
 // Output the generated PDF to Browser
             $dompdf->stream("descargarQr.pdf", ['Attachment' => 1]);
 
-        }else{
-            $data["erroCheckIN"] = "No puede realizar el Check-In con una anticipacion a 48 hs";
-            $this->printer->generateView('descargarQRView.html', $data);
-        }
+
+
+
 
 
     }
