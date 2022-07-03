@@ -277,6 +277,7 @@ class ReservaModel
                                         VALUES ('$idUser', '$idPlanificacion', '$fecha', '$or', '$or', 1, '$precioFinal', '$idServicio','$codigoReserva' )");
         }
 
+        return $precioFinal;
 
     }
 

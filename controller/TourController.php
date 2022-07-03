@@ -143,10 +143,10 @@ class TourController
 
 
 
-        $this->tourModel->reservaTour($origen, $butaca, $cantidadAsientos, $idUser, $idPlanificacion, $fechaSalida, $idServicio);
+        $precio = $this->tourModel->reservaTour($origen, $butaca, $cantidadAsientos, $idUser, $idPlanificacion, $fechaSalida, $idServicio);
 
         
-        $totalApagar= $cantidadAsientos * 5000;
+        $totalApagar= $cantidadAsientos * $precio;
 
 
 // instantiate and use the dompdf class

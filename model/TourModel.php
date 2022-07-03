@@ -113,7 +113,7 @@ class TourModel
             }
         }
 
-
+                return $precio;
     }
 
     public function getCantidadAsientosReservados($id, $fechaViaje)

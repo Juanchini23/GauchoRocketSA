@@ -68,9 +68,9 @@ class ReservaController
         $idServicio = $_POST["servicio"] ?? "";
 
         // Generar una reserva
-        $this->reservaModel->generarReserva($origen, $destino, $diaSalida, $horaSalida, $butaca, $cantidadAsientos, $metodoPago, $idUser, $idPlanificacion, $fechaSalida, $idServicio);
+        $precio = $this->reservaModel->generarReserva($origen, $destino, $diaSalida, $horaSalida, $butaca, $cantidadAsientos, $metodoPago, $idUser, $idPlanificacion, $fechaSalida, $idServicio);
 
-        $totalApagar = 7800 * $cantidadAsientos;
+        $totalApagar = $precio;
 
         // instantiate and use the dompdf class
         $dompdf = new Dompdf();
