@@ -77,8 +77,6 @@ class HomeController
                 }
             }
             /////////////////////////////////////////////////////////////////////////////////////////////
-            var_dump($respuesta);
-            die();
             $data["planificacion"] = $respuesta;
         } else {
 
