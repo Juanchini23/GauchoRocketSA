@@ -36,7 +36,10 @@ class ReservaController
         $datosAsientos = $this->reservaModel->getCantidadAsientosReservados($id, $fechaViaje);
 
         $destino = $_SESSION["destino"] ?? "";
+        $origen = $_SESSION["origen"] ?? "";
 
+        $reemplazo = array("origen" => $origen);
+        $planificacion[0] = array_replace($planificacion[0], $reemplazo);
 
         $data["asientoTurista"] = $datosModelo[0]["turista"] - $datosAsientos[0]["turista"];
         $data["asientoEjecutivo"] = $datosModelo[0]["ejecutivo"] - $datosAsientos[0]["ejecutivo"];

@@ -70,7 +70,7 @@ class HomeController
             foreach ($respuesta as $resp) {
                 if ($resp["tipoVuelo"] == "EntreDestinosUno") {
                     if ((in_array($origen, $keyCircuitoDos) && !(in_array($origen, $keyCircuitoUno)))
-                        || in_array($destino, $keyCircuitoDos) && !(in_array($destino, $keyCircuitoUno))) {
+                        || (in_array($destino, $keyCircuitoDos) && !(in_array($destino, $keyCircuitoUno)))) {
                         // sacar los circuitos uno
                         unset($respuesta[$y]);
                     }
@@ -92,8 +92,9 @@ class HomeController
                 $diaFinal = $this->getDiaFinal($diaPlani) ?? "";
                 $reemplazo = array("hora" => $horaFinal);
                 $reemplazo2 = array("dia" => $diaFinal);
-                //$reemplazo3 = array("origen", $origen);
-                $planificacion[$i] = array_replace($plani[0], $reemplazo, $reemplazo2);
+                $reemplazo3 = array("origen" => $origen);
+                $_SESSION["origen"]= $origen;
+                $planificacion[$i] = array_replace($plani[0], $reemplazo, $reemplazo2, $reemplazo3);
                 $data["destino"] = $destino;
                 if (!$this->chequearDestinos($origen, $destino, $plani[0]["tipoVuelo"], $this->homeModel->getTipoEquipo($plani[0]["id"])[0]["equipo"])) {
                     unset($planificacion[$i]);
