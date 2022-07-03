@@ -32,7 +32,7 @@ class ReservaController
         $datosModelo = $this->reservaModel->getDatosModelo($id);
         $datosAsientos = $this->reservaModel->getCantidadAsientosReservados($id, $fechaViaje);
 
-        $destino = $_SESSION["destino"];
+        $destino = $_SESSION["destino"] ?? "";
 
 
         $data["asientoTurista"] = $datosModelo[0]["turista"] - $datosAsientos[0]["turista"];

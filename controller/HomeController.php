@@ -62,13 +62,30 @@ class HomeController
         if ($origen == 'BA' || $origen == 'AK') {
             //ver si el destino que ponemos pasa por donde debe
             $respuesta = $this->homeModel->busquedaVuelos($origen, $dia, $codigoviajero, $destino);
+
+            // hacer que si el origen o destino es exclusivo de enrtedestinos2, me saque los entredestinos1
+            $keyCircuitoUno = array_keys($this->circuitoUnoBA[0]);
+            $keyCircuitoDos = array_keys($this->circuitoDosBA[0]);
+            $y = 0;
+            foreach ($respuesta as $resp) {
+                if ($resp["tipoVuelo"] == "EntreDestinosUno") {
+                    if ((in_array($origen, $keyCircuitoDos) && !(in_array($origen, $keyCircuitoUno)))
+                        || in_array($destino, $keyCircuitoDos) && !(in_array($destino, $keyCircuitoUno))) {
+                        // sacar los circuitos uno
+                        unset($respuesta[$y]);
+                    }
+                }
+            }
+            /////////////////////////////////////////////////////////////////////////////////////////////
+            var_dump($respuesta);
+            die();
             $data["planificacion"] = $respuesta;
         } else {
 
             // tiene dia hora y origen
             $planificacion = $this->homeModel->busquedaVuelosOrigen($origen, $codigoviajero) ?? "";
-            $i= 0;
-            foreach ($planificacion as $plani){
+            $i = 0;
+            foreach ($planificacion as $plani) {
                 $horaPlani = $plani[0]["hora"] ?? "";
                 $diaPlani = $plani[0]["dia"] ?? "";
 
@@ -80,7 +97,7 @@ class HomeController
                 //$reemplazo3 = array("origen", $origen);
                 $planificacion[$i] = array_replace($plani[0], $reemplazo, $reemplazo2);
                 $data["destino"] = $destino;
-                if(!$this->chequearDestinos($origen, $destino, $plani[0]["tipoVuelo"], $this->homeModel->getTipoEquipo($plani[0]["id"])[0]["equipo"])){
+                if (!$this->chequearDestinos($origen, $destino, $plani[0]["tipoVuelo"], $this->homeModel->getTipoEquipo($plani[0]["id"])[0]["equipo"])) {
                     unset($planificacion[$i]);
                 }
                 $i++;
@@ -114,40 +131,42 @@ class HomeController
     }
 
     //para despues de chequear las planificacion que el destino pertenezca al tipo de vuelo de la planificacion elegida
-    private function chequearDestinos($origen, $destino, $tipoVuelo, $equipo){
+    private function chequearDestinos($origen, $destino, $tipoVuelo, $equipo)
+    {
         $keyCircuitoUnoBA = array_keys($this->circuitoUnoBA[0]);
         $keyCircuitoUnoAA = array_keys($this->circuitoUnoAA[0]);
         $keyCircuitoDosBA = array_keys($this->circuitoDosBA[0]);
         $keyCircuitoDosAA = array_keys($this->circuitoDosAA[0]);
 
-         switch ($tipoVuelo){
+        switch ($tipoVuelo) {
 
-             case 'EntreDestinosUno':
-                 if ($equipo == 'BA'){
-                    if(in_array($origen, $keyCircuitoUnoBA) && in_array($destino, $keyCircuitoUnoBA)){
+            case 'EntreDestinosUno':
+                if ($equipo == 'BA') {
+                    if (in_array($origen, $keyCircuitoUnoBA) && in_array($destino, $keyCircuitoUnoBA)) {
                         return true;
                     } else return false;
-                 } else if($equipo == 'AA'){
-                     if(in_array($origen, $keyCircuitoUnoAA) && in_array($destino, $keyCircuitoUnoAA)){
-                         return true;
-                     }else return false;
-                 }
-                 break;
+                } else if ($equipo == 'AA') {
+                    if (in_array($origen, $keyCircuitoUnoAA) && in_array($destino, $keyCircuitoUnoAA)) {
+                        return true;
+                    } else return false;
+                }
+                break;
 
-             case 'EntreDestinosDos':
-                 if ($equipo == 'BA'){
-                     if(in_array($origen, $keyCircuitoDosBA) && in_array($destino, $keyCircuitoDosBA)){
-                         return true;
-                     }else return false;
-                 } else if($equipo == 'AA'){
-                     if(in_array($origen, $keyCircuitoDosAA) && in_array($destino, $keyCircuitoDosAA)){
-                         return true;
-                     }else return false;
-                 }
-                 break;
+            case 'EntreDestinosDos':
+                if ($equipo == 'BA') {
+                    if (in_array($origen, $keyCircuitoDosBA) && in_array($destino, $keyCircuitoDosBA)) {
+                        return true;
+                    } else return false;
+                } else if ($equipo == 'AA') {
+                    if (in_array($origen, $keyCircuitoDosAA) && in_array($destino, $keyCircuitoDosAA)) {
+                        return true;
+                    } else return false;
+                }
+                break;
 
-             default: return false;
-         }
+            default:
+                return false;
+        }
     }
 
     private function getHoraTarda($origen, $tipoVuelo, $idPlanificacion)
@@ -243,11 +262,11 @@ class HomeController
 
         $fechaCalculada = date_create($fecha);
         date_add($fechaCalculada, date_interval_create_from_date_string("-2 days"));
-        $fechaCalculada= date_format($fechaCalculada, "Y-m-d");
+        $fechaCalculada = date_format($fechaCalculada, "Y-m-d");
 
         $fechaActual = date("Y-m-d");
 
-        if($fechaCalculada > $fechaActual){
+        if ($fechaCalculada > $fechaActual) {
             $id = $_GET['id'] ?? "";
 
             $data = Validator::validarSesion();
@@ -259,18 +278,18 @@ class HomeController
             $data["erroCheckIN"] = "No puede realizar el Check-In con una anticipacion a 48 hs";
             $this->printer->generateView('miReservaView.html', $data);
 
-        }else{
+        } else {
 
             $data = Validator::validarSesion();
             $id = $_GET['id'] ?? ""; // id de la reserva
             $path = 'public/qr/';
-            $ruta_qr = $path.uniqid().".png";
+            $ruta_qr = $path . uniqid() . ".png";
             $text = Validator::generarCodigo();
 
             $tamaño = 10;
             $framSize = 3;
 
-            QRcode::png($text,$ruta_qr,QR_ECLEVEL_H,$tamaño,$framSize);
+            QRcode::png($text, $ruta_qr, QR_ECLEVEL_H, $tamaño, $framSize);
 
             $data["qr"] = $ruta_qr;
 
@@ -282,66 +301,61 @@ class HomeController
         }
 
 
-
     }
 
 
     public function descargarQr()
     {
 
-            $qr = $_GET["qr"] ?? "";
-            // instantiate and use the dompdf class
-            $dompdf = new Dompdf();
-            ob_start()
-            ?>
-            <!doctype html>
-            <html lang="es">
-            <head>
-                <meta charset="utf-8">
-                <meta http-equiv="X-UA-Compatible">
-                <meta name="viewport" content="width=device-width, initial-scale=1">
-            </head>
-            <body>
+        $qr = $_GET["qr"] ?? "";
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf();
+        ob_start()
+        ?>
+        <!doctype html>
+        <html lang="es">
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+        </head>
+        <body>
 
-            <img src="<?php echo $qr; ?>">
-            <h1>Pasajero: <span><?php echo $_SESSION["apellido"] . ", " . $_SESSION["usuario"]; ?></span></h1>
-            <?php
+        <img src="<?php echo $qr; ?>">
+        <h1>Pasajero: <span><?php echo $_SESSION["apellido"] . ", " . $_SESSION["usuario"]; ?></span></h1>
+        <?php
 
-            echo "<br>";
-            echo "<br>";
-            echo "<br>";
-            echo "<br>";
-            echo "<br>";
-            echo "<br>";
-            echo "<br>";
-            echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
 
-            //dia que se genera el PDF
-            date_default_timezone_set("America/Argentina/Buenos_Aires");
-            echo "PDF generado el: " . date("d-m-Y h:i:sa");
+        //dia que se genera el PDF
+        date_default_timezone_set("America/Argentina/Buenos_Aires");
+        echo "PDF generado el: " . date("d-m-Y h:i:sa");
 
-            ?>
+        ?>
 
-            </body>
-            </html>
-            <?php
-            $html = ob_get_clean();
+        </body>
+        </html>
+        <?php
+        $html = ob_get_clean();
 
 
-            $dompdf->loadHtml($html);
+        $dompdf->loadHtml($html);
 
 // (Optional) Setup the paper size and orientation
-            $dompdf->setPaper('A4', 'landscape');
+        $dompdf->setPaper('A4', 'landscape');
 
 // Render the HTML as PDF
-            $dompdf->render();
+        $dompdf->render();
 
 // Output the generated PDF to Browser
-            $dompdf->stream("descargarQr.pdf", ['Attachment' => 1]);
-
-
-
-
+        $dompdf->stream("descargarQr.pdf", ['Attachment' => 1]);
 
 
     }
