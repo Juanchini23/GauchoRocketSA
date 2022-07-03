@@ -42,9 +42,4 @@ class OrbitalController
         $this->printer->generateView('orbitalView.html', $data);
     }
 
-
-    public function confirmarVueloOrbital(){
-
-    }
-
 }

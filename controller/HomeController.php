@@ -32,8 +32,19 @@ class HomeController
             $data["planificacion"] = $localStorage;
             $data["destino"] = $_SESSION["destino"];
         }
-        $_SESSION['errorNoHayAciento'] = 0;
-        $this->printer->generateView('homeView.html', $data);
+
+        if($_SESSION['errorNoHayAciento']==2){
+            $data["errorSobrecargado"] = "No hay disponibilidad de la cantidad de asientos solicitados ";
+            $_SESSION['errorNoHayAciento'] = 0;
+            $this->printer->generateView('homeView.html', $data);
+
+        }else{
+            $_SESSION['errorNoHayAciento'] = 0;
+            $this->printer->generateView('homeView.html', $data);
+        }
+
+
+
     }
 
     public function busqueda()

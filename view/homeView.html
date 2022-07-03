@@ -16,6 +16,14 @@
 </div>
 {{/vacio}}
 
+{{#errorSobrecargado}}
+<div class="d-flex justify-content-center flex-wrap bg-warning">
+    <img src="/public/error.svg" class="m-2 bg-white rounded-circle" width="50px">
+    <h3 class="m-3">{{errorSobrecargado}}</h3>
+</div>
+{{/errorSobrecargado}}
+
+
 <div class="bg-secondary text-center" style="background-image: url('/public/estrellitas.jpg')">
     <h2 class="pt-5 text-white">¡Hace un viaje Orbital o un Tour!</h2>
     <div class="container mt-5 pb-5 pt-3 mb-5">

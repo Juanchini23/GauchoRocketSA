@@ -84,7 +84,7 @@ class ReservaModel
                         if ($entro == true) {
                             // verificar la cantidad de asientos y la clase
                             if ($sumaAsientos > $cantidadM) {
-                                $_SESSION['errorNoHayAciento'] = 1;
+                                $_SESSION['errorNoHayAciento'] = 2;
                                 header("location:/");
                                 exit();
                             } else {
@@ -122,7 +122,7 @@ class ReservaModel
                         if ($entro == true) {
                             // verificar la cantidad de asientos y la clase
                             if ($sumaAsientos > $cantidadM) {
-                                $_SESSION['errorNoHayAciento'] = 1;
+                                $_SESSION['errorNoHayAciento'] = 2;
                                 header("location:/");
                                 exit();
                             } else {
@@ -165,7 +165,7 @@ class ReservaModel
                         if ($entro == true) {
                             // verificar la cantidad de asientos y la clase
                             if ($sumaAsientos > $cantidadM) {
-                                $_SESSION['errorNoHayAciento'] = 1;
+                                $_SESSION['errorNoHayAciento'] = 2;
                                 header("location:/");
                                 exit();
                             } else {
@@ -203,7 +203,7 @@ class ReservaModel
                         if ($entro == true) {
                             // verificar la cantidad de asientos y la clase
                             if ($sumaAsientos > $cantidadM) {
-                                $_SESSION['errorNoHayAciento'] = 1;
+                                $_SESSION['errorNoHayAciento'] = 2;
                                 header("location:/");
                                 exit();
                             } else {
@@ -233,7 +233,7 @@ class ReservaModel
                     $origen = 'Tierra';
                 }
                 if ($sumaAsientos >= $cantidadM) {
-                    $_SESSION['errorNoHayAciento'] = 1;
+                    $_SESSION['errorNoHayAciento'] = 2;
                     header("location:/");
                     exit();
                 } else {

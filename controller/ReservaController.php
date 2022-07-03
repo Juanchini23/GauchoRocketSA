@@ -135,7 +135,7 @@ class ReservaController
         $dompdf->render();
 
 // Output the generated PDF to Browser
-        $dompdf->stream("ReservaVuelo.pdf", ['Attachment' => 0]);
+        $dompdf->stream("ReservaVuelo.pdf", ['Attachment' => 1]);
 
 
 

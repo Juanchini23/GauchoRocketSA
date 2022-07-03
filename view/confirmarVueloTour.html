@@ -11,30 +11,8 @@
 {{#datosModelo}}
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Reserva exitosa</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="d-flex justify-content-center m-3">
-                <p>Descargue el PDF</p>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <a href="/"><button type="button" class="btn btn-danger">Cerrar</button></a>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<form action="tour/generarPDF?id={{id}}&dia={{dia}}&fecha={{fecha}}&hora={{hora}}&llegada={{llegada}}&primera={{primera}}&origen={{origen}}" method="post" target="_blank">
-    <div class="bg-secondary bg-opacity-75 text-center pt-4 pb-4    ">
+<form action="tour/generarPDF?id={{id}}&dia={{dia}}&fecha={{fecha}}&hora={{hora}}&llegada={{llegada}}&primera={{primera}}&origen={{origen}}" method="post">
+    <div class="bg-secondary bg-opacity-75 text-center pt-4 pb-4">
 
         <div class="rounded container bg-primary bg-opacity-25 pt-5">
             <h2>Confirma los datos</h2>

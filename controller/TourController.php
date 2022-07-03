@@ -221,9 +221,12 @@ class TourController
         $dompdf->render();
 
 // Output the generated PDF to Browser
-        $dompdf->stream("ReservaVueloTour.pdf", ['Attachment' => 0]);
+        $dompdf->stream("ReservaVueloTour.pdf", ['Attachment' => 1]);
+
 
     }
+
+
 }
 
 ?>
