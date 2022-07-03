@@ -1,4 +1,7 @@
 <?php
+require_once 'public/dompdf/autoload.inc.php';
+
+use Dompdf\Dompdf;
 
 class ReservaController
 {
@@ -60,11 +63,82 @@ class ReservaController
         $idPlanificacion = $_POST["idPlanificacion"] ?? "";
         $fechaSalida = $_POST["fechaSalida"] ?? "";
         $idServicio = $_POST["servicio"] ?? "";
+
         // Generar una reserva
         $this->reservaModel->generarReserva($origen, $destino, $diaSalida, $horaSalida, $butaca, $cantidadAsientos, $metodoPago, $idUser, $idPlanificacion, $fechaSalida, $idServicio);
 
-        header("location: /");
-        exit();
+        $totalApagar = 7800 * $butaca;
+
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf();
+        ob_start()
+        ?>
+        <!doctype html>
+        <html lang="es">
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        </head>
+
+        <body>
+
+        <h1>Felicitaciones <span><?php echo $_SESSION["apellido"] . ", " . $_SESSION["usuario"]; ?></span>!!!</h1>
+        <h3>Datos:</h3>
+        <p>Viajero:<strong><?php echo $_SESSION["apellido"] . ", " . $_SESSION["usuario"]; ?></strong></p>
+        <p>Te vas el dia:<strong><?php echo " " . $diaSalida . " " . $fechaSalida . " "; ?> a las: <?php echo " " . $horaSalida . " "; ?></strong>
+            hs </p>
+
+        <p>Reservaste:<strong><?php echo " " . $cantidadAsientos . " "; ?></strong> butaca/s </p>
+
+
+        <p>Total a pagar:<strong><?php echo "USD " . $totalApagar; ?></strong></p>
+
+
+        <p>A preparar las valijas!</p>
+        <p>Buen viaje te desea tu compania amiga <strong>GAUCHO ROCKET!</strong></p>
+
+
+        <?php
+
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+
+        //dia que se genera el PDF
+        date_default_timezone_set("America/Argentina/Buenos_Aires");
+        echo "PDF generado el: " . date("d-m-Y h:i:sa");
+
+        ?>
+
+        </body>
+        </html>
+        <?php
+        $html = ob_get_clean();
+
+
+        $dompdf->loadHtml($html);
+
+// (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'landscape');
+
+// Render the HTML as PDF
+        $dompdf->render();
+
+// Output the generated PDF to Browser
+        $dompdf->stream("ReservaVuelo.pdf", ['Attachment' => 0]);
+
+
+
+
+
+
     }
 
     public function verReserva()
