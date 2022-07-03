@@ -77,9 +77,12 @@ class HomeController
                 $diaFinal = $this->getDiaFinal($diaPlani) ?? "";
                 $reemplazo = array("hora" => $horaFinal);
                 $reemplazo2 = array("dia" => $diaFinal);
+                //$reemplazo3 = array("origen", $origen);
                 $planificacion[$i] = array_replace($plani[0], $reemplazo, $reemplazo2);
-
                 $data["destino"] = $destino;
+                if(!$this->chequearDestinos($origen, $destino, $plani[0]["tipoVuelo"], $this->homeModel->getTipoEquipo($plani[0]["id"])[0]["equipo"])){
+                    unset($planificacion[$i]);
+                }
                 $i++;
             }
 
@@ -111,12 +114,41 @@ class HomeController
     }
 
     //para despues de chequear las planificacion que el destino pertenezca al tipo de vuelo de la planificacion elegida
-    /*private function chequearDestinos($origen, $destino, $planificacion){
-         $tipoVuelo = $planificacion[0]["tipoVuelo"];
-         switch (){
+    private function chequearDestinos($origen, $destino, $tipoVuelo, $equipo){
+        $keyCircuitoUnoBA = array_keys($this->circuitoUnoBA[0]);
+        $keyCircuitoUnoAA = array_keys($this->circuitoUnoAA[0]);
+        $keyCircuitoDosBA = array_keys($this->circuitoDosBA[0]);
+        $keyCircuitoDosAA = array_keys($this->circuitoDosAA[0]);
 
+         switch ($tipoVuelo){
+
+             case 'EntreDestinosUno':
+                 if ($equipo == 'BA'){
+                    if(in_array($origen, $keyCircuitoUnoBA) && in_array($destino, $keyCircuitoUnoBA)){
+                        return true;
+                    } else return false;
+                 } else if($equipo == 'AA'){
+                     if(in_array($origen, $keyCircuitoUnoAA) && in_array($destino, $keyCircuitoUnoAA)){
+                         return true;
+                     }else return false;
+                 }
+                 break;
+
+             case 'EntreDestinosDos':
+                 if ($equipo == 'BA'){
+                     if(in_array($origen, $keyCircuitoDosBA) && in_array($destino, $keyCircuitoDosBA)){
+                         return true;
+                     }else return false;
+                 } else if($equipo == 'AA'){
+                     if(in_array($origen, $keyCircuitoDosAA) && in_array($destino, $keyCircuitoDosAA)){
+                         return true;
+                     }else return false;
+                 }
+                 break;
+
+             default: return false;
          }
-    }*/
+    }
 
     private function getHoraTarda($origen, $tipoVuelo, $idPlanificacion)
     {
@@ -139,13 +171,13 @@ class HomeController
     private function getHoraFinal($horaPlani, $horaTarda)
     {
         $suma = $horaPlani + $horaTarda;
+        if ($suma < 24) {
+            $this->cantidadDia = 0;
+            return $suma;
+        }
         if ($suma == 24) {
             $this->cantidadDia = 1;
             return 0;
-        }
-
-        if ($suma < 24) {
-            return $suma;
         }
 
         if ($suma > 24 && $suma < 48) {
