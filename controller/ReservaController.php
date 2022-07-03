@@ -67,7 +67,7 @@ class ReservaController
         // Generar una reserva
         $this->reservaModel->generarReserva($origen, $destino, $diaSalida, $horaSalida, $butaca, $cantidadAsientos, $metodoPago, $idUser, $idPlanificacion, $fechaSalida, $idServicio);
 
-        $totalApagar = 7800 * $butaca;
+        $totalApagar = 7800 * $cantidadAsientos;
 
         // instantiate and use the dompdf class
         $dompdf = new Dompdf();
