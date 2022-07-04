@@ -125,8 +125,5 @@ class AdminController
 
 // Output the generated PDF to Browser
         $dompdf->stream("ReservaVuelo.pdf", ['Attachment' => 1]);
-
-        header("location: /admin");
-        exit();
     }
 }
