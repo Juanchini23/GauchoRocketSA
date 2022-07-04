@@ -6,6 +6,26 @@
     </a>
 </div>
 
+<!-- Modal Reserva exitosa-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Reserva exitosa</h5>
+                <img src="/public/success-svgrepo-com.svg" class="m-2 bg-white rounded-circle" width="50px">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex justify-content-center m-3">
+                    <p>Se ha descargado el PDF</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="/"><button type="button" class="btn btn-danger">Cerrar</button></a>
+            </div>
+        </div>
+    </div>
+</div>
 
 {{^loggeado}}
 <h1 class="text-center text-danger mt-5 mb-5">Por favor inicie sesion</h1>
