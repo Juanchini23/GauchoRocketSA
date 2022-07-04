@@ -46,13 +46,22 @@ class ReservaController
         $origen = $_SESSION["origen"] ?? "";
 
         // calcular dia llegada hora llegada /////////////////////
+        if($planificacion[0]["tipoVuelo"] == "EntreDestinosUno" || $planificacion[0]["tipoVuelo"] == "EntreDestinosDos"){
+            $horaTarda = $this->getHoraTarda($destino, $planificacion[0]["tipoVuelo"], $planificacion[0]["id"]) ?? "";
+            $horaFinal = $this->getHoraFinal($hora, $horaTarda) ?? "";
+            $diaFinal = $this->getDiaFinal($planificacion[0]["dia"]) ?? "";
 
-        $horaTarda = $this->getHoraTarda($destino, $planificacion[0]["tipoVuelo"], $planificacion[0]["id"]) ?? "";
-        $horaFinal = $this->getHoraFinal($hora, $horaTarda) ?? "";
-        $diaFinal = $this->getDiaFinal($planificacion[0]["dia"]) ?? "";
+            $data["diaLlegada"] = $diaFinal;
+            $data["horaLlegada"] = $horaFinal;
+        } else if($planificacion[0]["tipoVuelo"] == "Orbitales"){
+            $horaTarda = 8;
+            $horaFinal = $this->getHoraFinal($hora, $horaTarda) ?? "";
+            $diaFinal = $this->getDiaFinal($planificacion[0]["dia"]) ?? "";
 
-        $data["diaLlegada"] = $diaFinal;
-        $data["horaLlegada"] = $horaFinal;
+            $data["diaLlegada"] = $diaFinal;
+            $data["horaLlegada"] = $horaFinal;
+        }
+
         /////////////////////////////////////////////////////////
 
         $reemplazo = array("origen" => $origen);
