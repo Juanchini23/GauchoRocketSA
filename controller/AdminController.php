@@ -33,13 +33,13 @@ class AdminController
 
 //        Tasa de ocupacion por equipo
 
-        $tOcupacionPorTipoViajeOrbital = $this->adminModel->getTOcupacionPorTipoCiaje('OR', 'orbitalesOr');
+        $tOcupacionPorTipoViajeOrbital = $this->adminModel->getTOcupacionPorTipoViaje('OR', 'orbitalesOr');
         $data["orbitalesOr"] = $tOcupacionPorTipoViajeOrbital[0]["orbitalesOr"];
 
-        $tOcupacionPorTipoViajeBajaAceleracion = $this->adminModel->getTOcupacionPorTipoCiaje('BA', 'bajaAceleracion');
+        $tOcupacionPorTipoViajeBajaAceleracion = $this->adminModel->getTOcupacionPorTipoViaje('BA', 'bajaAceleracion');
         $data["bajaAceleracion"] = $tOcupacionPorTipoViajeBajaAceleracion[0]["bajaAceleracion"];
 
-        $tOcupacionPorTipoViajeAltaAceleracion = $this->adminModel->getTOcupacionPorTipoCiaje('AA', 'altaAceleracion');
+        $tOcupacionPorTipoViajeAltaAceleracion = $this->adminModel->getTOcupacionPorTipoViaje('AA', 'altaAceleracion');
         $data["altaAceleracion"] = $tOcupacionPorTipoViajeAltaAceleracion[0]["altaAceleracion"];
 
 //        /Tasa de ocupacion por equipo

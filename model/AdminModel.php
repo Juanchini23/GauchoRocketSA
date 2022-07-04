@@ -18,7 +18,7 @@ JOIN planificacion p on r.idPlanificacion = p.id
 WHERE p.idTipoVuelo = '$id';");
     }
 
-    public function getTOcupacionPorTipoCiaje($tipoEquipo, $nombre)
+    public function getTOcupacionPorTipoViaje($tipoEquipo, $nombre)
     {
         return $this->dataBase->query("SELECT COUNT(m.tipoEquipo) AS '$nombre'
 FROM reserva r
