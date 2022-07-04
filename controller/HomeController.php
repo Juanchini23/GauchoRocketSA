@@ -33,7 +33,7 @@ class HomeController
             $data["destino"] = $_SESSION["destino"];
         }
 
-        if($_SESSION['errorNoHayAciento']==2){
+        if($_SESSION['errorNoHayAciento'] ?? "" ==2){
             $data["errorSobrecargado"] = "No hay disponibilidad de la cantidad de asientos solicitados ";
             $_SESSION['errorNoHayAciento'] = 0;
             $this->printer->generateView('homeView.html', $data);

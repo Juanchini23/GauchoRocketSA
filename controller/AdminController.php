@@ -26,11 +26,19 @@ class AdminController
         $tOcupacionPorViajeCircuitoUno = $this->adminModel->getTOcupacionPorviaje(3, 'circuitoUno');
         $data["circuitoUno"] = $tOcupacionPorViajeCircuitoUno[0]['circuitoUno'];
 
-        $tOcupacionPorViajeCircuitoDos = $this->adminModel->getTOcupacionPorviaje(3, 'circuitoDos');
+        $tOcupacionPorViajeCircuitoDos = $this->adminModel->getTOcupacionPorviaje(4, 'circuitoDos');
         $data["circuitoDos"] = $tOcupacionPorViajeCircuitoDos[0]['circuitoDos'];
 
 //        /Tasa de ocupacion por tipo viaje
 
+        $tOcupacionPorTipoViajeOrbital = $this->adminModel->getTOcupacionPorTipoCiaje('OR', 'orbitalesOr');
+        $data["orbitalesOr"] = $tOcupacionPorTipoViajeOrbital[0]["orbitalesOr"];
+
+        $tOcupacionPorTipoViajeBajaAceleracion = $this->adminModel->getTOcupacionPorTipoCiaje('BA', 'bajaAceleracion');
+        $data["bajaAceleracion"] = $tOcupacionPorTipoViajeBajaAceleracion[0]["bajaAceleracion"];
+
+        $tOcupacionPorTipoViajeAltaAceleracion = $this->adminModel->getTOcupacionPorTipoCiaje('AA', 'altaAceleracion');
+        $data["altaAceleracion"] = $tOcupacionPorTipoViajeAltaAceleracion[0]["altaAceleracion"];
 
         $this->printer->generateView('adminView.html', $data);
     }
