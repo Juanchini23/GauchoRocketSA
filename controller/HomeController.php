@@ -95,12 +95,22 @@ class HomeController
         } else {
 
             // tiene dia hora y origen
-            $planificacion = $this->homeModel->busquedaVuelosOrigen($origen, $codigoviajero) ?? "";
+            $planificacion = $this->homeModel->busquedaVuelosOrigen($codigoviajero) ?? "";
+
+            $j=0;
+            foreach ($planificacion as $item){
+                if(!$this->verSiPertenece($item[0]["tipoVuelo"], $origen)){
+                    unset($planificacion[$j]);
+                }
+                $j++;
+            }
+
+            $planificacion = array_values($planificacion);
+
             $i = 0;
             foreach ($planificacion as $plani) {
                 $horaPlani = $plani[0]["hora"] ?? "";
                 $diaPlani = $plani[0]["dia"] ?? "";
-
                 $horaTarda = $this->getHoraTarda($origen, $plani[0]["tipoVuelo"], $plani[0]["id"]) ?? "";
                 $horaFinal = $this->getHoraFinal($horaPlani, $horaTarda) ?? "";
                 $diaFinal = $this->getDiaFinal($diaPlani) ?? "";
@@ -112,6 +122,7 @@ class HomeController
                 $data["destino"] = $destino;
                 if (!$this->chequearDestinos($origen, $destino, $plani[0]["tipoVuelo"], $this->homeModel->getTipoEquipo($plani[0]["id"])[0]["equipo"])) {
                     unset($planificacion[$i]);
+                    //si el t
                 }
                 $i++;
             }
@@ -371,6 +382,28 @@ class HomeController
         $dompdf->stream("descargarQr.pdf", ['Attachment' => 1]);
 
 
+    }
+
+    private function verSiPertenece($tipoVuelo, $origen)
+    {
+        $keyCircuitoUno = array_keys($this->circuitoUnoBA[0]);
+        $keyCircuitoDos = array_keys($this->circuitoDosBA[0]);
+
+        switch ($tipoVuelo){
+            case "EntreDestinosUno":
+                if(in_array($origen, $keyCircuitoUno)){
+                    return true;
+                }
+                return false;
+
+            case "EntreDestinosDos":
+                if(in_array( $origen, $keyCircuitoDos)){
+                    return true;
+                }
+                return false;
+
+            default: return false;
+        }
     }
 
 
