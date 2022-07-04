@@ -115,8 +115,8 @@ class HomeController
                 }
                 $i++;
             }
-
-            $data["planificacion"] = $planificacion;
+            $respuesta2 = array_values($planificacion);
+            $data["planificacion"] = $respuesta2;
         }
 
         //ver poner la fecha que viene de las planificaciones que traigo en la busqueda
