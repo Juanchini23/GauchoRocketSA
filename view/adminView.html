@@ -12,7 +12,7 @@
                 <p id="orbitales" class="d-none">{{orbitales}}</p>
                 <p id="tour" class="d-none">{{tour}}</p>
                 <p id="circuitoUno" class="d-none">{{circuitoUno}}</p>
-                <p id="circuitoDos" class="d-none">circuitoDos</p>
+                <p id="circuitoDos" class="d-none">{{circuitoDos}}</p>
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
                 <script type="text/javascript">
                     google.charts.load("current", {packages: ["corechart"]});
@@ -51,17 +51,24 @@
             </div>
             <div class="col-6 text-center">
                 <h3>Tasa de ocupacion por equipo</h3>
-                <p id="" class="d-none"></p>
+                <p id="orbitalesOr" class="d-none">{{orbitalesOr}}</p>
+                <p id="bajaAceleracion" class="d-none">{{bajaAceleracion}}</p>
+                <p id="altaAceleracion" class="d-none">{{altaAceleracion}}</p>
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
                 <script type="text/javascript">
                     google.charts.load('current', {'packages': ['corechart']});
                     google.charts.setOnLoadCallback(drawChart);
+                    let orbitalesOr = parseInt(document.getElementById("orbitalesOr").innerHTML);
+                    let bajaAceleracion = parseInt(document.getElementById("bajaAceleracion").innerHTML);
+                    let altaAceleracion = parseInt(document.getElementById("altaAceleracion").innerHTML);
 
                     function drawChart() {
 
                         var data = google.visualization.arrayToDataTable([
                             ['Effort', 'Amount given'],
-                            ['My all', 100],
+                            ['Orbitales', orbitalesOr],
+                            ['Baja Aceleracion', bajaAceleracion],
+                            ['Alta Aceleracion', altaAceleracion],
                         ]);
 
                         var options = {

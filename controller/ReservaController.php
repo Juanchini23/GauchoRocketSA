@@ -90,7 +90,8 @@ class ReservaController
         <h1>Felicitaciones <span><?php echo $_SESSION["apellido"] . ", " . $_SESSION["usuario"]; ?></span>!!!</h1>
         <h3>Datos:</h3>
         <p>Viajero:<strong><?php echo $_SESSION["apellido"] . ", " . $_SESSION["usuario"]; ?></strong></p>
-        <p>Te vas el dia:<strong><?php echo " " . $diaSalida . " " . $fechaSalida . " "; ?> a las: <?php echo " " . $horaSalida . " "; ?></strong>
+        <p>Te vas el dia:<strong><?php echo " " . $diaSalida . " " . $fechaSalida . " "; ?> a
+                las: <?php echo " " . $horaSalida . " "; ?></strong>
             hs </p>
 
         <p>Reservaste:<strong><?php echo " " . $cantidadAsientos . " "; ?></strong> butaca/s </p>
@@ -137,11 +138,8 @@ class ReservaController
 // Output the generated PDF to Browser
         $dompdf->stream("ReservaVuelo.pdf", ['Attachment' => 1]);
 
-
-
-
-
-
+        header("location: /");
+        exit();
     }
 
     public function verReserva()
