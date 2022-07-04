@@ -55,6 +55,15 @@ class AdminController
         $data["cabinaPrimera"] = $CantCabinaPrimera[0]["primera"];
 //        /Cabinas
 
+//        Facturacion mensual
+
+        $mesActual = $this->adminModel->getMesActual();
+        $facturacionMensual = $this->adminModel->getFacturacionMensual();
+        $data["mesActual"] = $mesActual;
+        $data["facturacionMensual"] = $facturacionMensual[0]["facturacionMensual"];
+
+//        /Facturacion mensual
+
 
         $this->printer->generateView('adminView.html', $data);
     }

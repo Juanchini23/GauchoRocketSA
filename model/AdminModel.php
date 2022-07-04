@@ -34,4 +34,43 @@ WHERE tE.descripcion = '$tipoEquipo';");
 FROM reserva;");
     }
 
+    public function getMesActual()
+    {
+        switch (date("m")) {
+            case 01:
+                return 'Enero';
+            case 2:
+                return 'Febrero';
+            case 3:
+                return 'Marzo';
+            case 4:
+                return 'Abril';
+            case 5:
+                return 'Mayo';
+            case 6:
+                return 'Junio';
+            case 7:
+                return 'Julio';
+            case 8:
+                return 'Agosto';
+            case 9:
+                return 'Septiempre';
+            case 10:
+                return 'Octubre';
+            case 11:
+                return 'Noviembre';
+            case 12:
+                return 'Diciembre';
+
+        }
+    }
+
+    public function getFacturacionMensual()
+    {
+        $mes = date("m");
+        return $this->dataBase->query("SELECT SUM(precio) AS 'facturacionMensual'
+                                        FROM reservaCompleta rC
+                                        WHERE rC.fecha like '%-$mes-%';");
+    }
+
 }
