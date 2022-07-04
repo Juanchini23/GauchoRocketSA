@@ -58,8 +58,8 @@ class AdminController
 //        Facturacion mensual
 
         $mesActual = $this->adminModel->getMesActual();
-        $facturacionMensual = $this->adminModel->getFacturacionMensual();
         $data["mesActual"] = $mesActual;
+        $facturacionMensual = $this->adminModel->getFacturacionMensual();
         $data["facturacionMensual"] = $facturacionMensual[0]["facturacionMensual"];
 
 //        /Facturacion mensual
