@@ -43,7 +43,8 @@
                 <div>
                     <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
                 </div>
-                <a href="admin/imprimirTipoViaje?or={{orbitales}}&to={{tour}}&un={{circuitoUno}}&do={{circuitoDos}}" class="text-decoration-none">
+                <a href="admin/imprimirTipoViaje?or={{orbitales}}&to={{tour}}&un={{circuitoUno}}&do={{circuitoDos}}"
+                   class="text-decoration-none">
                     <button class="btn btn-danger mt-3" type="submit">
                         Imprimir
                     </button>
@@ -86,7 +87,8 @@
                 <div>
                     <div id="donut_single" style="width: 900px; height: 500px;"></div>
                 </div>
-                <a href="#" class="text-decoration-none">
+                <a href="admin/imprimirOcupacion?or={{orbitalesOr}}&ba={{bajaAceleracion}}&aa={{altaAceleracion}}"
+                   class="text-decoration-none">
                     <button class="btn btn-danger mt-3" type="submit">
                         Imprimir
                     </button>
@@ -139,15 +141,16 @@
             <div class="col-6 text-center">
                 <h3>Facturacion mensual</h3>
                 <!-- sumar precios de reservas en un determinado intervalo de tiempo-->
-                <div id="donutchart" style="width: 900px; height: 500px;" class="pt-5 bg-light">
+                <div id="donutchart" style="width: 900px; height: 500px;" class="pt-5 bg-light d-flex align-items-center justify-content-center">
                     <h4>La facturacion mensual de <span class="text-success">{{mesActual}}</span> es de <span
                             class="text-success">${{facturacionMensual}}</span></h4>
-                    <a href="admin/imprimirFacturacion?mesActual={{mesActual}}&facturacionMensual={{facturacionMensual}}" class="text-decoration-none">
-                        <button class="btn btn-danger mt-5" type="submit">
-                            Imprimir
-                        </button>
-                    </a>
                 </div>
+                <a href="admin/imprimirFacturacion?mesActual={{mesActual}}&facturacionMensual={{facturacionMensual}}"
+                   class="text-decoration-none">
+                    <button class="btn btn-danger mt-3" type="submit">
+                        Imprimir
+                    </button>
+                </a>
             </div>
         </div>
 
