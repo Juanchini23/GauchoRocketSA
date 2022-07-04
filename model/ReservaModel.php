@@ -361,4 +361,12 @@ class ReservaModel
         $resultado = $this->dataBase->getExisteCodigo($codigo);
         return $resultado[0]["cantidad"] != 0;
     }
+
+    public function getTipoEquipo($idPlanificacion){
+        // trae bien
+        return $this->dataBase->query("SELECT te.descripcion as 'equipo' FROM planificacion p 
+                                       JOIN modelo m ON p.idModelo = m.id
+                                       JOIN tipoEquipo te ON m.tipoEquipo = te.id
+                                       WHERE p.id ='$idPlanificacion'");
+    }
 }

@@ -78,16 +78,15 @@ AND tc.descripcion like '%$codigoViajero%'");
         }
     }
 
-    public function busquedaVuelosOrigen($origen,$codigoviajero){
+    public function busquedaVuelosOrigen($codigoviajero){
 
-        $origenId = $this->getIdLugar($origen);
-
-        $resultado =  $this->dataBase->query("SELECT p.id as 'id' FROM reserva r
-                                        JOIN planificacion p ON r.idPlanificacion = p.id
-                                        JOIN modelo m ON p.idModelo = m.id
-                                        JOIN tipoCliente tc ON m.tipoCliente = tc.id
-                                        WHERE tc.descripcion like '%$codigoviajero%'
-                                        AND r.idOrigenReserva = '$origenId'");
+        $resultado =  $this->dataBase->query("SELECT p.id as 'id', COUNT(*) FROM reserva r
+                             JOIN planificacion p ON r.idPlanificacion = p.id
+                             JOIN modelo m ON p.idModelo = m.id
+                             JOIN tipoCliente tc ON m.tipoCliente = tc.id
+                                WHERE tc.descripcion like '%$codigoviajero%'
+                                GROUP BY p.id
+                                HAVING COUNT(*) > 1;");
 
         $listaPlanificaciones = array();
         foreach ($resultado as $item){

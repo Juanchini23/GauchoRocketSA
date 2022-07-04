@@ -9,6 +9,12 @@ class ReservaController
     private $reservaModel;
     private $printer;
 
+    private $circuitoUnoBA = array(["Tierra" => 0, "EEI" => 4, "HotelOrbital" => 8, "Luna" => 16, "Marte" => 26]);
+    private $circuitoUnoAA = array(["Tierra" => 0, "EEI" => 3, "HotelOrbital" => 6, "Luna" => 9, "Marte" => 22]);
+    private $circuitoDosBA = array(["Tierra" => 0, "EEI" => 4, "Luna" => 14, "Marte" => 26, "Ganimedes" => 48, "Europa" => 50, "Io" => 51, "Encedalo" => 70, "Titan" => 77]);
+    private $circuitoDosAA = array(["Tierra" => 0, "EEI" => 3, "Luna" => 10, "Marte" => 22, "Ganimedes" => 32, "Europa" => 33, "Io" => 35, "Encedalo" => 50, "Titan" => 52]);
+    private $cantidadDia = 0;
+
     public function __construct($reservaModel, $getPrinter)
     {
         $this->reservaModel = $reservaModel;
@@ -31,12 +37,23 @@ class ReservaController
             $data["orbital"] = 1;
         }
 
+
         $planificacion = $this->reservaModel->getPlanificacion($id);
         $datosModelo = $this->reservaModel->getDatosModelo($id);
         $datosAsientos = $this->reservaModel->getCantidadAsientosReservados($id, $fechaViaje);
 
         $destino = $_SESSION["destino"] ?? "";
         $origen = $_SESSION["origen"] ?? "";
+
+        // calcular dia llegada hora llegada /////////////////////
+
+        $horaTarda = $this->getHoraTarda($destino, $planificacion[0]["tipoVuelo"], $planificacion[0]["id"]) ?? "";
+        $horaFinal = $this->getHoraFinal($hora, $horaTarda) ?? "";
+        $diaFinal = $this->getDiaFinal($planificacion[0]["dia"]) ?? "";
+
+        $data["diaLlegada"] = $diaFinal;
+        $data["horaLlegada"] = $horaFinal;
+        /////////////////////////////////////////////////////////
 
         $reemplazo = array("origen" => $origen);
         $planificacion[0] = array_replace($planificacion[0], $reemplazo);
@@ -171,6 +188,91 @@ class ReservaController
 
         //cmbia el estado a chequeado
         $this->reservaModel->setCheckIn($id);
+
+    }
+
+    private function getHoraTarda($origen, $tipoVuelo, $idPlanificacion){
+        $equipo = $this->reservaModel->getTipoEquipo($idPlanificacion)[0]["equipo"];
+        if ($tipoVuelo == 'EntreDestinosUno') {
+            if ($equipo == 'BA') {
+                return $this->circuitoUnoBA[0][$origen];
+            } else if ($equipo == 'AA') {
+                return $this->circuitoUnoAA[0][$origen];
+            }
+        } else if ($tipoVuelo == 'EntreDestinosDos') {
+            if ($equipo == 'BA') {
+                return $this->circuitoDosBA[0][$origen];
+            } else if ($equipo == 'AA') {
+                return $this->circuitoDosAA[0][$origen];
+            }
+        }
+    }
+
+    private function getHoraFinal($horaPlani, $horaTarda)
+    {
+        $suma = $horaPlani + $horaTarda;
+        if ($suma < 24) {
+            $this->cantidadDia = 0;
+            return $suma;
+        }
+        if ($suma == 24) {
+            $this->cantidadDia = 1;
+            return 0;
+        }
+
+        if ($suma > 24 && $suma < 48) {
+            $this->cantidadDia = 1;
+            return $suma - 24;
+        }
+
+        if ($suma > 48) {
+            $this->cantidadDia = 2;
+            return $suma - 48;
+        }
+    }
+
+    private function getDiaFinal($diaPlani)
+    {
+        if ($this->cantidadDia == 0) {
+            return $diaPlani;
+        }
+        if ($this->cantidadDia == 1) {
+            switch ($diaPlani) {
+                case "Lunes":
+                    return "Martes";
+                case "Martes":
+                    return "Miercoles";
+                case "Miercoles":
+                    return "Jueves";
+                case "Jueves":
+                    return "Viernes";
+                case "Viernes":
+                    return "Sabado";
+                case "Sabado":
+                    return "Domingo";
+                case "Domingo":
+                    return "Lunes";
+            }
+        }
+
+        if ($this->cantidadDia == 2) {
+            switch ($diaPlani) {
+                case "Lunes":
+                    return "Miercoles";
+                case "Martes":
+                    return "Jueves";
+                case "Miercoles":
+                    return "Viernes";
+                case "Jueves":
+                    return "Sabado";
+                case "Viernes":
+                    return "Domingo";
+                case "Sabado":
+                    return "Lunes";
+                case "Domingo":
+                    return "Martes";
+            }
+        }
 
     }
 }
