@@ -1,5 +1,8 @@
 <?php
 
+use Dompdf\Dompdf;
+require_once 'public/dompdf/autoload.inc.php';
+
 class AdminController
 {
 
@@ -67,4 +70,171 @@ class AdminController
 
         $this->printer->generateView('adminView.html', $data);
     }
+
+    public function imprimirTipoViaje()
+    {
+        $dompdf = new Dompdf();
+        ob_start()
+        ?>
+        <!doctype html>
+        <html lang="es">
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        </head>
+
+        <body>
+        <h3>Orbitales <?php echo $_GET["or"] ?></h3>
+        <h3>Tour <?php echo $_GET["to"] ?></h3>
+        <h3>Cicuito uno <?php echo $_GET["un"] ?></h3>
+        <h3>Circuito dos <?php echo $_GET["do"] ?></h3>
+
+
+        <?php
+
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+
+        //dia que se genera el PDF
+        date_default_timezone_set("America/Argentina/Buenos_Aires");
+        echo "PDF generado el: " . date("d-m-Y h:i:sa");
+
+        ?>
+
+        </body>
+        </html>
+        <?php
+        $html = ob_get_clean();
+
+
+        $dompdf->loadHtml($html);
+
+// (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'landscape');
+
+// Render the HTML as PDF
+        $dompdf->render();
+
+// Output the generated PDF to Browser
+        $dompdf->stream("ReservaVuelo.pdf", ['Attachment' => 1]);
+    }
+
+    public function imprimirOcupacion(){
+        $dompdf = new Dompdf();
+        ob_start()
+        ?>
+        <!doctype html>
+        <html lang="es">
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        </head>
+
+        <body>
+        <h3>Orbitales <?php echo $_GET["or"] ?></h3>
+        <h3>Baja Aceleracion <?php echo $_GET["ba"] ?></h3>
+        <h3>Alta Aceleracion <?php echo $_GET["aa"] ?></h3>
+
+
+        <?php
+
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+
+        //dia que se genera el PDF
+        date_default_timezone_set("America/Argentina/Buenos_Aires");
+        echo "PDF generado el: " . date("d-m-Y h:i:sa");
+
+        ?>
+
+        </body>
+        </html>
+        <?php
+        $html = ob_get_clean();
+
+
+        $dompdf->loadHtml($html);
+
+// (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'landscape');
+
+// Render the HTML as PDF
+        $dompdf->render();
+
+// Output the generated PDF to Browser
+        $dompdf->stream("ReservaVuelo.pdf", ['Attachment' => 1]);
+    }
+
+    public function imprimirFacturacion()
+    {
+
+        $dompdf = new Dompdf();
+        ob_start()
+        ?>
+        <!doctype html>
+        <html lang="es">
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        </head>
+
+        <body>
+        <h3>La facturacion mensual de  <?php echo $_GET["mesActual"] ?> es de <?php echo $_GET["facturacionMensual"] ?></h3>
+
+
+        <?php
+
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+
+        //dia que se genera el PDF
+        date_default_timezone_set("America/Argentina/Buenos_Aires");
+        echo "PDF generado el: " . date("d-m-Y h:i:sa");
+
+        ?>
+
+        </body>
+        </html>
+        <?php
+        $html = ob_get_clean();
+
+
+        $dompdf->loadHtml($html);
+
+// (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'landscape');
+
+// Render the HTML as PDF
+        $dompdf->render();
+
+// Output the generated PDF to Browser
+        $dompdf->stream("ReservaVuelo.pdf", ['Attachment' => 1]);
+
+
+    }
+
 }
