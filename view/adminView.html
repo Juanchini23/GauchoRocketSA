@@ -1,0 +1,160 @@
+{{> header}}
+{{^loggeado}}
+<h1 class="text-center text-danger mt-5 mb-5">Por favor inicie sesion</h1>
+{{/loggeado}}
+{{#loggeado}}
+<div class="container-fluid">
+    <div class="d-flex justify-content-around mt-5 mb-3 flex-wrap">
+        <div class="row">
+            <div class="col-6 text-center">
+                <h3>Tasa de ocupacion por tipo viaje</h3>
+                <!-- contar cantidades de pasajeros por tipo viaje (c1,c2,tour,orbital)-->
+                <p id="orbitales" class="d-none">{{orbitales}}</p>
+                <p id="tour" class="d-none">{{tour}}</p>
+                <p id="circuitoUno" class="d-none">{{circuitoUno}}</p>
+                <p id="circuitoDos" class="d-none">{{circuitoDos}}</p>
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+                    google.charts.load("current", {packages: ["corechart"]});
+                    google.charts.setOnLoadCallback(drawChart);
+                    let orbitales = parseInt(document.getElementById("orbitales").innerHTML);
+                    let tour = parseInt(document.getElementById("tour").innerHTML);
+                    let circuitoUno = parseInt(document.getElementById("circuitoUno").innerHTML);
+                    let circuitoDos = parseInt(document.getElementById("circuitoDos").innerHTML);
+
+                    function drawChart() {
+                        var data = google.visualization.arrayToDataTable([
+                            ['Task', 'Tipo viaje'],
+                            ['Orbitales', orbitales],
+                            ['Tours', tour],
+                            ['Circuito Uno', circuitoUno],
+                            ['Circuito Dos', circuitoDos],
+                        ]);
+
+                        var options = {
+                            title: 'Ocupacion por tipo de viaje',
+                            is3D: true,
+                        };
+
+                        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+                        chart.draw(data, options);
+                    }
+                </script>
+                <div>
+                    <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+                </div>
+                <a href="admin/imprimirTipoViaje?or={{orbitales}}&to={{tour}}&un={{circuitoUno}}&do={{circuitoDos}}"
+                   class="text-decoration-none">
+                    <button class="btn btn-danger mt-3" type="submit">
+                        Imprimir
+                    </button>
+                </a>
+            </div>
+            <div class="col-6 text-center">
+                <h3>Tasa de ocupacion por equipo</h3>
+                <p id="orbitalesOr" class="d-none">{{orbitalesOr}}</p>
+                <p id="bajaAceleracion" class="d-none">{{bajaAceleracion}}</p>
+                <p id="altaAceleracion" class="d-none">{{altaAceleracion}}</p>
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+                    google.charts.load('current', {'packages': ['corechart']});
+                    google.charts.setOnLoadCallback(drawChart);
+                    let orbitalesOr = parseInt(document.getElementById("orbitalesOr").innerHTML);
+                    let bajaAceleracion = parseInt(document.getElementById("bajaAceleracion").innerHTML);
+                    let altaAceleracion = parseInt(document.getElementById("altaAceleracion").innerHTML);
+
+                    function drawChart() {
+
+                        var data = google.visualization.arrayToDataTable([
+                            ['Effort', 'Equipos'],
+                            ['Orbitales', orbitalesOr],
+                            ['Baja Aceleracion', bajaAceleracion],
+                            ['Alta Aceleracion', altaAceleracion],
+                        ]);
+
+                        var options = {
+                            pieHole: 0.5,
+                            pieSliceTextStyle: {
+                                color: 'black',
+                            },
+                            legend: 'none'
+                        };
+
+                        var chart = new google.visualization.PieChart(document.getElementById('donut_single'));
+                        chart.draw(data, options);
+                    }
+                </script>
+                <div>
+                    <div id="donut_single" style="width: 900px; height: 500px;"></div>
+                </div>
+                <a href="admin/imprimirOcupacion?or={{orbitalesOr}}&ba={{bajaAceleracion}}&aa={{altaAceleracion}}"
+                   class="text-decoration-none">
+                    <button class="btn btn-danger mt-3" type="submit">
+                        Imprimir
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="row mt-5 mb-5">
+            <div class="col-6 text-center">
+                <h3>Cabina mas vendida</h3>
+                <!-- contar cantidades de pasajeros tipo cabina (primera, ejecutivo, turista)-->
+                <!--                <p id="" class="d-none"></p>-->
+                <p id="turista" class="d-none">{{cabinaTurista}}</p>
+                <p id="ejecutivo" class="d-none">{{cabinaEjecutiva}}</p>
+                <p id="primera" class="d-none">{{cabinaPrimera}}</p>
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+                    google.charts.load('current', {'packages': ['corechart']});
+                    google.charts.setOnLoadCallback(drawChart);
+                    let turista = parseInt(document.getElementById("turista").innerHTML);
+                    let ejecutivo = parseInt(document.getElementById("ejecutivo").innerHTML);
+                    let primera = parseInt(document.getElementById("primera").innerHTML);
+
+                    function drawChart() {
+
+                        var data = google.visualization.arrayToDataTable([
+                            ['Task', 'Cabina'],
+                            ['Turista', turista],
+                            ['Ejecutiva', ejecutivo],
+                            ['Primera', primera]
+                        ]);
+
+                        var options = {
+                            title: 'Cabinas'
+                        };
+
+                        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+                        chart.draw(data, options);
+                    }
+                </script>
+                <div>
+                    <div id="piechart" style="width: 900px; height: 500px;"></div>
+                </div>
+                <a href="admin/imprimirCabinas?cabinaTurista={{cabinaTurista}}&cabinaTurista={{cabinaTurista}}&cabinaPrimera={{cabinaPrimera}}" class="text-decoration-none">
+                    <button class="btn btn-danger mt-3" type="submit">
+                        Imprimir
+                    </button>
+                </a>
+            </div>
+            <div class="col-6 text-center">
+                <h3>Facturacion mensual</h3>
+                <!-- sumar precios de reservas en un determinado intervalo de tiempo-->
+                <div id="donutchart" style="width: 900px; height: 500px;" class="pt-5 bg-light d-flex align-items-center justify-content-center">
+                    <h4>La facturacion mensual de <span class="text-success">{{mesActual}}</span> es de <span
+                            class="text-success">${{facturacionMensual}}</span></h4>
+                </div>
+                <a href="admin/imprimirFacturacion?mesActual={{mesActual}}&facturacionMensual={{facturacionMensual}}"
+                   class="text-decoration-none">
+                    <button class="btn btn-danger mt-3" type="submit">
+                        Imprimir
+                    </button>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+{{/loggeado}}
+{{> footer}}

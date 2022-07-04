@@ -12,12 +12,9 @@ class OrbitalController
         $this->printer = $printer;
     }
 
-    public function execute($data = [])
+    public function execute()
     {
-        if (isset($_SESSION["AdminIn"]) || isset($_SESSION["ClienIn"])) {
-            $data["loggeado"] = 1;
-            $data["nombre"] = $_SESSION["usuario"];
-        }
+        $data = Validator::validarSesion();
 
         $this->printer->generateView('orbitalView.html', $data);
     }
@@ -29,12 +26,20 @@ class OrbitalController
             $data["nombre"] = $_SESSION["usuario"];
         }
 
-        $dia = $_POST["dia"] ?? "";
-        $origen = $_POST["origen"] ?? "";
+        $_SESSION["origen"] = $_POST["origen"] ?? "";
+        $_SESSION["fecha"] = $_POST["fecha"] ?? "";
 
-        $respuesta = $this->orbitalModel->getOrbitales($dia, $origen);
-        $data["orbitales"] = $respuesta;
+        $dia = date('l', strtotime($_SESSION["fecha"]));
+        $codigoviajero = $_SESSION["codigoViajero"] ?? "";
+        $respuesta = $this->orbitalModel->getOrbitales($dia, $_SESSION["origen"], $codigoviajero);
+
+        if($respuesta){
+            $data["orbitales"] = $respuesta;
+        } else{
+            $data["sinDatosOrbitales"] = "Error! Debe seleccionar al menos un dia o un origen";
+        }
 
         $this->printer->generateView('orbitalView.html', $data);
     }
+
 }

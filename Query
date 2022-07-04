@@ -1,32 +1,6 @@
-CREATE DATABASE IF NOT EXISTS GauchoRocketSA;
 DROP DATABASE GauchoRocketSA;
+CREATE DATABASE IF NOT EXISTS GauchoRocketSA;
 USE GauchoRocketSA;
-
-select *
-from usuario;
-select *
-from rol;
-select *
-from usuario;
-select *
-from rol;
-select *
-from tipoEquipo;
-select *
-from tipoCliente;
-select *
-from centroMedico;
-
-
-CREATE TABLE origen
-(
-    id          int primary key auto_increment not null,
-    descripcion varchar(50)
-);
-
-insert into origen (descripcion)
-values ('BA'),
-       ('AK');
 
 CREATE TABLE nave
 (
@@ -36,8 +10,17 @@ CREATE TABLE nave
 );
 
 INSERT INTO nave (modelo, matricula)
-VALUES ('Calandria', 'O1'),
+VALUES ('Aguila', 'AA1'),
+       ('Aguilucho', 'BA8'),
+       ('Calandria', 'O1'),
+       ('Canario', 'BA13'),
+       ('Carancho', 'BA4'),
+       ('Colibri', 'O3'),
+       ('Condor', 'AA2'),
+       ('Guanaco', 'AA4'),
+       ('Halcon', 'AA3'),
        ('Zorzal', 'BA1');
+
 
 CREATE TABLE tipoVuelo
 (
@@ -99,14 +82,16 @@ insert into rol(id, descripcion)
 values (1, 'Admin'),
        (2, 'Cliente');
 
-create table destino
+create table lugar
 (
     id          int auto_increment not null primary key,
     descripcion varchar(50)
 );
 
-insert into destino (descripcion)
-values ('Titan'),
+insert into lugar (descripcion)
+values ('BA'),
+       ('AK'),
+       ('Titan'),
        ('Encedalo'),
        ('Io'),
        ('Europa'),
@@ -126,8 +111,39 @@ CREATE TABLE usuario
     clave         varchar(50),
     codigoViajero int     not null,
     foreign key (idRol) references rol (id),
-    foreign key (codigoViajero) references tipoCliente (id)
+    foreign key (codigoViajero) references tipoCliente (id),
+    estado        bit,
+    codigo        int
 );
+
+INSERT INTO usuario (idRol, nombre, apellido, mail, clave, codigoViajero, estado, codigo)
+VALUES (1, 'Admin', 'Pro', 'admin@gmail.com', 123, 1, false, 1234);
+
+CREATE TABLE modelo
+(
+    id          int primary key not null auto_increment,
+    idNave      int,
+    foreign key (idNave) references nave (id),
+    idTipoEquipo  int,
+    foreign key (idTipoEquipo) references tipoEquipo (id),
+    turista     int,
+    ejecutivo   int,
+    primera     int,
+    tipoCliente int,
+    foreign key (tipoCliente) references tipoCliente (id)
+);
+
+INSERT INTO modelo(idNave, tipoEquipo, turista, ejecutivo, primera, tipoCliente)
+VALUES (1, 3, 200, 75, 25, 6),
+       (2, 2, 0, 50, 10, 6),
+       (3, 1, 200, 75, 25, 7),
+       (4, 2, 0, 70, 10, 6),
+       (5, 2, 110, 0, 0, 6),
+       (6, 1, 100, 18, 2, 7),
+       (7, 3, 300, 10, 40, 6),
+       (8, 3, 0, 0, 100, 3),
+       (9, 3, 150, 25, 25, 3),
+       (10, 2, 50, 50, 0, 6);
 
 # Tabla planificacion es la de grilla
 
@@ -137,106 +153,228 @@ CREATE TABLE planificacion
     dia         varchar(20),
     horaPartida int,
     idOrigen    int,
-    foreign key (idOrigen) references origen (id),
+    foreign key (idOrigen) references lugar (id),
     idModelo    int,
     foreign key (idModelo) references modelo (id),
     idTipoVuelo int,
     foreign key (idTipoVuelo) references tipoVuelo (id)
 );
 
-INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
-VALUES ('L', 8, 1, 1, 1);
+INSERT INTO planificacion(dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
+VALUES ('Lunes', 8, 1, 10, 3),
+       ('Lunes', 8, 2, 5, 4),
+       ('Lunes', 9, 2, 4, 4),
+       ('Lunes', 15, 1, 9, 3),
+       ('Lunes', 20, 1, 8, 3),
+       ('Lunes', 20, 2, 7, 4),
+       ('Lunes', 21, 1, 9, 3),
+       ('Lunes', 8, 1, 3, 1),
+       ('Lunes', 8, 2, 6, 1),
+       ('Lunes', 9, 1, 3, 1),
+       ('Lunes', 9, 2, 6, 1),
+       ('Lunes', 12, 1, 3, 1),
+       ('Martes', 8, 2, 5, 4),
+       ('Martes', 9, 1, 4, 3),
+       ('Martes', 9, 1, 9, 4),
+       ('Martes', 9, 2, 10, 4),
+       ('Martes', 15, 1, 2, 3),
+       ('Martes', 18, 2, 7, 3),
+       ('Martes', 21, 1, 8, 4),
+       ('Martes', 22, 1, 8, 3),
+       ('Martes', 8, 1, 3, 1),
+       ('Martes', 8, 2, 6, 1),
+       ('Martes', 9, 1, 3, 1),
+       ('Martes', 9, 2, 6, 1),
+       ('Martes', 12, 1, 3, 1),
+       ('Miercoles', 8, 2, 5, 4),
+       ('Miercoles', 9, 1, 4, 3),
+       ('Miercoles', 9, 1, 9, 4),
+       ('Miercoles', 9, 2, 10, 4),
+       ('Miercoles', 15, 1, 2, 3),
+       ('Miercoles', 18, 2, 2, 3),
+       ('Miercoles', 21, 1, 4, 4),
+       ('Miercoles', 22, 1, 8, 3),
+       ('Miercoles', 8, 1, 3, 1),
+       ('Miercoles', 8, 2, 6, 1),
+       ('Miercoles', 9, 1, 3, 1),
+       ('Miercoles', 9, 2, 6, 1),
+       ('Miercoles', 12, 1, 3, 1),
+       ('Jueves', 8, 1, 10, 3),
+       ('Jueves', 8, 2, 4, 4),
+       ('Jueves', 9, 2, 1, 4),
+       ('Jueves', 15, 1, 7, 3),
+       ('Jueves', 20, 1, 9, 3),
+       ('Jueves', 20, 2, 7, 4),
+       ('Jueves', 21, 1, 9, 3),
+       ('Jueves', 8, 1, 3, 1),
+       ('Jueves', 8, 2, 6, 1),
+       ('Jueves', 9, 1, 3, 1),
+       ('Jueves', 9, 2, 6, 1),
+       ('Jueves', 12, 1, 3, 1),
+       ('Viernes', 8, 1, 10, 4),
+       ('Viernes', 8, 2, 4, 3),
+       ('Viernes', 9, 2, 1, 3),
+       ('Viernes', 15, 1, 7, 4),
+       ('Viernes', 15, 1, 2, 4),
+       ('Viernes', 18, 2, 2, 4),
+       ('Viernes', 21, 1, 4, 3),
+       ('Viernes', 22, 1, 8, 4),
+       ('Viernes', 22, 1, 8, 3),
+       ('Viernes', 8, 1, 3, 1),
+       ('Viernes', 8, 2, 6, 1),
+       ('Viernes', 9, 1, 6, 1),
+       ('Viernes', 9, 2, 6, 1),
+       ('Viernes', 12, 1, 3, 1),
+       ('Sabado', 8, 2, 3, 1),
+       ('Sabado', 8, 2, 6, 1),
+       ('Sabado', 9, 2, 6, 1),
+       ('Sabado', 9, 2, 6, 1),
+       ('Sabado', 12, 1, 3, 1),
+       ('Sabado', 8, 1, 3, 1),
+       ('Sabado', 8, 1, 6, 1),
+       ('Sabado', 9, 1, 6, 1),
+       ('Sabado', 15, 1, 7, 4),
+       ('Sabado', 20, 2, 4, 3),
+       ('Sabado', 8, 1, 10, 4),
+       ('Sabado', 18, 2, 2, 4),
+       ('Sabado', 22, 1, 8, 4),
+       ('Sabado', 22, 1, 8, 3),
+       ('Domingo', 9, 2, 6, 1),
+       ('Domingo', 12, 1, 3, 1),
+       ('Domingo', 8, 2, 3, 1),
+       ('Domingo', 8, 2, 6, 1),
+       ('Domingo', 9, 2, 6, 1),
+       ('Domingo', 9, 2, 6, 1),
+       ('Domingo', 12, 1, 3, 1),
+       ('Domingo', 8, 1, 3, 1),
+       ('Domingo', 8, 1, 6, 1),
+       ('Domingo', 9, 1, 6, 1),
+       ('Domingo', 7, 1, 8, 2),
+       ('Domingo', 15, 1, 2, 4),
+       ('Domingo', 21, 1, 4, 3),
+       ('Domingo', 18, 2, 2, 4),
+       ('Domingo', 22, 1, 8, 3),
+       ('Domingo', 20, 1, 9, 4),
+       ('Domingo', 21, 1, 9, 3),
+       ('Domingo', 20, 2, 7, 3),
+       ('Domingo', 21, 1, 4, 4),
+       ('Domingo', 20, 2, 2, 3),
+       ('Domingo', 20, 2, 8, 3)
+;
 
-INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
-VALUES ('L', 8, 2, 1, 1);
-
-INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
-VALUES ('L', 8, 1, 1, 2);
-
-INSERT INTO planificacion (dia, horaPartida, idOrigen, idModelo, idTipoVuelo)
-VALUES ('D', 8, 1, 1, 2);
 
 # Circuito
 
-SELECT p.id, p.dia, p.horaPartida, o.descripcion as "origen", n.modelo as "modelo", tv.descripcion as "tipoVuelo"
+SELECT p.id, p.dia, p.horaPartida, l.descripcion as "origen", n.modelo as "modelo", tv.descripcion as "tipoVuelo"
 FROM planificacion p
-         JOIN origen o ON p.idOrigen = o.id
+         JOIN lugar l ON p.idOrigen = l.id
          JOIN modelo m ON p.idModelo = m.id
          JOIN nave n ON m.idNave = n.id
          JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
-WHERE o.descripcion = 'BA';
+WHERE l.descripcion = 'BA';
 
 # Orbitales
 
-SELECT p.id, p.dia, p.horaPartida, o.descripcion as "origen", n.modelo as "modelo"
+SELECT p.id, p.dia, p.horaPartida, l.descripcion as "origen", n.modelo as "modelo"
 FROM planificacion p
-         JOIN origen o ON p.idOrigen = o.id
+         JOIN lugar l ON p.idOrigen = l.id
          JOIN modelo m ON p.idModelo = m.id
          JOIN nave n ON m.idNave = n.id
          JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
-WHERE o.descripcion = 'BA'
+WHERE l.descripcion = 'BA'
   AND p.dia = 'D'
   AND tv.descripcion = 'Orbitales';
 
 # Tour
 
-SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', o.descripcion as 'origen', n.modelo as 'modelo'
+SELECT p.id, p.dia as 'dia', p.horaPartida as 'hora', l.descripcion as 'origen', n.modelo as 'modelo'
 FROM planificacion p
-         JOIN origen o ON p.idOrigen = o.id
+         JOIN lugar l ON p.idOrigen = l.id
          JOIN modelo m ON p.idModelo = m.id
          JOIN nave n ON m.idNave = n.id
          JOIN tipoVuelo tv ON tv.id = p.idTipoVuelo
-WHERE (o.descripcion = 'BA'
+WHERE (l.descripcion = 'BA'
     OR p.dia = 'D')
   AND tv.descripcion = 'Tour';
 
-# Vuelo, Origen, Destino, Precio
-
-# CREATE TABLE vuelo
-# (
-#     id        int primary key auto_increment not null,
-#     dia       varchar(25),
-#     duracion  int,
-#     codigo    varchar(50),
-#     idOrigen  int,
-#     foreign key (idOrigen) references origen (id),
-#     destino   varchar(50),
-#     tipoVuelo int,
-#     foreign key (tipoVuelo) references tipoVuelo (id),
-#     modelo    int,
-#     foreign key (modelo) references modelo (id)
-# );
-
-CREATE TABLE modelo
+CREATE TABLE estadoReserva
 (
-    id          int primary key not null auto_increment,
-    idNave      int,
-    foreign key (idNave) references nave (id),
-    tipoEquipo  int,
-    foreign key (tipoEquipo) references tipoEquipo (id),
-    turista     int,
-    ejecutivo   int,
-    primera     int,
-    tipoCliente int,
-    foreign key (tipoCliente) references tipoCliente (id)
+    id          int not null auto_increment primary key,
+    descripcion varchar(50)
 );
 
-INSERT INTO modelo (idNave, tipoEquipo, tipoCliente)
-VALUES (1, 2, 6);
-
-INSERT INTO modelo (idNave, tipoEquipo, tipoCliente)
-VALUES (2, 2, 6),
-       (1, 2, 6);
-
+INSERT INTO estadoReserva(descripcion)
+VALUES ('Pendiente'),
+       ('Pagado'),
+       ('Chequeado');
 
 CREATE TABLE reserva
 (
-    id              int not null auto_increment primary key,
+    id               int not null auto_increment primary key,
+    turista          int,
+    ejecutivo        int,
+    primera          int,
+    idUsuario        int,
+    foreign key (idUsuario) references usuario (id),
+    idPlanificacion  int,
+    foreign key (idPlanificacion) references planificacion (id),
+    fecha            date,
+    idOrigenReserva  int,
+    foreign key (idOrigenReserva) references lugar (id),
+    idDestinoReserva int,
+    foreign key (idDestinoReserva) references lugar (id)
+);
+
+SELECT primera
+FROM planificacion p
+         JOIN modelo m ON p.idModelo = m.id
+where p.id = 2;
+
+SELECT SUM(turista)
+FROM reserva r
+         JOIN planificacion p on r.idPlanificacion = p.id
+WHERE p.id = 5;
+
+SELECT r.fecha AS 'fecha', l.descripcion AS 'origen', j.descripcion AS 'destino'
+FROM reserva r
+         JOIN lugar l ON r.idOrigenReserva = l.id
+         JOIN lugar j ON r.idDestinoReserva = j.id
+WHERE r.idUsuario = 1;
+
+# query contar cantidades de pasajeros por tipo cabina
+SELECT SUM(SUM(DISTINCT primera)) OVER (ORDER BY r.idPlanificacion)   AS 'primera',
+       SUM(SUM(DISTINCT turista)) OVER (ORDER BY r.idPlanificacion)   AS 'turista',
+       SUM(SUM(DISTINCT ejecutivo)) OVER (ORDER BY r.idPlanificacion) AS 'ejecutivo'
+FROM reserva r;
+
+CREATE TABLE servicio
+(
+    id          int not null auto_increment primary key,
+    descripcion varchar(20),
+    precio      int
+);
+
+INSERT INTO servicio (descripcion, precio)
+VALUES ('standard', 200),
+       ('gourmet', 300),
+       ('spa', 600);
+
+CREATE TABLE reservaCompleta
+(
+    id              int         not null auto_increment primary key,
     idUsuario       int,
     foreign key (idUsuario) references usuario (id),
     idPlanificacion int,
     foreign key (idPlanificacion) references planificacion (id),
     fecha           date,
+    idOrigen        int,
+    foreign key (idOrigen) references lugar (id),
     idDestino       int,
-    foreign key (idDestino) references destino (id)
+    foreign key (idDestino) references lugar (id),
+    idEstadoReserva int,
+    foreign key (idEstadoReserva) references estadoReserva (id),
+    precio          int,
+    idServicio      int,
+    foreign key (idServicio) references servicio (id),
+    codigoReserva   varchar(50) not null
 );
