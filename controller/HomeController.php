@@ -80,15 +80,18 @@ class HomeController
             $y = 0;
             foreach ($respuesta as $resp) {
                 if ($resp["tipoVuelo"] == "EntreDestinosUno") {
-                    if ((in_array($origen, $keyCircuitoDos) && !(in_array($origen, $keyCircuitoUno)))
-                        || (in_array($destino, $keyCircuitoDos) && !(in_array($destino, $keyCircuitoUno)))) {
-                        // sacar los circuitos uno
+                    if ((in_array($destino, $keyCircuitoDos) && !(in_array($destino, $keyCircuitoUno)))){
+                       var_dump("entre");
                         unset($respuesta[$y]);
                     }
+
                 }
+                $y++;
             }
+            $respuesta2 = array_values($respuesta);
+            //var_dump($respuesta);
             /////////////////////////////////////////////////////////////////////////////////////////////
-            $data["planificacion"] = $respuesta;
+            $data["planificacion"] = $respuesta2;
         } else {
 
             // tiene dia hora y origen
