@@ -28,4 +28,10 @@ JOIN tipoEquipo tE on m.tipoEquipo = tE.id
 WHERE tE.descripcion = '$tipoEquipo';");
     }
 
+    public function getCabinaTurita($cabina)
+    {
+        return $this->dataBase->query("SELECT SUM($cabina) AS '$cabina'
+FROM reserva;");
+    }
+
 }

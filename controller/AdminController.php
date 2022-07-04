@@ -31,6 +31,8 @@ class AdminController
 
 //        /Tasa de ocupacion por tipo viaje
 
+//        Tasa de ocupacion por equipo
+
         $tOcupacionPorTipoViajeOrbital = $this->adminModel->getTOcupacionPorTipoCiaje('OR', 'orbitalesOr');
         $data["orbitalesOr"] = $tOcupacionPorTipoViajeOrbital[0]["orbitalesOr"];
 
@@ -39,6 +41,20 @@ class AdminController
 
         $tOcupacionPorTipoViajeAltaAceleracion = $this->adminModel->getTOcupacionPorTipoCiaje('AA', 'altaAceleracion');
         $data["altaAceleracion"] = $tOcupacionPorTipoViajeAltaAceleracion[0]["altaAceleracion"];
+
+//        /Tasa de ocupacion por equipo
+
+//        Cabinas
+        $CantCabinaTurista = $this->adminModel->getCabinaTurita('turista');
+        $data["cabinaTurista"] = $CantCabinaTurista[0]["turista"];
+
+        $CantCabinaEjecutivo = $this->adminModel->getCabinaTurita('ejecutivo');
+        $data["cabinaEjecutiva"] = $CantCabinaEjecutivo[0]["ejecutivo"];
+
+        $CantCabinaPrimera = $this->adminModel->getCabinaTurita('primera');
+        $data["cabinaPrimera"] = $CantCabinaPrimera[0]["primera"];
+//        /Cabinas
+
 
         $this->printer->generateView('adminView.html', $data);
     }
