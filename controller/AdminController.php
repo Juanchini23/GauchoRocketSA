@@ -124,7 +124,7 @@ class AdminController
         $dompdf->render();
 
 // Output the generated PDF to Browser
-        $dompdf->stream("ReservaVuelo.pdf", ['Attachment' => 1]);
+        $dompdf->stream("TipoDeViaje.pdf", ['Attachment' => 1]);
     }
 
     public function imprimirOcupacion(){
@@ -178,7 +178,7 @@ class AdminController
         $dompdf->render();
 
 // Output the generated PDF to Browser
-        $dompdf->stream("ReservaVuelo.pdf", ['Attachment' => 1]);
+        $dompdf->stream("Ocupacion.pdf", ['Attachment' => 1]);
     }
 
     public function imprimirFacturacion()
@@ -232,9 +232,64 @@ class AdminController
         $dompdf->render();
 
 // Output the generated PDF to Browser
-        $dompdf->stream("ReservaVuelo.pdf", ['Attachment' => 1]);
+        $dompdf->stream("Facturacion.pdf", ['Attachment' => 1]);
 
 
+    }
+
+    public function imprimirCabinas(){
+        $dompdf = new Dompdf();
+        ob_start()
+        ?>
+        <!doctype html>
+        <html lang="es">
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        </head>
+
+        <body>
+        <h1>Listado con cantidad de cabinas vendidas:</h1>
+        <h3>Turista <?php echo $_GET["cabinaTurista"] ?? "0" ?></h3>
+        <h3>Ejecutiva <?php echo $_GET["cabinaEjecutiva"] ?? "0" ?></h3>
+        <h3>Primera <?php echo $_GET["cabinaPrimera"] ?? "0" ?></h3>
+
+
+        <?php
+
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+        echo "<br>";
+
+        //dia que se genera el PDF
+        date_default_timezone_set("America/Argentina/Buenos_Aires");
+        echo "PDF generado el: " . date("d-m-Y h:i:sa");
+
+        ?>
+
+        </body>
+        </html>
+        <?php
+        $html = ob_get_clean();
+
+
+        $dompdf->loadHtml($html);
+
+// (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'landscape');
+
+// Render the HTML as PDF
+        $dompdf->render();
+
+// Output the generated PDF to Browser
+        $dompdf->stream("Cabinas.pdf", ['Attachment' => 1]);
     }
 
 }
