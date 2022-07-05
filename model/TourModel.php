@@ -59,7 +59,7 @@ class TourModel
                                         FROM planificacion p
                                             JOIN modelo m ON p.idModelo = m.id
                                             JOIN nave n on m.idNave = n.id
-                                            JOIN tipoEquipo tE on m.tipoEquipo = te.id
+                                            JOIN tipoEquipo tE on m.idTipoEquipo = te.id
                                             JOIN tipoCliente tc on m.tipoCliente = tc.id
                                         WHERE p.id = '{$id}'");
     }

@@ -20,11 +20,11 @@ WHERE p.idTipoVuelo = '$id';");
 
     public function getTOcupacionPorTipoViaje($tipoEquipo, $nombre)
     {
-        return $this->dataBase->query("SELECT COUNT(m.tipoEquipo) AS '$nombre'
+        return $this->dataBase->query("SELECT COUNT(m.idTipoEquipo) AS '$nombre'
 FROM reserva r
 JOIN planificacion p ON r.idPlanificacion = p.id
 JOIN modelo m on p.idModelo = m.id
-JOIN tipoEquipo tE on m.tipoEquipo = tE.id
+JOIN tipoEquipo tE on m.idTipoEquipo = tE.id
 WHERE tE.descripcion = '$tipoEquipo';");
     }
 
