@@ -63,7 +63,7 @@ class ReservaModel
         $cosas = $this->dataBase->query("SELECT tv.descripcion as 'vuelo', te.descripcion as 'equipo'
                                         FROM planificacion p JOIN tipoVuelo tv ON p.idTipoVuelo = tv.id
                                         JOIN modelo m ON p.idModelo = m.id
-                                        JOIN tipoEquipo te ON m.tipoEquipo = te.id
+                                        JOIN tipoEquipo te ON m.idTipoEquipo = te.id
                                         WHERE p.id = '$idPlanificacion'");
         $precio = 0;
         switch ($cosas[0]["vuelo"]) {
@@ -366,7 +366,7 @@ class ReservaModel
         // trae bien
         return $this->dataBase->query("SELECT te.descripcion as 'equipo' FROM planificacion p 
                                        JOIN modelo m ON p.idModelo = m.id
-                                       JOIN tipoEquipo te ON m.tipoEquipo = te.id
+                                       JOIN tipoEquipo te ON m.idTipoEquipo = te.id
                                        WHERE p.id ='$idPlanificacion'");
     }
 }
